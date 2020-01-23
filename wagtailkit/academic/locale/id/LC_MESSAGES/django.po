@@ -1,0 +1,229 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-02 11:39+0700\n"
+"PO-Revision-Date: 2019-12-02 11:59+0700\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.2.3\n"
+
+#: .\apps.py:7
+msgid "AC: Academic"
+msgstr "AC : Akademik"
+
+#: .\models\core.py:14 .\models\core.py:15 .\models\core.py:47
+#: .\models\core.py:120
+msgid "Resource Management Unit"
+msgstr "Unit Manajemen Sumber Daya"
+
+#: .\models\core.py:20 .\models\core.py:42 .\models\core.py:121
+msgid "Slug"
+msgstr "Slug"
+
+#: .\models\core.py:24 .\models\core.py:43 .\models\core.py:122
+#: .\models\core.py:190
+msgid "Name"
+msgstr "Nama"
+
+#: .\models\core.py:29 .\models\core.py:53 .\models\core.py:128
+msgid "Description"
+msgstr "Deskripsi"
+
+#: .\models\core.py:38 .\models\core.py:192
+msgid "Program Study"
+msgstr "Program Studi"
+
+#: .\models\core.py:39
+msgid "Program Studies"
+msgstr "Program Studi"
+
+#: .\models\core.py:41
+msgid "UUID"
+msgstr "UUID"
+
+#: .\models\core.py:44
+msgid "Alias"
+msgstr "Alias"
+
+#: .\models\core.py:47 .\models\core.py:120
+msgid "RMU"
+msgstr "RMU"
+
+#: .\models\core.py:50
+msgid "Upline"
+msgstr "Induk"
+
+#: .\models\core.py:52
+msgid "Level"
+msgstr "Level"
+
+#: .\models\core.py:65
+msgid "School Year"
+msgstr "Tahun Ajaran"
+
+#: .\models\core.py:66
+msgid "School Years"
+msgstr "Tahun Ajaran"
+
+#: .\models\core.py:68
+msgid "Year start"
+msgstr "Tahun awal"
+
+#: .\models\core.py:69
+msgid "Year end"
+msgstr "Tahun akhir"
+
+#: .\models\core.py:70
+msgid "Date start"
+msgstr "Tanggal awal"
+
+#: .\models\core.py:71
+msgid "Date end"
+msgstr "Tanggal akhir"
+
+#: .\models\core.py:72 .\models\core.py:193
+msgid "Date created"
+msgstr "Tanggal dibuat"
+
+#: .\models\core.py:83 .\models\core.py:151 .\models\core.py:222
+msgid "Course"
+msgstr "Mata Kuliah"
+
+#: .\models\core.py:84
+msgid "Courses"
+msgstr "Mata Kuliah"
+
+#: .\models\core.py:92
+msgid "Mandatory"
+msgstr "Wajib"
+
+#: .\models\core.py:93
+msgid "Choice"
+msgstr "Pilihan"
+
+#: .\models\core.py:94
+msgid "Interest Mandatory"
+msgstr "Peminatan Wajib"
+
+#: .\models\core.py:95
+msgid "Interest Choice"
+msgstr "Peminatan Pilihan"
+
+#: .\models\core.py:96
+msgid "Research/Thesis/Disertation"
+msgstr "Penelitian/Skripsi/Tesis/Disertasi"
+
+#: .\models\core.py:108
+msgid "MPK: Personal Development Course"
+msgstr "MPK: Mata Kuliah Pengembangan Kepribadian"
+
+#: .\models\core.py:109
+msgid "MKK: Knowledge Foudation Course"
+msgstr "MKK: Mata Kuliah Keterampilan Dasar"
+
+#: .\models\core.py:110
+msgid "MKB: Creational Skill Course"
+msgstr "MKB: Mata Kuliah Berkarya"
+
+#: .\models\core.py:111
+msgid "MPB: Behavioral Skill Course"
+msgstr "MPB: Mata Kuliah Keperilakuan"
+
+#: .\models\core.py:112
+msgid "MBB: Life Skill Course"
+msgstr "MPB: Mata Kuliah Kecakapan Hidup"
+
+#: .\models\core.py:113
+msgid "MKDU: Basic Knowledge Course"
+msgstr "MKDU: Mata Kuliah Dasar Umum"
+
+#: .\models\core.py:114
+msgid "MKDK: Basic Skill Course"
+msgstr "MKDK: Mata Kuliah Dasar Keterampilan Khusus"
+
+#: .\models\core.py:124
+msgid "Teaching method"
+msgstr "Metode pengajaran"
+
+#: .\models\core.py:125
+msgid "Equal to"
+msgstr "Setara"
+
+#: .\models\core.py:126
+msgid "Course type"
+msgstr "Jenis MK"
+
+#: .\models\core.py:127
+msgid "Course group"
+msgstr "Kelompok MK"
+
+#: .\models\core.py:129
+msgid "Active status"
+msgstr "Status Aktif"
+
+#: .\models\core.py:145 .\models\core.py:146
+msgid "Course Pre Requisite"
+msgstr "MK Prasyarat"
+
+#: .\models\core.py:156
+msgid "Requisite"
+msgstr "Persyaratan"
+
+#: .\models\core.py:185 .\models\core.py:220
+msgid "Curriculum"
+msgstr "Kurikulum"
+
+#: .\models\core.py:186
+msgid "Curriculums"
+msgstr "Kurikulum"
+
+#: .\models\core.py:191
+msgid "SKS graduate"
+msgstr "SKS Lulus"
+
+#: .\models\core.py:194
+msgid "Date effective"
+msgstr "Tanggal Efektif"
+
+#: .\models\core.py:204
+msgid "Curricullum Course"
+msgstr "Mata Kuliah Kurikulum"
+
+#: .\models\core.py:205
+msgid "Curricullum Courses"
+msgstr "Mata Kuliah Kurikulum"
+
+#: .\models\core.py:212
+msgid "Meeting"
+msgstr "Pertemuan"
+
+#: .\models\core.py:213
+msgid "Practice"
+msgstr "Praktik"
+
+#: .\models\core.py:214
+msgid "Field Practice"
+msgstr "Praktik Lapangan"
+
+#: .\models\core.py:215
+msgid "Simulation"
+msgstr "Simulasi"
+
+#: .\models\core.py:223
+msgid "SKS"
+msgstr "SKS"
+
+#: .\models\core.py:224
+msgid "SKS type"
+msgstr "Tipe SKS"

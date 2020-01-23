@@ -1,0 +1,358 @@
+[
+  {
+  "model": "products.unitofmeasure",
+  "pk": "04b0bd18-2d95-4713-984c-12e1345e5915",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.373Z",
+    "name": "Ruangan",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "0661c5a6-6ebf-4bed-8886-6c0bb56c466a",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.357Z",
+    "name": "Paket",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "07e0c31e-14e1-4061-8e51-7f791da79e4d",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.357Z",
+    "name": "Mobil",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "1f5a4a0a-4187-477b-ac5c-cab5b8702480",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.357Z",
+    "name": "Galon",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "33276e51-9323-4cfd-a31d-682f872c99ff",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.357Z",
+    "name": "Kotak",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "33382ee5-9ac4-4264-9ce8-5e1f8d513d66",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.357Z",
+    "name": "Ltr",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "397e308a-f856-40e8-babc-4d0dad155198",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.357Z",
+    "name": "Kg",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "3ccf2534-043d-4521-a4cb-e0cb18938591",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.357Z",
+    "name": "Keping",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "572d05c6-8606-4897-9fc5-649442f02f52",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.357Z",
+    "name": "Klg",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "5ca6ac5b-a7c0-4038-82c4-5a7348fb4f98",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.357Z",
+    "name": "Lusin",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "5d5ec9f2-1503-45dd-a15c-b79038311407",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.342Z",
+    "name": "Bungkus",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "6382ef48-6201-4b31-9405-509943e07be1",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.342Z",
+    "name": "Rim",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "68e8e06a-bacd-4175-a3c4-650465204f6f",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.342Z",
+    "name": "Dus",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "6a7a8272-eaef-4290-9b03-ef0890ecdbc2",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.342Z",
+    "name": "Roll",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "6ff29224-e9b1-4578-9ce7-29c52c6e4be6",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.342Z",
+    "name": "Gulung",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "7bc09772-000c-48c0-b962-786295c93281",
+  "fields": {
+    "date_created": "2020-01-15T09:08:21Z",
+    "date_modified": "2020-01-23T07:00:36.342Z",
+    "name": "Unit",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "7c9b07b4-99cc-41ad-9614-45fb842f82c9",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.342Z",
+    "name": "PALL",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "800ca29f-798d-4179-8561-093af63c75df",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.342Z",
+    "name": "Lembar",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "8801f61c-cfaa-42df-9694-ab2c57e75e25",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.342Z",
+    "name": "Meter",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "8bf43be1-5d76-45af-a87a-86650757d0f2",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.326Z",
+    "name": "Kaleng",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "96a54980-84b2-472e-8f11-bc969affb7b9",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.326Z",
+    "name": "Pcs",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "9ad695e7-7cf1-46d9-aeed-1e5c3c218dca",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.326Z",
+    "name": "Sak",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "a466c8a2-73a4-4659-9348-71c2502cf248",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.326Z",
+    "name": "Set",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "a6eb3455-fb59-4a38-9c43-9f48c28460df",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.326Z",
+    "name": "Buah",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "b002e9bc-6c95-4c40-a708-c726a27edd8c",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.326Z",
+    "name": "Pack",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "c84e47fe-3cb9-41c9-8ec7-d0f3dd170f55",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.326Z",
+    "name": "Bata",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "c98e374f-df6b-4218-8ba1-8f1504eba95c",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.326Z",
+    "name": "Bal",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "cc7a4d9e-37b4-4f68-8ad4-57186290e14c",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.310Z",
+    "name": "Batang",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "d88c456c-f3a8-4a11-926a-cd2ac2bc59eb",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.310Z",
+    "name": "Mete",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "e03769dc-b91f-4ef1-a617-d4ae7b09eecc",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.310Z",
+    "name": "Can",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "e588f214-c124-4a60-b4fd-dfd6abf8b111",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.310Z",
+    "name": "Lem",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "ec22e8c1-ac44-4753-b38a-a8dd32695e73",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.310Z",
+    "name": "Botol",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "f077fe1f-47de-4be5-a80a-d690d3971724",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.310Z",
+    "name": "Gulu",
+    "description": ""
+  }
+},
+{
+  "model": "products.unitofmeasure",
+  "pk": "f126ea68-3354-4213-b369-66ea6a492f21",
+  "fields": {
+    "date_created": "2020-01-21T17:06:45Z",
+    "date_modified": "2020-01-23T07:00:36.310Z",
+    "name": "Box",
+    "description": ""
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "00c34aa3-ff9d-48b6-b383-eb625846c6a7",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.111Z",
+    "date_modified": "2020-01-23T07:00:04.111Z",
+    "inner_id": "",
+    "slug": "balast",
+    "name": "Balast",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 6,
+    "level": 0
+  }
+}
+]

@@ -1,0 +1,59 @@
+{% extends "modeladmin/wagtailkit/inspect.html" %}
+{% load i18n static wagtailadmin_tags wagtailsettings_tags %}
+
+{% block header_title%}
+<h1 class="paper-title">{{ view.verbose_name }}<br/>{{ instance.product }}</h1>
+{% endblock %}
+
+{% block body_listing %}
+<table class="listing paper-listing">
+    <thead>
+    <tr>
+        <th style="text-align: center" align="center">{% trans 'Min Stock' %}</th>
+        <th style="text-align: center" align="center">{% trans 'Max Stock' %}</th>
+        <th style="text-align: center" align="center">{% trans 'On Hand' %}</th>
+        <th style="text-align: center" align="center">{% trans 'On Request' %}</th>
+        <th style="text-align: center" align="center">{% trans 'On Delivery' %}</th>
+        <th style="text-align: center" align="center">{% trans 'Scrapped' %}</th>
+        <th style="text-align: center" align="center">{% trans 'Real Stock' %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td align="center">{{ instance.product.minimum_stock }}</td>
+        <td align="center">{{ instance.product.maximum_stock }}</td>
+        <td align="center">{{ instance.stock_on_hand }}</td>
+        <td align="center">{{ instance.stock_on_request }}</td>
+        <td align="center">{{ instance.stock_on_delivery }}</td>
+        <td align="center">{{ instance.stock_scrapped }}</td>
+        <td align="center">{{ instance.stock }}</td>
+    </tr>
+    </tbody>
+</table>
+
+<table class="listing paper-listing">
+    <thead>
+    <tr>
+        <th style="text-align: center" align="center">{% trans 'Date' %}</th>
+        <th style="text-align: center" align="center">{% trans 'Reference' %}</th>
+        <th style="text-align: left" align="center">{% trans 'memo' %}</th>
+        <th style="text-align: center" align="center">{% trans 'Transfer' %}</th>
+        <th style="text-align: center" align="center">{% trans 'Quantity' %}</th>
+        <th style="text-align: center" align="center">{% trans 'Stock' %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in histories %}
+        <tr>
+            <td align="center">{{ item.date }}</td>
+            <td align="center">{{ item.reference }}</td>
+            <td align="left">{{ item.memo }}</td>
+            <td align="center">{{ item.flow }}</td>
+            <td align="center">{{ item.qty }}</td>
+            <td align="center">{{ item.stock }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

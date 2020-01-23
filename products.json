@@ -1,0 +1,47 @@
+[
+{
+  "model": "products.product",
+  "pk": "00321f7a-9e4e-4dc1-96ac-3569d233eae2",
+  "fields": {
+    "date_created": "2020-01-23T07:04:31.259Z",
+    "date_modified": "2020-01-23T07:04:31.259Z",
+    "creator": null,
+    "reg_number": 309,
+    "inner_id": "PRD.INV.0120.0309",
+    "polymorphic_ctype": [
+      "products",
+      "inventory"
+    ],
+    "picture": null,
+    "category": [
+      "Cartridge"
+    ],
+    "barcode": "2.1.5.01.016",
+    "slug": "catridge-35a",
+    "name": "Catridge 35A",
+    "description": "",
+    "unit_price": "700000.00",
+    "unit_of_measure": [
+      "Pcs"
+    ],
+    "minimum_stock": 10,
+    "maximum_stock": 1000,
+    "is_locked": false,
+    "is_active": true,
+    "is_consumable": true,
+    "is_stockable": true,
+    "is_bundle": false,
+    "is_sparepart": false,
+    "can_be_sold": false,
+    "can_be_purchased": true,
+    "suppliers": []
+  }
+},
+{
+  "model": "products.inventory",
+  "pk": "00321f7a-9e4e-4dc1-96ac-3569d233eae2",
+  "fields": {
+    "suppliers": []
+  }
+}
+]

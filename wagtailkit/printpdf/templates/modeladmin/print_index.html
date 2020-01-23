@@ -1,0 +1,34 @@
+{% extends 'modeladmin/print_base.html' %}
+{% load static i18n wagtailadmin_tags %}
+
+{% block title %}
+    <h2 class="page-title">{{ title }}</h2>
+{% endblock %}
+
+{% block content %}
+    {% if results %}
+        <table class="listing paper-listing">
+            <thead>
+            <tr>
+                {% if headers %}
+                    {% for col in headers %}
+                        <th>{{ col }}</th>
+                    {% endfor %}
+                {% else %}
+                    <th>{{ opts.verbose_name }}</th>
+                {% endif %}
+            </tr>
+            </thead>
+            {% for res in results %}
+                <tr>
+                    {% if headers %}
+                        <td>{{ res }}</td>
+                    {% else %}
+                        <td>{{ res }} no header</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+{% endblock content %}

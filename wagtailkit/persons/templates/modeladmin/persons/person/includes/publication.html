@@ -1,0 +1,38 @@
+{% load i18n %}
+
+<h3><strong>{% trans 'Publications' as pubs %} {{ pubs | upper }}</strong></h3>
+<table class="listing full-width">
+    <thead>
+    <tr>
+        <th>{% trans 'Title' %}</th>
+        <th>{% trans 'Publisher' %}</th>
+        <th>{% trans 'Published Date' %}</th>
+        {% if not is_print %}
+        <th>{% trans 'URL' %}</th>
+        <th>{% trans 'Attachement' %}</th>
+        {% endif %}
+    </tr>
+    </thead>
+    <tbody>
+    {% with instance.publications.all as pubs %}
+    {% for item in pubs %}
+    <tr>
+        <td><strong>{{ item.title }}</strong>
+            <div>{% firstof item.description '-' %}</div></td>
+        <td>{% firstof item.publisher '-' %}</td>
+        <td>{{ item.date_published }}</td>
+        {% if not is_print %}
+        <td>{% if item.permalink %}<a href="{{ item.permalink }}" target="_blank">Visit</a>{% else %} - {% endif %}</td>
+        <td>
+            {% if item.attachment %}
+                <a href="{{ item.attachment.file.url }}" target="_blank">Download</a>
+            {% else %}
+                -
+            {% endif %}
+        </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+    {% endwith %}
+    </tbody>
+</table>

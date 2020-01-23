@@ -1,0 +1,22 @@
+{% load i18n wagtailadmin_tags %}
+{% if result.base_errors %}
+<div style="overflow-x: scroll; width: 100%">
+    <table class="listing full-width">
+        <thead>
+        <tr>
+            <th colspan="2"><strong>{% trans "Base Errors" %}</strong></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for error in result.base_errors %}
+        {% for error in errors %}
+        <tr>
+            <td>{{ error.error }}</td>
+            <td>{{ error.traceback|linebreaks }}</td>
+        </tr>
+        {% endfor %}
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}

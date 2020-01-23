@@ -1,0 +1,1074 @@
+[
+{
+  "model": "products.productcategory",
+  "pk": "00c34aa3-ff9d-48b6-b383-eb625846c6a7",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.111Z",
+    "date_modified": "2020-01-23T07:00:04.111Z",
+    "inner_id": "",
+    "slug": "balast",
+    "name": "Balast",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 6,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "0be4651d-007d-4aed-b45d-22148829a714",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.236Z",
+    "date_modified": "2020-01-23T07:00:04.236Z",
+    "inner_id": "",
+    "slug": "plastik",
+    "name": "Plastik",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 54,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "148ac89b-8c82-40f0-a742-ac8ef2ecd0af",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.189Z",
+    "date_modified": "2020-01-23T07:00:04.189Z",
+    "inner_id": "",
+    "slug": "kertas-label",
+    "name": "Kertas Label",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 32,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "21b86b57-1153-47b9-a655-2725e17ccfc7",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.205Z",
+    "date_modified": "2020-01-23T07:00:04.205Z",
+    "inner_id": "",
+    "slug": "map-cetakan",
+    "name": "Map Cetakan",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 39,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "25a1262b-1fa1-4f9d-80ff-e4537e39af30",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.158Z",
+    "date_modified": "2020-01-23T07:00:04.158Z",
+    "inner_id": "",
+    "slug": "hardisk",
+    "name": "Hardisk",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 23,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "2731632c-a9b2-4fb8-8afc-ea0326d25a92",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.252Z",
+    "date_modified": "2020-01-23T07:00:04.252Z",
+    "inner_id": "",
+    "slug": "saklar",
+    "name": "Saklar",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 57,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "2908902e-e7b1-416a-9b5b-b089fe5d3044",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.142Z",
+    "date_modified": "2020-01-23T07:00:04.142Z",
+    "inner_id": "",
+    "slug": "engsel",
+    "name": "Engsel",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 18,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "31dda33f-75cd-4edf-ac72-6d6ed2048e0d",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.221Z",
+    "date_modified": "2020-01-23T07:00:04.221Z",
+    "inner_id": "",
+    "slug": "pena-asseories",
+    "name": "Pena & Asseories",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 46,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "3395d4f7-4ef3-4d8a-ae1e-98781af91a65",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.189Z",
+    "date_modified": "2020-01-23T07:00:04.189Z",
+    "inner_id": "",
+    "slug": "lakban",
+    "name": "Lakban",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 36,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "38e98587-46b9-467b-af60-a3df6f5d17c2",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.111Z",
+    "date_modified": "2020-01-23T07:00:04.111Z",
+    "inner_id": "",
+    "slug": "aksesories-stempel",
+    "name": "Aksesories Stempel",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 2,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "41c4b4ce-519d-47bc-9144-4ba192257e43",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.189Z",
+    "date_modified": "2020-01-23T07:00:04.189Z",
+    "inner_id": "",
+    "slug": "kran",
+    "name": "Kran",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 34,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "41ed9c25-c7ed-4670-bfbd-afbdb4f7e9b2",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.221Z",
+    "date_modified": "2020-01-23T07:00:04.221Z",
+    "inner_id": "",
+    "slug": "pengharum",
+    "name": "Pengharum",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 47,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "42344bf8-27f6-4dbc-bffc-17f3b9ab8a63",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.236Z",
+    "date_modified": "2020-01-23T07:00:04.236Z",
+    "inner_id": "",
+    "slug": "perlengkapan-lain-lain",
+    "name": "Perlengkapan Lain-lain",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 50,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "4605934d-3672-443f-85b9-baa0325ac01e",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.174Z",
+    "date_modified": "2020-01-23T07:00:04.174Z",
+    "inner_id": "",
+    "slug": "kertas-continues-form",
+    "name": "Kertas Continues Form",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 29,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "4661dfab-5042-4749-8fdb-7b0483060af7",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.174Z",
+    "date_modified": "2020-01-23T07:00:04.174Z",
+    "inner_id": "",
+    "slug": "kertas-fotocopy",
+    "name": "Kertas Fotocopy",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 31,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "4fe0a1c2-ea94-4d04-ac37-acf5263fef1a",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.221Z",
+    "date_modified": "2020-01-23T07:00:04.221Z",
+    "inner_id": "",
+    "slug": "pembolong-kertas",
+    "name": "Pembolong Kertas",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 45,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "5d4652af-8048-4d4b-8d68-0b13ae102321",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.267Z",
+    "date_modified": "2020-01-23T07:00:04.267Z",
+    "inner_id": "",
+    "slug": "tools-kantor",
+    "name": "Tools Kantor",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 66,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "61a7c4a2-a841-41ad-907c-b7fb94af8cd5",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.174Z",
+    "date_modified": "2020-01-23T07:00:04.174Z",
+    "inner_id": "",
+    "slug": "kabel-dan-connector",
+    "name": "Kabel dan Connector",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 26,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "622005ae-4aa7-4b31-ab2b-957a6bf75982",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.127Z",
+    "date_modified": "2020-01-23T07:00:04.127Z",
+    "inner_id": "",
+    "slug": "box-stop-kontak",
+    "name": "Box Stop Kontak",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 9,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "6baa2a2b-d669-4249-98d5-4ec6876390a5",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.111Z",
+    "date_modified": "2020-01-23T07:00:04.111Z",
+    "inner_id": "",
+    "slug": "batterai",
+    "name": "Batterai",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 7,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "6ee70144-ed94-4ca1-b52f-c640200e643c",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.174Z",
+    "date_modified": "2020-01-23T07:00:04.174Z",
+    "inner_id": "",
+    "slug": "kapasitor",
+    "name": "Kapasitor",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 27,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "6f7c29b4-3092-43a4-b8cf-10f12a708038",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.252Z",
+    "date_modified": "2020-01-23T07:00:04.252Z",
+    "inner_id": "",
+    "slug": "skun-kabel",
+    "name": "Skun Kabel",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 58,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "72178310-ffaa-45b5-9a02-213d06d2b60e",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.111Z",
+    "date_modified": "2020-01-23T07:00:04.111Z",
+    "inner_id": "",
+    "slug": "amplop-resmi-ber-kop",
+    "name": "Amplop Resmi Ber-Kop",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 4,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "76a94ee5-f6ce-43fb-87c9-23a3928809b0",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.236Z",
+    "date_modified": "2020-01-23T07:00:04.236Z",
+    "inner_id": "",
+    "slug": "ram",
+    "name": "RAM",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 55,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "7be65afe-5e06-48b8-8cf1-a151dcd73f49",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.158Z",
+    "date_modified": "2020-01-23T07:00:04.158Z",
+    "inner_id": "",
+    "slug": "fitting",
+    "name": "Fitting",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 20,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "7bead373-579a-431e-aed0-ad4f68abe30e",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.252Z",
+    "date_modified": "2020-01-23T07:00:04.252Z",
+    "inner_id": "",
+    "slug": "rompi",
+    "name": "Rompi",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 56,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "7da2b43a-4f5b-4e86-ab26-3b254028be1c",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.205Z",
+    "date_modified": "2020-01-23T07:00:04.205Z",
+    "inner_id": "",
+    "slug": "map-polos",
+    "name": "Map Polos",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 40,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "7e08cb9a-363f-4ac7-b247-104371989854",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.127Z",
+    "date_modified": "2020-01-23T07:00:04.127Z",
+    "inner_id": "",
+    "slug": "buku-cetakan",
+    "name": "Buku Cetakan",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 10,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "7f20aa61-76f8-4290-8458-2bf2ecebfce4",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.205Z",
+    "date_modified": "2020-01-23T07:00:04.205Z",
+    "inner_id": "",
+    "slug": "lem",
+    "name": "Lem",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 38,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "8080d4ff-f3df-44de-be8c-d02004d85957",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.127Z",
+    "date_modified": "2020-01-23T07:00:04.127Z",
+    "inner_id": "",
+    "slug": "binder-klip-box",
+    "name": "Binder Klip & Box",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 8,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "877eda3e-6753-4f68-a196-e5b7c32a9dce",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.158Z",
+    "date_modified": "2020-01-23T07:00:04.158Z",
+    "inner_id": "",
+    "slug": "freon-ac",
+    "name": "Freon AC",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 22,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "8c1ae5ff-ef68-4855-9beb-c72125b13d9f",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.189Z",
+    "date_modified": "2020-01-23T07:00:04.189Z",
+    "inner_id": "",
+    "slug": "kunci",
+    "name": "Kunci",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 35,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "907d162d-d271-4178-ae01-2e8487b70875",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.236Z",
+    "date_modified": "2020-01-23T07:00:04.236Z",
+    "inner_id": "",
+    "slug": "pita-printer",
+    "name": "Pita Printer",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 53,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "925d50a7-991a-4fea-862f-9ef0a9ed57d8",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.111Z",
+    "date_modified": "2020-01-23T07:00:04.111Z",
+    "inner_id": "",
+    "slug": "baju-batik",
+    "name": "Baju Batik",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 5,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "9e4b0eb0-e01c-430f-921c-a3d9a4d40f40",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.267Z",
+    "date_modified": "2020-01-23T07:00:04.267Z",
+    "inner_id": "",
+    "slug": "tinta",
+    "name": "Tinta",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 63,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "a32b4993-e83e-498c-bc29-f8d1914924cc",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.221Z",
+    "date_modified": "2020-01-23T07:00:04.221Z",
+    "inner_id": "",
+    "slug": "paku-dan-perlengkapan-lain",
+    "name": "Paku dan Perlengkapan Lain",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 44,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "a4820364-37c8-41fd-91ac-a9ca5cb391ca",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.221Z",
+    "date_modified": "2020-01-23T07:00:04.221Z",
+    "inner_id": "",
+    "slug": "perangkat-komputer-lain-lain",
+    "name": "Perangkat Komputer Lain-lain",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 48,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "a4c866bf-1714-4735-bdec-9da06d89c760",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.142Z",
+    "date_modified": "2020-01-23T07:00:04.142Z",
+    "inner_id": "",
+    "slug": "dinabol",
+    "name": "Dinabol",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 14,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "a593b5e9-9338-41f5-85f2-447f00f10305",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.267Z",
+    "date_modified": "2020-01-23T07:00:04.267Z",
+    "inner_id": "",
+    "slug": "transformator",
+    "name": "Transformator",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 67,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "a6c35d0a-14bf-414f-8c22-55b914478cc5",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.096Z",
+    "date_modified": "2020-01-23T07:00:04.096Z",
+    "inner_id": "",
+    "slug": "aset",
+    "name": "Aset",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 1,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "a77403ec-6b29-48ca-8881-c028ff57153a",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.252Z",
+    "date_modified": "2020-01-23T07:00:04.252Z",
+    "inner_id": "",
+    "slug": "stop-kontak",
+    "name": "Stop Kontak",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 61,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "ae3e355a-4796-4f28-bd89-b913b427af3d",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.236Z",
+    "date_modified": "2020-01-23T07:00:04.236Z",
+    "inner_id": "",
+    "slug": "perlengkapan-media-promosi",
+    "name": "Perlengkapan Media Promosi",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 51,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "b915cfda-14d4-48ed-b337-9d14cf94ef71",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.252Z",
+    "date_modified": "2020-01-23T07:00:04.252Z",
+    "inner_id": "",
+    "slug": "steker",
+    "name": "Steker",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 60,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "bd5f8e29-3012-4e9a-a375-64bcd5e97fb9",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.205Z",
+    "date_modified": "2020-01-23T07:00:04.205Z",
+    "inner_id": "",
+    "slug": "matros-logo-ibi",
+    "name": "Matros Logo IBI",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 42,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "c2a335ef-912f-43f0-b74f-70d4ffd54100",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.158Z",
+    "date_modified": "2020-01-23T07:00:04.158Z",
+    "inner_id": "",
+    "slug": "flash-disk",
+    "name": "Flash Disk",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 21,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "c9bb91c2-1ef2-4a30-96a1-0d2b2fa67c17",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.158Z",
+    "date_modified": "2020-01-23T07:00:04.158Z",
+    "inner_id": "",
+    "slug": "isolasi",
+    "name": "Isolasi",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 24,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "c9ccb0bc-3a5f-498d-a8e9-fa7bd6662afb",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.158Z",
+    "date_modified": "2020-01-23T07:00:04.158Z",
+    "inner_id": "",
+    "slug": "kabel",
+    "name": "Kabel",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 25,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "cb8d4459-3402-4fde-aa9c-b609d3924e05",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.267Z",
+    "date_modified": "2020-01-23T07:00:04.267Z",
+    "inner_id": "",
+    "slug": "termis",
+    "name": "Termis",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 62,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "d1c63fe8-7933-460d-8734-2a0c16c7b706",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.189Z",
+    "date_modified": "2020-01-23T07:00:04.189Z",
+    "inner_id": "",
+    "slug": "lampu",
+    "name": "Lampu",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 37,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "d1e22aa6-433b-4978-8c1d-3b10c68e1147",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.189Z",
+    "date_modified": "2020-01-23T07:00:04.189Z",
+    "inner_id": "",
+    "slug": "klem",
+    "name": "Klem",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 33,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "d3ea0c85-133c-4968-afa3-489cbacf458c",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.205Z",
+    "date_modified": "2020-01-23T07:00:04.205Z",
+    "inner_id": "",
+    "slug": "materai-dan-prangko",
+    "name": "Materai dan Prangko",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 41,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "d48e3bad-cd1d-45f5-bf1a-23dcf2fedd2e",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.142Z",
+    "date_modified": "2020-01-23T07:00:04.142Z",
+    "inner_id": "",
+    "slug": "drum",
+    "name": "Drum",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 17,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "d4d3706b-4151-4ab4-add7-eb9a5269b94a",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.142Z",
+    "date_modified": "2020-01-23T07:00:04.142Z",
+    "inner_id": "",
+    "slug": "fisher",
+    "name": "Fisher",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 19,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "d57f011c-94b7-4440-b175-925403daad54",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.267Z",
+    "date_modified": "2020-01-23T07:00:04.267Z",
+    "inner_id": "",
+    "slug": "toner-dan-tinta",
+    "name": "Toner dan Tinta",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 64,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "d5a570da-b335-46e8-96ad-752b4ad77206",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.174Z",
+    "date_modified": "2020-01-23T07:00:04.174Z",
+    "inner_id": "",
+    "slug": "kertas-cetakan-kop",
+    "name": "Kertas Cetakan Kop",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 28,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "d791bdd9-c57c-4dd9-8964-3c3135c66739",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.142Z",
+    "date_modified": "2020-01-23T07:00:04.142Z",
+    "inner_id": "",
+    "slug": "disk",
+    "name": "Disk",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 15,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "ea94cdce-9872-4c83-a2f0-b6a3b64abdd1",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.111Z",
+    "date_modified": "2020-01-23T07:00:04.111Z",
+    "inner_id": "",
+    "slug": "amplop-biasa-polos",
+    "name": "Amplop Biasa Polos",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 3,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "ebb6babc-1c1e-4118-aa4e-a73fa6721373",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.221Z",
+    "date_modified": "2020-01-23T07:00:04.221Z",
+    "inner_id": "",
+    "slug": "perlengkapan-kebersihan",
+    "name": "Perlengkapan Kebersihan",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 49,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "f1a418c1-b1f6-4155-b155-9c5f71fe5171",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.236Z",
+    "date_modified": "2020-01-23T07:00:04.236Z",
+    "inner_id": "",
+    "slug": "perpipaan-dan-sambungan",
+    "name": "Perpipaan dan Sambungan",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 52,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "f21b199c-e7f9-41a5-b44f-d2011939097a",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.174Z",
+    "date_modified": "2020-01-23T07:00:04.174Z",
+    "inner_id": "",
+    "slug": "kertas-foto-dan-cover-penjilidan",
+    "name": "Kertas Foto dan Cover Penjilidan",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 30,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "f405002a-220a-4b17-a6c1-6308d42064b6",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.127Z",
+    "date_modified": "2020-01-23T07:00:04.127Z",
+    "inner_id": "",
+    "slug": "cartridge",
+    "name": "Cartridge",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 12,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "f44c5bc3-3058-48a0-abe5-6ff7c0b9b5bb",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.142Z",
+    "date_modified": "2020-01-23T07:00:04.142Z",
+    "inner_id": "",
+    "slug": "double-tape",
+    "name": "Double Tape",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 16,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "f4933715-a4fa-44f6-b0d5-c2b55791109c",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.205Z",
+    "date_modified": "2020-01-23T07:00:04.205Z",
+    "inner_id": "",
+    "slug": "pin",
+    "name": "PIN",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 43,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "f628b06d-68f3-497f-b74c-ff31c84c33f9",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.127Z",
+    "date_modified": "2020-01-23T07:00:04.127Z",
+    "inner_id": "",
+    "slug": "buku-tulis",
+    "name": "Buku Tulis",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 11,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "f8fb0b57-ed96-417d-83ac-68a5221a8de4",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.252Z",
+    "date_modified": "2020-01-23T07:00:04.252Z",
+    "inner_id": "",
+    "slug": "spidol",
+    "name": "Spidol",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 59,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "fab5c998-6661-4ff1-a705-f50848a8706e",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.267Z",
+    "date_modified": "2020-01-23T07:00:04.267Z",
+    "inner_id": "",
+    "slug": "tools",
+    "name": "Tools",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 65,
+    "level": 0
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": "fed8d26f-a368-40ae-8973-3bddae8e29de",
+  "fields": {
+    "date_created": "2020-01-23T07:00:04.127Z",
+    "date_modified": "2020-01-23T07:00:04.127Z",
+    "inner_id": "",
+    "slug": "cutter-dan-streples",
+    "name": "Cutter dan Streples",
+    "parent": null,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 13,
+    "level": 0
+  }
+}
+]

@@ -1,0 +1,149 @@
+{% extends "modeladmin/wagtailkit/inspect.html" %}
+{% load i18n static wagtailadmin_tags %}
+
+
+{% block header_title %}
+{% if instance.user_account %}
+    <span class="avatar" style="width: 150px; height: 150px;">
+        <img src="{% avatar_url instance.user_account size=150 %}" alt=""/>
+    </span>
+{% endif %}
+<h2 class="list-value">
+    {{ instance.fullname_with_title }}
+</h2>
+{% endblock %}
+
+
+{% block header_left %}
+<ul class="head-list">
+    {% if instance.religion %}
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Religion' %}</span>
+        <span class="list-value">: {{ instance.religion }}</span>
+    </li>
+    {% endif %}
+    {% if instance.nation %}
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Nation' %}</span>
+        <span class="list-value">: {{ instance.nation }}</span>
+    </li>
+    {% endif %}
+    {% if instance.date_of_birth %}
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Date of birth' %}</span>
+        <span class="list-value">: {{ instance.date_of_birth }}</span>
+    </li>
+    {% endif %}
+    {% if instance.place_of_birth %}
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Place of birth' %}</span>
+        <span class="list-value">: {{ instance.place_of_birth }}</span>
+    </li>
+    {% endif %}
+</ul>
+{% if instance.address %}
+<ul class="head-list">
+    {% for address in instance.address.all %}
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Address' as ads %}{% firstof address.name ads %}:</span>
+        <p class="list-value">
+            {{ address.street1 | safe }} {{ address.street2 | safe }} <br/>
+            {% firstof address.city %} {% firstof address.province %} <br/>
+            {% firstof address.country %} {% firstof address.zipcode %}
+        </p>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
+
+
+{% block header_right %}
+<ul class="head-list">
+    {% if instance.phone1 %}
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Phone 1' %}</span>
+        <span class="list-value">: {{ instance.phone1 }}</span>
+    </li>
+    {% endif %}
+    {% if instance.phone2 %}
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Phone 2' %}</span>
+        <span class="list-value">: {{ instance.phone2 }}</span>
+    </li>
+    {% endif %}
+    {% if instance.email %}
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Email' %}</span>
+        <span class="list-value">: {{ instance.email }}</span>
+    </li>
+    {% endif %}
+    {% if instance.website %}
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Website' %}</span>
+        <span class="list-value">: {{ instance.website }}</span>
+    </li>
+    {% endif %}
+</ul>
+<ul class="head-list">
+    {% if instance.facebook %}
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Facebook' %}</span>
+        <span class="list-value">: {{ instance.facebook }}</span>
+    </li>
+    {% endif %}
+    {% if instance.twitter %}
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Twitter' %}</span>
+        <span class="list-value">: {{ instance.twitter }}</span>
+    </li>
+    {% endif %}
+    {% if instance.instagram %}
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Instagram' %}</span>
+        <span class="list-value">: {{ instance.instagram }}</span>
+    </li>
+    {% endif %}
+    {% if instance.instagram %}
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Youtube' %}</span>
+        <span class="list-value">: {{ instance.youtube }}</span>
+    </li>
+    {% endif %}
+</ul>
+
+{% endblock %}
+
+{% block body_listing %}
+    {% if instance.skill_sets.all %}
+        {% include 'modeladmin/persons/person/includes/skill.html' %}
+    {% endif %}
+
+    {% if instance.awards.all %}
+        {% include 'modeladmin/persons/person/includes/award.html' %}
+    {% endif %}
+
+    {% if instance.education_histories.all %}
+        {% include 'modeladmin/persons/person/includes/formal_education.html' %}
+    {% endif %}
+
+    {% if instance.nonformaleducation_histories.all %}
+        {% include 'modeladmin/persons/person/includes/nonformal_education.html' %}
+    {% endif %}
+
+    {% if instance.working_histories.all %}
+        {% include 'modeladmin/persons/person/includes/working.html' %}
+    {% endif %}
+
+    {% if instance.organization_histories.all %}
+        {% include 'modeladmin/persons/person/includes/organization.html' %}
+    {% endif %}
+
+    {% if instance.publications.all %}
+        {% include 'modeladmin/persons/person/includes/publication.html' %}
+    {% endif %}
+
+    {% if instance.families.all %}
+        {% include 'modeladmin/persons/person/includes/family.html' %}
+    {% endif %}
+{% endblock %}

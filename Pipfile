@@ -1,0 +1,40 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+sphinx = "*"
+sphinx-rtd-theme = "*"
+sphinx-autobuild = "*"
+
+[packages]
+django = "==2.2.8"
+wagtail = "==2.7.1"
+django-polymorphic = "==2.1.2"
+django-mptt = "==0.10.0"
+django-filter = "==2.2.0"
+django-allauth = "==0.41.0"
+django-storages = "==1.8"
+graphene-django = "==2.8.0"
+django-graphql-jwt = "==0.3.0"
+django-dramatiq = "==0.8.0"
+django-import-export = "==2.0.1"
+django-wkhtmltopdf = "==3.2.0"
+django-contrib-comments = "==1.9.2"
+python-pdf = "==0.37"
+wagtailfontawesome = "==1.1.4"
+django-debug-toolbar = "*"
+qrcode = {extras = ["pil"],version = "*"}
+boto3 = "*"
+docutils = "*"
+django-select2 = "*"
+django-oauth-toolkit = "*"
+django-cors-middleware = "*"
+django-heroku = "*"
+django-environ = "*"
+psycopg2 = "*"
+gunicorn = "*"
+
+[requires]
+python_version = "3.7"

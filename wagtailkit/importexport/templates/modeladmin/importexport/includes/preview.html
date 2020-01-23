@@ -1,0 +1,44 @@
+{% load i18n wagtailadmin_tags %}
+<div class="title-wrapper">
+    <h2>{% trans "Preview" %}</h2>
+    <p>
+        {% trans "Below is a preview of data to be imported. If you are satisfied with the results, click <strong>'Confirm
+        Import'</strong>" as help_message" %}
+        {{ help_message | safe }}
+    </p>
+</div>
+
+<div style="overflow-x: scroll; width: 100%">
+
+    <table class="listing full-width">
+        <thead>
+        <tr>
+            <th></th>
+            {% for field in result.diff_headers %}
+            <th>{{ field }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        {% for row in result.valid_rows %}
+        <tr class="{{ row.import_type }}">
+            <td class="import-type">
+            <span class="status-tag">
+                {% if row.import_type == 'new' %}
+                    {% trans "New" %}
+                    {% elif row.import_type == 'skip' %}
+                    {% trans "Skipped" %}
+                    {% elif row.import_type == 'delete' %}
+                    {% trans "Delete" %}
+                    {% elif row.import_type == 'update' %}
+                    {% trans "Update" %}
+                {% endif %}
+            </span>
+            </td>
+            {% for field in row.diff %}
+            <td>{{ field }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>

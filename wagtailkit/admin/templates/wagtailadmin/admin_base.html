@@ -1,0 +1,15 @@
+{% extends "wagtailadmin/admin_base.html" %}
+{% load static wagtailsettings_tags %}
+{% get_settings %}
+
+{% if settings.wagtailkitcore.CompanySettings.sitename %}
+{% block branding_title %}
+{% firstof settings.wagtailkitcore.CompanySettings.sitename 'Wagtail' %}
+{% endblock %} - {% block titletag %}{% endblock %}
+{% endif %}
+
+{% if settings.wagtailkitcore.CompanySettings.logo %}
+{% block branding_favicon %}
+<link rel="shortcut icon" href="{{ settings.wagtailkitcore.CompanySettings.logo.file.url }}"/>
+{% endblock %}
+{% endif %}

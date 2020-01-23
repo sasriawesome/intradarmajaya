@@ -1,0 +1,370 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-03 01:21+0700\n"
+"PO-Revision-Date: 2019-12-03 01:22+0700\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.2.3\n"
+
+#: .\admin\lecture.py:47 .\admin\lecture.py:125 .\models\lecture.py:210
+msgid "Time end"
+msgstr "Waktu berakhir"
+
+#: .\admin\lecture.py:87 .\admin\lecture.py:117 .\models\lecture.py:18
+#: .\models\lecture.py:69 .\models\lecture.py:139 .\models\lecture.py:163
+#: .\models\lecture.py:200
+msgid "Lecture"
+msgstr "Perkuliahan"
+
+#: .\admin\lecture.py:98
+msgid "Open"
+msgstr "Terbuka"
+
+#: .\admin\student.py:19 .\admin\student.py:65 .\models\lecture.py:117
+#: .\models\lecture.py:142 .\models\lecture.py:259 .\models\student.py:25
+#: .\models\student.py:46
+msgid "Student"
+msgstr "Mahasiswa"
+
+#: .\admin\student.py:24
+msgid "Yes"
+msgstr "Ya"
+
+#: .\admin\student.py:25
+msgid "No"
+msgstr "No"
+
+#: .\admin\student.py:49 .\admin\teacher.py:53
+msgid "Contact info"
+msgstr "Informasi Kontak"
+
+#: .\admin\student.py:51 .\admin\teacher.py:55
+msgid "Address Info"
+msgstr "Informasi Alamat"
+
+#: .\admin\student.py:67 .\admin\teacher.py:70
+msgid "User"
+msgstr "Pengguna"
+
+#: .\admin\student.py:69 .\admin\teacher.py:74
+msgid "Active"
+msgstr "Aktif"
+
+#: .\admin\teacher.py:24 .\admin\teacher.py:72 .\models\lecture.py:303
+#: .\models\teacher.py:28 .\models\teacher.py:49 .\models\teacher.py:98
+msgid "Teacher"
+msgstr "Dosen"
+
+#: .\apps.py:7
+msgid "AC: Lecture"
+msgstr "AC: Perkuliahan"
+
+#: .\models\lecture.py:19
+msgid "Lectures"
+msgstr "Perkuliahan"
+
+#: .\models\lecture.py:25
+msgid "Pending"
+msgstr "Tunda"
+
+#: .\models\lecture.py:26
+msgid "On Going"
+msgstr "Berlangsung"
+
+#: .\models\lecture.py:27
+msgid "End"
+msgstr "Akhir"
+
+#: .\models\lecture.py:33
+msgid "Class name"
+msgstr "Nama kelas"
+
+#: .\models\lecture.py:36
+msgid "Teacher Course"
+msgstr "Dosen (Mata Kuliah)"
+
+#: .\models\lecture.py:40 .\models\lecture.py:208
+msgid "Time start"
+msgstr "Waktu mulai"
+
+#: .\models\lecture.py:42
+msgid "Duration"
+msgstr "Durasi"
+
+#: .\models\lecture.py:43
+msgid "Lecture duration in minutes"
+msgstr "Durasi perkuliahan dalam menit"
+
+#: .\models\lecture.py:45
+msgid "Series"
+msgstr "Seri pertemuan"
+
+#: .\models\lecture.py:46
+msgid "Total meet up"
+msgstr "Total pertemuan"
+
+#: .\models\lecture.py:49 .\models\lecture.py:145 .\models\lecture.py:265
+#: .\models\lecture.py:306
+msgid "Status"
+msgstr "Status"
+
+#: .\models\lecture.py:52 .\models\lecture.py:86 .\models\lecture.py:148
+#: .\models\lecture.py:181 .\models\lecture.py:213 .\models\lecture.py:272
+#: .\models\lecture.py:313 .\models\student.py:63 .\models\teacher.py:68
+#: .\models\teacher.py:118
+msgid "Created_by"
+msgstr "Dibuat oleh"
+
+#: .\models\lecture.py:64
+msgid "Lecture Score Weighting"
+msgstr "Bobot Score Perkuliahan"
+
+#: .\models\lecture.py:65
+msgid "Lecture Score Weightings"
+msgstr "Bobot Score Perkuliahan"
+
+#: .\models\lecture.py:71
+msgid "Attendance"
+msgstr "Kehadiran"
+
+#: .\models\lecture.py:73 .\models\lecture.py:168
+msgid "Homework 1"
+msgstr "Tugas 1"
+
+#: .\models\lecture.py:75 .\models\lecture.py:170
+msgid "Homework 2"
+msgstr "Tugas 2"
+
+#: .\models\lecture.py:77 .\models\lecture.py:172
+msgid "Quis 1"
+msgstr "Kuis 1"
+
+#: .\models\lecture.py:79 .\models\lecture.py:174
+msgid "Quis 2"
+msgstr "Kuis 2"
+
+#: .\models\lecture.py:81 .\models\lecture.py:176
+msgid "Mid Exam"
+msgstr "UTS"
+
+#: .\models\lecture.py:83 .\models\lecture.py:178
+msgid "Final Exam"
+msgstr "UAS"
+
+#: .\models\lecture.py:102
+msgid "Please correct all value, total weight greater than 100"
+msgstr "Periksa kembali setiap nilai, total maximal bobot tidak boleh melebihi 100"
+
+#: .\models\lecture.py:111
+msgid "Student Enrollment"
+msgstr "Mahasiswa (Rencana Studi)"
+
+#: .\models\lecture.py:112
+msgid "Student Enrollments"
+msgstr "Mahasiswa (Rencana Studi)"
+
+#: .\models\lecture.py:123
+msgid "Lecture Student"
+msgstr "Perkuliahan (Mahasiswa)"
+
+#: .\models\lecture.py:124
+msgid "Lecture Students"
+msgstr "Perkuliahan (Mahasiswa)"
+
+#: .\models\lecture.py:129
+msgid "New"
+msgstr "Baru"
+
+#: .\models\lecture.py:130
+msgid "Repeat"
+msgstr "Mengulang"
+
+#: .\models\lecture.py:136
+msgid "Student Study Plan"
+msgstr "Mahasiswa (Rencana Studi)"
+
+#: .\models\lecture.py:156
+msgid "Student Score"
+msgstr "Nilai Mahasiswa"
+
+#: .\models\lecture.py:157
+msgid "Student Scores"
+msgstr "Nilai Mahasiswa"
+
+#: .\models\lecture.py:166
+msgid "Lecture student"
+msgstr "Mahasiswa perkuliahan"
+
+#: .\models\lecture.py:194
+msgid "Lecture Schedule"
+msgstr "Jadwal Perkuliahan"
+
+#: .\models\lecture.py:195
+msgid "Lecture Scehdules"
+msgstr "Jadwal Perkuliahan"
+
+#: .\models\lecture.py:206
+msgid "Room Name"
+msgstr "Nama Ruangan"
+
+#: .\models\lecture.py:242
+msgid "Lecture Student Attendant"
+msgstr "Absensi Perkuliahan Mahasiswa"
+
+#: .\models\lecture.py:243
+msgid "Lecture Student Attendants"
+msgstr "Absensi Perkuliahan Mahasiswa"
+
+#: .\models\lecture.py:251 .\models\lecture.py:286
+msgid "Present"
+msgstr "Hadir"
+
+#: .\models\lecture.py:252 .\models\lecture.py:287
+msgid "Sict"
+msgstr "Sakit"
+
+#: .\models\lecture.py:253 .\models\lecture.py:288
+msgid "Absent"
+msgstr "Tanpa Keterangan"
+
+#: .\models\lecture.py:254 .\models\lecture.py:289
+msgid "Permit"
+msgstr "Izin"
+
+#: .\models\lecture.py:262 .\models\lecture.py:294
+msgid "Schedule"
+msgstr "Jadwal"
+
+#: .\models\lecture.py:269 .\models\lecture.py:310
+msgid "Note"
+msgstr "Catatan"
+
+#: .\models\lecture.py:277
+msgid "Lecture Teacher Attendant"
+msgstr "Absensi Perkuliahan Dosen"
+
+#: .\models\lecture.py:278
+msgid "Lecture Teacher Attendants"
+msgstr "Absensi Perkuliahan Dosen"
+
+#: .\models\lecture.py:296
+#, fuzzy
+#| msgid "Teacher"
+msgid "Is Teacher"
+msgstr "Dosen"
+
+#: .\models\lecture.py:298
+#, fuzzy
+#| msgid "Assistant"
+msgid "Is Assistant"
+msgstr "Asisten"
+
+#: .\models\lecture.py:300
+msgid "Is Alternate"
+msgstr "Dosen Pengganti"
+
+#: .\models\lecture_proxies.py:7
+msgid "Lecture Attendance"
+msgstr "Perkuliahan (Absensi)"
+
+#: .\models\lecture_proxies.py:8
+msgid "Lecture Attendances"
+msgstr "Perkuliahan (Absensi)"
+
+#: .\models\lecture_proxies.py:14
+msgid "Lecture Student Score"
+msgstr "Perkuliahan (Nilai Mahasiswa)"
+
+#: .\models\lecture_proxies.py:15
+msgid "Lecture Student Scores"
+msgstr "Perkuliahan (Nilai Mahasiswa)"
+
+#: .\models\student.py:26 .\models\student.py:47
+msgid "Students"
+msgstr "Mahasiswa"
+
+#: .\models\student.py:52 .\models\teacher.py:55
+msgid "Person"
+msgstr "Personal"
+
+#: .\models\student.py:55
+msgid "Student ID"
+msgstr "NPM"
+
+#: .\models\student.py:58
+msgid "Program Study"
+msgstr "Program Studi"
+
+#: .\models\student.py:60 .\models\teacher.py:65 .\models\teacher.py:115
+msgid "Active status"
+msgstr "Status aktif"
+
+#: .\models\teacher.py:29 .\models\teacher.py:50
+msgid "Teachers"
+msgstr "Dosen"
+
+#: .\models\teacher.py:57
+msgid "ID is NIDN"
+msgstr "NIDN"
+
+#: .\models\teacher.py:60
+msgid "Teacher ID"
+msgstr "ID Dosen"
+
+#: .\models\teacher.py:63
+msgid "Homebase"
+msgstr "Homebase"
+
+#: .\models\teacher.py:84
+msgid "Teacher course"
+msgstr "MK dosen"
+
+#: .\models\teacher.py:85
+msgid "Teacher Courses"
+msgstr "Dosen (Mata Kuliah)"
+
+#: .\models\teacher.py:91
+msgid "Odd"
+msgstr "Ganjil"
+
+#: .\models\teacher.py:92
+msgid "Even"
+msgstr "Genap"
+
+#: .\models\teacher.py:93
+msgid "Short"
+msgstr "Pendek"
+
+#: .\models\teacher.py:103
+msgid "Assistant"
+msgstr "Asisten"
+
+#: .\models\teacher.py:107
+msgid "Curriculum Course"
+msgstr "Mata Kuliah Kurikulum"
+
+#: .\models\teacher.py:110
+msgid "School year"
+msgstr "Tahun ajaran"
+
+#: .\models\teacher.py:113
+msgid "Semester"
+msgstr "Semester"
+
+#~ msgid "Student Study Plans"
+#~ msgstr "Mahasiswa (Rencana Studi)"
+
+#~ msgid "Total"
+#~ msgstr "Total"

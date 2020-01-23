@@ -1,0 +1,11 @@
+.env
+.venv
+*.pyc
+*.DS_store
+*.idea
+*.vscode
+*.sqlite3
+.coverage
+staticfiles/
+media/
+notebooks/
