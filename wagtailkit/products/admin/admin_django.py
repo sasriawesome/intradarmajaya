@@ -26,9 +26,10 @@ class UnitOfMeasureAdmin(ImportExportMixin, admin.ModelAdmin):
 
 
 @admin.register(ProductCategory)
-class ProductCategoryAdmin(ImportExportMixin, admin.ModelAdmin):
+class ProductCategoryAdmin(MPTTModelAdmin):
     search_fields = ['name']
-    list_display = ['inner_id', 'name', 'parent', 'tree_id']
+    list_display = ['name', 'parent', 'tree_id']
+    raw_id_fields = ['parent']
 
 
 class ProductSpecificationInline(admin.TabularInline):
@@ -48,6 +49,7 @@ class ProductMixin(admin.ModelAdmin):
     search_fields = ['inner_id', 'name']
     date_hierarchy = 'date_created'
     list_display = ['inner_id', 'name', 'barcode']
+    raw_id_fields = ['category', 'picture', 'unit_of_measure']
 
 
 @admin.register(Product)

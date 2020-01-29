@@ -6,7 +6,8 @@ from wagtail.admin.edit_handlers import ObjectList, FieldPanel, MultiFieldPanel
 
 class PersonSettings(BaseSetting):
     class Meta:
-        verbose_name = _('Persons')
+        verbose_name = _('Person Setting')
+        verbose_name_plural = _('Person Settings')
 
     menu_icon = 'icon-group'
 
@@ -70,3 +71,6 @@ class PersonSettings(BaseSetting):
     ]
 
     edit_handler = ObjectList(basic_panels)
+
+    def __str__(self):
+        return "{} {}".format(self.site, self._meta.verbose_name)

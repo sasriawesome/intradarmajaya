@@ -122,7 +122,8 @@ class PersonModelAdmin(ImportExportModelAdminMixin, PrintPDFModelAdminMixin, Mod
         MultiFieldPanel([
             FieldRowPanel([
                 FieldPanel('phone1'),
-                FieldPanel('phone2'),
+                FieldPanel('fax'),
+                FieldPanel('whatsapp'),
             ]),
             FieldRowPanel([
                 FieldPanel('email'),

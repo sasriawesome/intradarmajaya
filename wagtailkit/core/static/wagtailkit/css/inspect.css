@@ -93,24 +93,26 @@ ul.spec-list {
 
 #letter-logo {
     float: left;
-    max-height: 100px;
+    max-height: 80px;
     width: auto;
 }
 
 #letter-head-text {
     float: left;
     display: inline-block;
-    padding: 13px 13px 13px 30px;
+    padding: 0 30px;
 }
 
 #letter-title {
-    font-size: 2em;
+    font-size: 1.5em;
     margin: 0 0 .5em 0;
+    font-weight: bold;
+    letter-spacing: -.05em;
 }
 
 #letter-address {
     font-size: .9em;
-    line-height: 1.3em;
+    line-height: 1.4em;
 }
 
 .listing.full-width {
@@ -119,4 +121,8 @@ ul.spec-list {
 
 .listing h3 {
     margin-bottom: 15px;
+}
+
+.listing tr td {
+    vertical-align: top;
 }

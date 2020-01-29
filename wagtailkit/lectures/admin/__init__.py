@@ -22,3 +22,5 @@
 # default_site.register(Lecture, LectureAdmin)
 # default_site.register(LectureStudentAttendance, LectureStudentAttendanceAdmin)
 # default_site.register(LectureStudentScore, LectureStudentScoreAdmin)
+
+from .admin_django import *

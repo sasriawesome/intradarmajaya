@@ -111,20 +111,23 @@ class NumeratorMixin(models.Model):
     doc_code = 'IID'  # inner id code
 
     reg_number = models.PositiveIntegerField(
-        null=True, blank=True,
+        null=True, blank=True, editable=False,
         verbose_name=_('Register number'))
     inner_id = models.CharField(
-        unique=True,
+        unique=True, editable=False,
         null=True, blank=True,
         max_length=50,
         verbose_name=_('Inner ID'))
+
+    def get_doc_code(self):
+        return self.doc_code
 
     def generate_inner_id(self):
         """ Generate human friendly document number,
             override this method to customize inner_id format
             """
         form = [
-            self.doc_code,
+            self.get_doc_code(),
             self.date_created.strftime("%m%y"),
             str(self.reg_number).zfill(4)
         ]

@@ -14,7 +14,7 @@ from taggit.models import TaggedItemBase
 from polymorphic.models import PolymorphicModel, PolymorphicManager
 from polymorphic.utils import get_base_polymorphic_model
 
-from wagtailkit.core.models import CreatorModelMixin, KitBaseModel
+from wagtailkit.core.models import CreatorModelMixin, KitBaseModel, SignalAwareClusterableModel
 from wagtailkit.numerators.models import NumeratorMixin, Numerator
 from wagtailkit.partners.models import Partner, Supplier, Customer
 
@@ -98,10 +98,6 @@ class ProductCategory(index.Indexed, MPTTModel, KitBaseModel):
 
     objects = ProductCategoryManager()
 
-    inner_id = models.CharField(
-        max_length=50,
-        null=True, blank=True,
-        verbose_name=_('Inner ID'))
     slug = models.SlugField(
         null=True, blank=True,
         max_length=255,
@@ -122,9 +118,7 @@ class ProductCategory(index.Indexed, MPTTModel, KitBaseModel):
     edit_handler = ObjectList([
         MultiFieldPanel([
             FieldPanel('parent'),
-            FieldPanel('inner_id'),
             FieldPanel('slug'),
-            FieldPanel('inner_id'),
             FieldPanel('name'),
         ])
     ])
@@ -157,7 +151,6 @@ class ProductTag(TaggedItemBase):
 
 
 class ProductManager(PolymorphicManager):
-
     def get_by_natural_key(self, inner_id):
         return self.get(inner_id=inner_id)
 
@@ -174,7 +167,11 @@ class ProductManager(PolymorphicManager):
         return self.filter(can_be_sold=True)
 
 
-class Product(ClusterableModel, CreatorModelMixin, NumeratorMixin, KitBaseModel, PolymorphicModel):
+class Product(SignalAwareClusterableModel,
+              CreatorModelMixin,
+              NumeratorMixin,
+              KitBaseModel,
+              PolymorphicModel):
     class Meta:
         verbose_name = _('Product')
         verbose_name_plural = _('Products')

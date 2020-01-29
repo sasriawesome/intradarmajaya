@@ -138,8 +138,7 @@ class Employee(ClusterableModel, CreatorModelMixin, MetaFieldMixin, KitBaseModel
         verbose_name=_("Employment"))
     attachment = models.ForeignKey(
         Document, on_delete=models.SET_NULL, null=True, blank=True,
-        verbose_name=_('Attachment'), help_text=_('Contract Document')
-    )
+        verbose_name=_('Attachment'), help_text=_('Contract Document'))
     is_active = models.BooleanField(
         default=False, verbose_name=_("Active"))
 

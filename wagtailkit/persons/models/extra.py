@@ -50,10 +50,14 @@ class ContactInfo(models.Model):
         max_length=MAX_LEN_SHORT,
         null=True, blank=True,
         verbose_name=_('Phone 1'))
-    phone2 = models.CharField(
+    fax = models.CharField(
         max_length=MAX_LEN_SHORT,
         null=True, blank=True,
-        verbose_name=_('Phone 2'))
+        verbose_name=_('Fax'))
+    whatsapp = models.CharField(
+        max_length=MAX_LEN_SHORT,
+        null=True, blank=True,
+        verbose_name=_('Whatsapp'))
     email = models.EmailField(
         max_length=MAX_LEN_SHORT,
         null=True, blank=True,

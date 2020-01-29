@@ -1,0 +1,106 @@
+{% extends 'modeladmin/products/product/inspect.html' %}
+{% load i18n static wagtailadmin_tags %}
+
+{% block header_left %}
+<ul class="head-list">
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Number' %}</span>
+        <span class="list-value">: {{ instance.inner_id }}</span>
+    </li>
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Name' %}</span>
+        <span class="list-value">: {{ instance.name }}</span>
+    </li>
+    <li class="head-list-item">
+        <span class="list-label"> {% trans 'Category' %}</span>
+        <span class="list-value">: {% firstof instance.category '-' %}</span>
+    </li>
+</ul>
+<ul class="head-list">
+    <li class="head-list-item">
+        <span class="list-label"> {% trans 'Description' %}</span> :
+        <p class="list-value">{{ instance.description | safe }}</p>
+    </li>
+</ul>
+{% endblock %}
+
+
+{% block header_right %}
+<ul class="head-list">
+
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Date created' %}</span>
+        <span class="list-value">: {{ instance.date_created }}</span>
+    </li>
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Unit price' %}</span>
+        <span class="list-value">: {{ instance.unit_price }}</span>
+    </li>
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Unit of measure' %}</span>
+        <span class="list-value">: {{ instance.unit_of_measure }}</span>
+    </li>
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Status' %} :</span>
+        <span class="list-value">:
+            {% if instance.is_active %}
+                {% trans 'Active' %}
+            {% else %}
+                {% trans 'Inactive' %}
+            {% endif %}
+        </span>
+    </li>
+</ul>
+{% endblock %}
+
+
+{% block body_listing %}
+{% if instance.product_fees.all %}
+<h3><i class="icon icon-fa-list"></i>
+    <strong> {% trans 'Extra Fees' as fees %}{{ fees | upper }}</strong>
+</h3>
+<table class="listing full-width">
+    <thead>
+    <tr>
+        <th width="70%">{% trans 'Name' %}</th>
+        <th style="text-align: right;">{% trans 'Price' %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% with instance.product_fees.all as params %}
+    {% for item in params %}
+    <tr>
+        <td>{{ item.fee }}</td>
+        <td style="text-align: right;">{{ item.price }}</td>
+    </tr>
+    {% endfor %}
+    {% endwith %}
+    </tbody>
+</table>
+{% endif %}
+
+{% if instance.product_parameters.all %}
+<h3><i class="icon icon-fa-list"></i>
+    <strong> {% trans 'Parameters' as params %}{{ params | upper }}</strong>
+</h3>
+<table class="listing full-width">
+    <thead>
+    <tr>
+        <th width="70%">{% trans 'Name' %}</th>
+        <th style="text-align: right;">{% trans 'Price' %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% with instance.product_parameters.all as params %}
+    {% for item in params %}
+    <tr>
+        <td>{{ item.tarif }}</td>
+        <td style="text-align: right;">{{ item.price }}</td>
+    </tr>
+    {% endfor %}
+    {% endwith %}
+    </tbody>
+</table>
+{% endif %}
+
+{% endblock %}

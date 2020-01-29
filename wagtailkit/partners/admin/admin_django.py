@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils import translation
 
 from wagtailkit.partners.models import (
-    PersonAsPartner, Partner,
+    PersonAsPartner, Partner, Customer, Supplier,
     PartnerContactInfo,
     PartnerAddress)
 
@@ -43,3 +43,7 @@ class PartnerAdmin(admin.ModelAdmin):
         'is_customer', 'is_supplier',
         'is_active', 'date_created']
     inlines = [PartnerContactInfoInline, PartnerAddressInline]
+
+
+admin.site.register(Customer)
+admin.site.register(Supplier)

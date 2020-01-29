@@ -59,11 +59,14 @@ class PartnerModelAdmin(ImportExportModelAdminMixin, ModelAdmin):
 
     contact_address = ObjectList([
         InlinePanel(
-            'partnercontactinfo_set', heading=_('Contact'),
+            'partnercontactinfo_set',
+            max_num=1,
+            heading=_('Contact'),
             panels=[
                 MultiFieldPanel([
                     FieldPanel('phone1'),
-                    FieldPanel('phone2'),
+                    FieldPanel('fax'),
+                    FieldPanel('whatsapp'),
                     FieldPanel('email'),
                     FieldPanel('website')
                 ])

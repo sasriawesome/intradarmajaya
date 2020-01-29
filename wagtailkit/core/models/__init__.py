@@ -1,6 +1,6 @@
 from wagtail.contrib.settings.models import register_setting
 
-from .base import KitBaseModel, CreatorModelMixin, MetaFieldMixin
+from .base import KitBaseModel, CreatorModelMixin, MetaFieldMixin, SignalAwareClusterableModel
 from .settings import CompanySettings
 from .mixins import (
     StatusMixin, ThreeStepStatusMixin, FourStepStatusMixin,

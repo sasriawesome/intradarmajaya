@@ -87,7 +87,7 @@ class PersonAsEmployeeAdmin(admin.ModelAdmin):
 class EmployeeAdmin(admin.ModelAdmin):
     show_in_index = True
     search_fields = ['eid', ]
-    exclude = ['creator', 'date_created', 'metafield', 'person']
+    exclude = ['creator', 'date_created', 'metafield']
     list_display = ['eid', 'person', 'department', 'is_active_label', 'is_user']
     list_select_related = ['person', 'department']
 

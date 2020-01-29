@@ -134,12 +134,3 @@ class BundleModelAdmin(ProductModelAdminBase):
         ObjectList(PART_PANEL, heading=_('Spareparts')),
         ObjectList(OPTION_PANEL, heading=_('Options')),
     ])
-
-
-class ProductAdminGroup(ModelAdminGroup):
-    menu_icon = ' icon-fa-cubes'
-    menu_label = _('Products')
-    items = [InventoryModelAdmin, AssetModelAdmin, ServiceModelAdmin, BundleModelAdmin]
-
-
-modeladmin_register(ProductAdminGroup)

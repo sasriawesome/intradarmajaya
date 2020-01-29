@@ -85,8 +85,58 @@ class Partner(ClusterableModel, NumeratorMixin, KitBaseModel, CreatorModelMixin)
         supplier = getattr(self, 'supplier', None)
         return bool(supplier)
 
+    @property
+    def full_address(self):
+        address = self.get_primary_address()
+        line1 = []
+        if address.street1:
+            line1.append(address.street1)
+        if address.street2:
+            line1.append(address.street2)
+
+        line2 = []
+        if address.zipcode:
+            line2.append(address.city)
+        if address.province:
+            line2.append(address.province)
+        if address.country:
+            line2.append(address.country)
+        if address.zipcode:
+            line2.append(address.zipcode)
+
+        line1 = " ".join(line1)
+        line2 = ", ".join(line2)
+        return line1, line2
+
+    @property
+    def full_contactinfo(self):
+        contact = self.get_contact_info()
+        text = []
+        text2 = []
+        if contact.phone1:
+            text.append('Phone: %s' % contact.phone1)
+        if contact.fax:
+            text.append('Fax: %s' % contact.fax)
+        if contact.whatsapp:
+            text.append('WA: %s' % contact.whatsapp)
+        if contact.email:
+            text2.append('Email: %s' % contact.email)
+        if contact.website:
+            text2.append('Website: %s' % contact.website)
+        return ", ".join(text), ", ".join(text2)
+
     def __str__(self):
         return self.name
+
+    def get_primary_address(self):
+        address_set = getattr(self, 'partneraddress_set', None)
+        primaries = address_set.filter(is_primary=True)
+        return None if not primaries else primaries[0]
+
+    def get_contact_info(self):
+        contact_set = getattr(self, 'partnercontactinfo_set', None)
+        contacts = contact_set.all()
+        return None if not contacts else contacts[0]
 
     def natural_key(self):
         key = (self.inner_id,)

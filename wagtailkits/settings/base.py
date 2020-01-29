@@ -19,7 +19,6 @@ import environ
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -44,9 +43,20 @@ INSTALLED_APPS = [
     'wagtailkit.products',
     'wagtailkit.warehouse',
     'wagtailkit.employees',
+    'wagtailkit.ememo',
     'wagtailkit.academic',
+    'wagtailkit.teachers',
+    'wagtailkit.students',
     'wagtailkit.lectures',
+    'wagtailkit.enrollments',
+    'wagtailkit.attendances',
+    'wagtailkit.evaluations',
+    'wagtailkit.sales',
 
+    'simpellab.products',
+    'simpellab.sales',
+
+    'django_select2',
     'wagtailautocomplete',
     'wagtailfontawesome',
 
@@ -120,7 +130,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'wagtailkits.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -130,7 +139,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -152,13 +160,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Jakarta'
 
 USE_I18N = True
 
@@ -188,7 +195,7 @@ STATICFILES_DIRS = [
 # TODO Wagtail default storage
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -198,6 +205,8 @@ MEDIA_URL = "/media/"
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+SELECT2_JS = 'admin/js/vendor/select2/select2.full.min.js'
+SELECT2_CSS = 'admin/css/vendor/select2/select2.min.css'
 
 # Wagtail settings
 
@@ -215,7 +224,6 @@ DATABASES['default'].update(dj_database_url.config(conn_max_age=500, ssl_require
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
-
 
 env = environ.Env(
     SECRET_KEY=(str, ''),

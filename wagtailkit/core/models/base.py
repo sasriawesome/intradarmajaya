@@ -5,7 +5,48 @@ from django.db import models
 from django.utils import translation, timezone
 from django.conf import settings
 
+from modelcluster.models import ClusterableModel, get_all_child_m2m_relations, get_all_child_relations
+
 _ = translation.gettext_lazy
+
+
+class SignalAwareClusterableModel(ClusterableModel):
+    class Meta:
+        abstract = True
+
+    def save(self, commit_childs=True, **kwargs):
+        """
+        Save the model and commit all child relations.
+        """
+        child_relation_names = [rel.get_accessor_name() for rel in get_all_child_relations(self)]
+        child_m2m_field_names = [field.name for field in get_all_child_m2m_relations(self)]
+
+        update_fields = kwargs.pop('update_fields', None)
+        if update_fields is None:
+            real_update_fields = None
+            relations_to_commit = child_relation_names
+            m2m_fields_to_commit = child_m2m_field_names
+        else:
+            real_update_fields = []
+            relations_to_commit = []
+            m2m_fields_to_commit = []
+            for field in update_fields:
+                if field in child_relation_names:
+                    relations_to_commit.append(field)
+                elif field in child_m2m_field_names:
+                    m2m_fields_to_commit.append(field)
+                else:
+                    real_update_fields.append(field)
+
+        super(ClusterableModel, self).save(update_fields=real_update_fields, **kwargs)
+
+        # Skip commit, when post_save using signal
+        if commit_childs:
+            for relation in relations_to_commit:
+                getattr(self, relation).commit()
+
+            for field in m2m_fields_to_commit:
+                getattr(self, field).commit()
 
 
 class KitBaseModel(models.Model):
@@ -18,9 +59,11 @@ class KitBaseModel(models.Model):
         verbose_name=_('ID'))
     date_created = models.DateTimeField(
         default=timezone.now,
+        editable=False,
         verbose_name=_('Date created'))
     date_modified = models.DateTimeField(
         default=timezone.now,
+        editable=False,
         verbose_name=_('Date modified'))
 
     class Meta:
@@ -46,10 +89,11 @@ class CreatorModelMixin(models.Model):
 
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
+        editable=False,
         null=True, blank=True,
         on_delete=models.PROTECT,
-        verbose_name=_('Creator')
-    )
+        verbose_name=_('Creator'))
+
 
 class MetaFieldMixin(models.Model):
     """ Add Metafield to model, Metafield save data in json string format """

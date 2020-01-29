@@ -1,0 +1,106 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static " admin/css/dashboard.css" %}">
+<style>
+    #content-related .actionlist li {
+        list-style: none;
+    }
+
+    .app-label {
+        font-weight: bold;
+        margin-bottom: 12px;
+        display: inline-block;
+    }
+
+    .model-chips {
+        /*background-color: #f4f4f4;*/
+        display: inline-block;
+        padding: 0px 0px;
+        margin-bottom: 0px;
+        border-radius: 9px;
+        font-size: smaller;
+    }
+
+    .model-chips:hover {
+        /*background-color: #dedede;*/
+    }
+</style>
+{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+
+
+    <div class="app-{{ app.app_label }} module">
+        <table>
+            <body>
+            {% if app_list %}
+            {% for app in app_list %}
+            <tr class="app-{{ app.name }}">
+                <td scope="row">
+                    <a class="app-label"
+                       href="{{ app.app_url }}"
+                       title="{% blocktrans with name=app.name %}Models in the {{ name }} application{% endblocktrans %}">
+                        {{ app.name }}
+                    </a><br/>
+                    <ul>
+                        {% for model in app.models %}
+                        {% if model.admin_url %}
+                        <li><a class="model-chips" href="{{ model.admin_url }}">{{ model.name }}</a></li>
+                        {% else %}
+                        {{ model.name }}
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+            </body>
+        </table>
+    </div>
+
+    {% else %}
+    <p>{% trans "You don't have permission to view or edit anything." %}</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="content-related">
+    <div class="module" id="recent-actions-module">
+        <h2>{% trans 'Recent actions' %}</h2>
+        <h3>{% trans 'My actions' %}</h3>
+        {% load log %}
+        {% get_admin_log 10 as admin_log for_user user %}
+        {% if not admin_log %}
+        <p>{% trans 'None available' %}</p>
+        {% else %}
+        <ul class="actionlist">
+            {% for entry in admin_log %}
+            <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}">
+                {% if entry.is_deletion or not entry.get_admin_url %}
+                {{ entry.object_repr }}
+                {% else %}
+                <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
+                {% endif %}
+                <br>
+                {% if entry.content_type %}
+                <span class="mini quiet">{% filter capfirst %}{{ entry.content_type }}{% endfilter %}</span>
+                {% else %}
+                <span class="mini quiet">{% trans 'Unknown content' %}</span>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

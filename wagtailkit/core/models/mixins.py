@@ -31,8 +31,10 @@ class StatusMixin(models.Model):
     )
 
     status = models.CharField(
-        choices=STATUS, default=DRAFT,
+        choices=STATUS,
+        default=DRAFT,
         max_length=15,
+        editable=False,
         verbose_name=_('Status'))
 
     @property

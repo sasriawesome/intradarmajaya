@@ -47,6 +47,8 @@ def apply_create_wh_group_permissions(apps, schema_editor):
         'print_requestorder',
     ])
 
+    print(wh_users_perms)
+
     wh_staffs_perms = Permission.objects.filter(codename__in=[
         'access_admin',
 
@@ -245,11 +247,19 @@ def apply_create_wh_group_permissions(apps, schema_editor):
     ])
 
     wh_users.permissions.set(wh_users_perms, clear=True)
-    wh_staffs.permissions.set(wh_staffs_perms, clear=True)
-    wh_supervisors.permissions.set(wh_supervisors_perms, clear=True)
-    wh_managers.permissions.set(wh_managers_perms, clear=True)
-    wh_admins.permissions.set(wh_admins_perms, clear=True)
+    wh_users.save()
 
+    wh_staffs.permissions.set(wh_staffs_perms, clear=True)
+    wh_staffs.save()
+
+    wh_supervisors.permissions.set(wh_supervisors_perms, clear=True)
+    wh_supervisors.save()
+
+    wh_managers.permissions.set(wh_managers_perms, clear=True)
+    wh_managers.save()
+
+    wh_admins.permissions.set(wh_admins_perms, clear=True)
+    wh_admins.save()
 
 def revert_create_wh_group_permissions(apps, schema_editor):
     Group = apps.get_model('auth', 'Group')
