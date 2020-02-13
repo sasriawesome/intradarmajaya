@@ -1,0 +1,33 @@
+{% load i18n %}
+
+<h3 style="margin-left: -15px;"><strong>{% trans 'Basic Informations' as fe_bio %} {{ fe_bio | upper }}</strong></h3>
+<ul class="head-list">
+  {% if instance.religion %}
+  <li class="head-list-item">
+    <span class="list-label">{% trans 'Religion' %}</span>
+    <span class="list-value">: {{ instance.religion }}</span>
+  </li>
+  {% endif %}
+  {% if instance.nation %}
+  <li class="head-list-item">
+    <span class="list-label">{% trans 'Nation' %}</span>
+    <span class="list-value">: {{ instance.nation }}</span>
+  </li>
+  {% endif %}
+  {% if instance.date_of_birth %}
+  <li class="head-list-item">
+    <span class="list-label">{% trans 'Date of birth' %}</span>
+    <span class="list-value">: {{ instance.date_of_birth }}</span>
+  </li>
+  {% endif %}
+  {% if instance.place_of_birth %}
+  <li class="head-list-item">
+    <span class="list-label">{% trans 'Place of birth' %}</span>
+    <span class="list-value">: {{ instance.place_of_birth }}</span>
+  </li>
+  {% endif %}
+  <li class="head-list-item">
+    <span class="list-label">{% trans 'Last education' %}</span>
+    <span class="list-value">: {{ instance.get_last_education_level_display }} / {{ instance.last_education_name }}</span>
+  </li>
+</ul>

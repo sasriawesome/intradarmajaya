@@ -5,36 +5,30 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin import messages
 from wagtail.admin.edit_handlers import (
-    FieldPanel, InlinePanel, MultiFieldPanel, FieldRowPanel,
-    TabbedInterface, ObjectList)
-from wagtail.documents.edit_handlers import DocumentChooserPanel
+    FieldPanel, InlinePanel, MultiFieldPanel, TabbedInterface, ObjectList)
 
-from wagtail.contrib.modeladmin.options import ModelAdmin, ModelAdminGroup, modeladmin_register
-from wagtail.contrib.modeladmin.views import IndexView, ModelFormView
+from wagtail.contrib.modeladmin.options import ModelAdmin
 
-from wagtailkit.admin.helpers import ButtonHelper, AdminURLHelper
 from wagtailkit.admin.views import CreateView
-from wagtailkit.printpdf.admin import PrintPDFModelAdminMixin
-from wagtailkit.printpdf.helpers import PrintPDFButtonHelperMixin
+from wagtailkit.autocompletes.edit_handlers import AutocompletePanel
 from wagtailkit.importexport.admin import ImportExportModelAdminMixin
-from wagtailkit.importexport.views import ImportExportIndexView
-from wagtailkit.importexport.helpers import ImportExportAdminURLHelperMixin
-
 from wagtailkit.partners.resources import PartnerResource, CustomerResource, SupplierResource
-from wagtailkit.partners.models import PersonAsPartner, Partner, Customer, Supplier
+from wagtailkit.partners.models import PartnerPersonal, Partner, Customer, Supplier
 
 from wagtailkit.persons.admin import PersonModelAdmin
 
 
-class PersonAsPartnerModelAdmin(PersonModelAdmin):
-    model = PersonAsPartner
+class PartnerPersonalModelAdmin(PersonModelAdmin):
+    menu_icon = 'fa-user'
+    menu_label = _('Partner Personals')
+    model = PartnerPersonal
 
 
 class PartnerModelAdmin(ImportExportModelAdminMixin, ModelAdmin):
     model = Partner
     resource_class = PartnerResource
     create_view_class = CreateView
-    menu_icon = 'fa-address-book'
+    menu_icon = 'fa-user'
     search_fields = ['name', 'inner_id']
     list_filter = ['date_created', 'is_active']
     list_display = ['inner_id', 'name', 'owner', 'is_customer', 'is_supplier', 'creator', 'date_created']
@@ -50,18 +44,16 @@ class PartnerModelAdmin(ImportExportModelAdminMixin, ModelAdmin):
 
     basic_panel = ObjectList([
         MultiFieldPanel([
-            FieldPanel('owner'),
+            AutocompletePanel('owner'),
             FieldPanel('name'),
             FieldPanel('is_company'),
             FieldPanel('is_active'),
-        ], heading=_('Partner')),
+        ]),
     ], heading=_('Basic Informations'))
 
     contact_address = ObjectList([
         InlinePanel(
-            'partnercontactinfo_set',
-            max_num=1,
-            heading=_('Contact'),
+            'partnercontactinfo_set', max_num=1,
             panels=[
                 MultiFieldPanel([
                     FieldPanel('phone1'),
@@ -76,7 +68,7 @@ class PartnerModelAdmin(ImportExportModelAdminMixin, ModelAdmin):
 
     address_panel = ObjectList([
         InlinePanel(
-            'partneraddress_set', heading=_('Billing Address'),
+            'partneraddress_set',
             panels=[
                 MultiFieldPanel([
                     FieldPanel('is_primary'),
@@ -101,14 +93,14 @@ class CustomerModelAdmin(ImportExportModelAdminMixin, ModelAdmin):
     model = Customer
     resource_class = CustomerResource
     create_view_class = CreateView
-    menu_icon = 'fa-address-book'
+    menu_icon = 'fa-user'
     search_fields = ['name', 'inner_id']
     list_filter = ['date_created', 'partner__name']
     list_display = ['inner_id', 'partner', 'creator', 'date_created']
 
     edit_handler = ObjectList([
         MultiFieldPanel([
-            FieldPanel('partner'),
+            AutocompletePanel('partner'),
         ], heading=_('Partner')),
         InlinePanel(
             'customer_contactpersons', heading=_('Contact persons'),
@@ -128,14 +120,14 @@ class SupplierModelAdmin(ImportExportModelAdminMixin, ModelAdmin):
     model = Supplier
     resource_class = SupplierResource
     create_view_class = CreateView
-    menu_icon = 'fa-address-book'
+    menu_icon = 'fa-user'
     search_fields = ['name', 'inner_id', 'partner__name']
     list_filter = ['date_created']
     list_display = ['inner_id', 'partner', 'creator', 'date_created']
 
     edit_handler = ObjectList([
         MultiFieldPanel([
-            FieldPanel('partner'),
+            AutocompletePanel('partner'),
         ], heading=_('Partner')),
         InlinePanel(
             'supplier_contactpersons', heading=_('Contact persons'),
@@ -149,11 +141,3 @@ class SupplierModelAdmin(ImportExportModelAdminMixin, ModelAdmin):
             ]
         ),
     ])
-
-
-class PartnerModelAdminGroup(ModelAdminGroup):
-    menu_icon = 'fa-address-book'
-    items = [PersonAsPartnerModelAdmin, PartnerModelAdmin, CustomerModelAdmin, SupplierModelAdmin]
-
-
-modeladmin_register(PartnerModelAdminGroup)

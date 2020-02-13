@@ -31,7 +31,6 @@
                             <h1 class="paper-title">{{ instance }}</h1>
                         {% endblock %}
                     </div>
-                    <br/>
                     <div class="paper-head">
                         <div class="col6">
                             {% block header_left %}
@@ -42,9 +41,12 @@
                             {% endblock %}
                         </div>
                     </div>
-                    <br/>
                     <div class="listing">
+                        {% block before_body_listing %}
+                        {% endblock %}
                         {% block body_listing %}
+                        {% endblock %}
+                        {% block after_body_listing %}
                         {% endblock %}
                     </div>
                     <p class="back">

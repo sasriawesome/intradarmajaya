@@ -65,6 +65,7 @@ class KitBaseModel(models.Model):
         default=timezone.now,
         editable=False,
         verbose_name=_('Date modified'))
+    is_deleted = models.BooleanField(default=False, editable=False)
 
     class Meta:
         abstract = True

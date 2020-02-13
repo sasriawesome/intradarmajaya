@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils import translation
 
 from wagtailkit.partners.models import (
-    PersonAsPartner, Partner, Customer, Supplier,
+    PartnerPersonal, Partner, Customer, Supplier,
     PartnerContactInfo,
     PartnerAddress)
 
@@ -14,7 +14,7 @@ class PartnerInline(admin.TabularInline):
     can_delete = False
 
 
-@admin.register(PersonAsPartner)
+@admin.register(PartnerPersonal)
 class OwnerAdmin(admin.ModelAdmin):
     show_in_index = True
     search_fields = ['person__name', 'partner__name']

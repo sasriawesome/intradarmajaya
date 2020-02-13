@@ -5,7 +5,7 @@ from wagtailkit.persons.models import (
     Person, Skill, Award,
     FormalEducation, NonFormalEducation,
     Volunteer, Working, Family, PersonAddress,
-    ContactInfo, Publication, EducationLevel
+    ContactInfo, Publication
 )
 
 
@@ -67,7 +67,3 @@ class PublicationType(DjangoObjectType):
     class Meta:
         model = Publication
 
-
-class EducationLevelType(DjangoObjectType):
-    class Meta:
-        model = EducationLevel

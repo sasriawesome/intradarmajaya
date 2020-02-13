@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.exceptions import ValidationError
 
-from polymorphic.models import PolymorphicModel
+from polymorphic.models import PolymorphicModel, PolymorphicManager
 from polymorphic.utils import get_base_polymorphic_model
 from wagtail.core.models import Orderable, ClusterableModel
 from modelcluster.fields import ParentalKey
@@ -17,6 +17,24 @@ from wagtailkit.products.models import Inventory, Asset
 from wagtailkit.numerators.models import Numerator, NumeratorMixin
 from wagtailkit.warehouse.models import WarehouseLocation, RequestOrder
 
+class ProductTransferManager(PolymorphicManager):
+
+    def get_queryset(self):
+        return super().get_queryset()
+
+    def get_summary(self, date_start=None, date_end=None):
+        qs = self.get_queryset()
+        if date_start and date_end:
+            qs = self.get_queryset().filter(date_created__gte=date_start, date_created__lte=date_end)
+        return qs.aggregate(
+            count_trash=models.Count('id', filter=models.Q(status=ProductTransfer.TRASH)),
+            count_draft=models.Count('id', filter=models.Q(status=ProductTransfer.DRAFT)),
+            count_valid=models.Count('id', filter=models.Q(status=ProductTransfer.VALID)),
+            count_processed=models.Count('id', filter=models.Q(status=ProductTransfer.PROCESS)),
+            count_completed=models.Count('id', filter=models.Q(status=ProductTransfer.COMPLETE)),
+            count_close=models.Count('id', filter=models.Q(status=ProductTransfer.CLOSED)),
+            count_total=models.Count('id'),
+        )
 
 class ProductTransfer(ClusterableModel, NumeratorMixin, FourStepStatusMixin,
                       CreatorModelMixin, PolymorphicModel, KitBaseModel):
@@ -38,6 +56,8 @@ class ProductTransfer(ClusterableModel, NumeratorMixin, FourStepStatusMixin,
         (IN, 'Check in'),
         (OUT, 'Check out'),
     )
+
+    objects = ProductTransferManager()
 
     reftype = models.CharField(
         max_length=3, choices=REF, default=IN,

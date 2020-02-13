@@ -61,21 +61,18 @@ class SnippetBase(index.Indexed, KitBaseModel):
         return key
 
 
-@register_snippet
 class PaymentMethod(SnippetBase):
     class Meta:
         verbose_name = _('Payment Method')
         verbose_name_plural = _('Payment Methods')
 
 
-@register_snippet
 class DeliveryMethod(SnippetBase):
     class Meta:
         verbose_name = _('Delivery Method')
         verbose_name_plural = _('Delivery Methods')
 
 
-@register_snippet
 class UnitOfMeasure(SnippetBase):
     class Meta:
         verbose_name = _('Unit of measure')
@@ -90,7 +87,6 @@ class ProductCategoryManager(TreeManager):
         return self.get(name=name)
 
 
-@register_snippet
 class ProductCategory(index.Indexed, MPTTModel, KitBaseModel):
     class Meta:
         verbose_name = _('Product Category')
@@ -303,6 +299,19 @@ class Specification(Orderable, KitBaseModel):
         return "{} ({})".format(self.product.name, self.feature.name)
 
 
+class InventoryManager(ProductManager):
+
+    def get_summary(self):
+        return self.get_queryset().prefetch_related('stockcard').annotate(
+            total_price = models.ExpressionWrapper(
+                models.F('unit_price') * models.F('stockcard__stock_on_hand'), output_field=models.DecimalField()
+            )
+        ).aggregate(
+            total_value = models.Sum('total_price'),
+            total_item = models.Count('id')
+        )
+
+
 class Inventory(Product):
     class Meta:
         verbose_name = _('Inventory')
@@ -315,12 +324,24 @@ class Inventory(Product):
         )
 
     doc_code = 'PRD.INV'
+    objects = InventoryManager()
 
     def save(self, *args, **kwargs):
         self.is_stockable = True
         self.is_consumable = True
         super().save(*args, **kwargs)
 
+class AssetManager(ProductManager):
+
+    def get_summary(self):
+        return self.get_queryset().prefetch_related('stockcard').annotate(
+            total_price = models.ExpressionWrapper(
+                models.F('unit_price') * models.F('stockcard__stock_on_hand'), output_field=models.DecimalField()
+            )
+        ).aggregate(
+            total_value = models.Sum('total_price'),
+            total_item = models.Count('id')
+        )
 
 class Asset(Product):
     class Meta:
@@ -334,6 +355,8 @@ class Asset(Product):
         )
 
     doc_code = 'PRD.ASS'
+
+    objects = AssetManager()
 
     def save(self, *args, **kwargs):
         self.is_stockable = True

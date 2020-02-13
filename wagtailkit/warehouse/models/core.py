@@ -6,7 +6,6 @@ from django.dispatch import receiver
 
 from mptt.models import MPTTModel, TreeForeignKey
 
-from wagtail.snippets.models import register_snippet
 from wagtail.search import index
 
 from wagtailkit.core.models.settings import CompanySettings
@@ -15,7 +14,6 @@ from wagtailkit.numerators.models import NumeratorMixin
 from wagtailkit.products.models import Product, Inventory, Asset
 
 
-@register_snippet
 class WarehouseLocation(index.Indexed, MPTTModel):
     class Meta:
         verbose_name = _("Location")
@@ -33,9 +31,9 @@ class WarehouseLocation(index.Indexed, MPTTModel):
         null=True, blank=True,
         on_delete=models.SET_NULL,
         verbose_name=_('Parent'))
-    inner_id = models.CharField(
+    code = models.CharField(
         max_length=MAX_LEN_SHORT,
-        verbose_name=_('Inner ID'))
+        verbose_name=_('Code'))
     name = models.CharField(
         max_length=MAX_LEN_MEDIUM,
         verbose_name=_('Name'))
@@ -186,7 +184,6 @@ class StockCard(KitBaseModel):
         )
 
         return adjustments.union(transfers).order_by('date')
-
 
     def get_history_items(self, request, date_from=None, date_until=None):
         histories = self.get_history_queryset(request, date_from, date_until)

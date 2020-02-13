@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from import_export.admin import ImportExportMixin
-from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
+from mptt.admin import MPTTModelAdmin
 from polymorphic.admin import PolymorphicParentModelAdmin, PolymorphicChildModelAdmin
 
 from wagtailkit.products.models import (
@@ -26,7 +26,7 @@ class UnitOfMeasureAdmin(ImportExportMixin, admin.ModelAdmin):
 
 
 @admin.register(ProductCategory)
-class ProductCategoryAdmin(MPTTModelAdmin):
+class ProductCategoryAdmin(ImportExportMixin, MPTTModelAdmin):
     search_fields = ['name']
     list_display = ['name', 'parent', 'tree_id']
     raw_id_fields = ['parent']

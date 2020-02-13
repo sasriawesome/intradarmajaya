@@ -4,55 +4,17 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.messages import messages
 from wagtail.admin.edit_handlers import (
-    FieldPanel, InlinePanel, MultiFieldPanel, RichTextFieldPanel, TabbedInterface, ObjectList)
+    FieldPanel, InlinePanel, MultiFieldPanel, TabbedInterface, ObjectList)
+from wagtail.contrib.modeladmin.options import ModelAdmin
 
-from wagtailautocomplete.edit_handlers import AutocompletePanel
-
+from wagtailkit.autocompletes.edit_handlers import AutocompletePanel
 from wagtailkit.printpdf.admin import PrintPDFModelAdminMixin
-from wagtailkit.printpdf.helpers import PrintPDFButtonHelperMixin
-from wagtailkit.warehouse.models import TransferCheckIn, TransferCheckOut, TransferScrapped
+from wagtailkit.warehouse.models import (
+    TransferCheckIn, TransferCheckOut, TransferScrapped, WarehouseLocation)
 from wagtailkit.admin.admin import StatusModelAdminMixin
-from wagtailkit.admin.helpers import FourStepStatusButtonHelper, PermissionHelper
 from wagtailkit.admin.views import CreateView, EditView
 
-INVENTORY_PANEL = [
-    InlinePanel(
-        'inventory_transfers',
-        panels=[
-            FieldPanel('product'),
-            FieldPanel('quantity'),
-        ]
-    ),
-]
-
-ASSET_PANEL = [
-    InlinePanel(
-        'asset_transfers',
-        panels=[
-            FieldPanel('product'),
-            FieldPanel('quantity'),
-        ]
-    ),
-]
-
-
-class ProductTransferPermissionHelper(PermissionHelper):
-    """ Request Order PermissionHelper """
-
-    def user_can_edit_obj(self, user, obj):
-        can_change = self.user_can('change', user)
-        is_editable = getattr(obj, 'is_editable', None)
-        if user.is_superuser:
-            return True
-        if can_change and is_editable:
-            return True
-        else:
-            return False
-
-
-class ProductTransferButtonHelper(PrintPDFButtonHelperMixin, FourStepStatusButtonHelper):
-    # Exclude action
-    buttons_exclude = ['approve', 'reject']
+from .helpers import ProductTransferButtonHelper, ProductTransferPermissionHelper
 
 
 class ProductTransferModelAdminBase(PrintPDFModelAdminMixin, StatusModelAdminMixin):
@@ -63,6 +25,36 @@ class ProductTransferModelAdminBase(PrintPDFModelAdminMixin, StatusModelAdminMix
     create_view_class = CreateView
     edit_view_class = EditView
     list_per_page = 20
+
+    order_panel = NotImplemented
+
+    inventory_panels = [
+        InlinePanel(
+            'inventory_transfers',
+            panels=[
+                AutocompletePanel('product'),
+                FieldPanel('quantity'),
+            ]
+        ),
+    ]
+
+    asset_panels = [
+        InlinePanel(
+            'asset_transfers',
+            panels=[
+                AutocompletePanel('product'),
+                FieldPanel('quantity'),
+            ]
+        ),
+    ]
+
+    def get_edit_handler(self, instance, request):
+        edit_handler = TabbedInterface([
+            ObjectList(self.order_panel, heading=_('Information')),
+            ObjectList(self.inventory_panels, heading=_('Inventory')),
+            ObjectList(self.asset_panels, heading=_('Asset')),
+        ])
+        return edit_handler
 
 
 class TransferCheckInModelAdmin(ProductTransferModelAdminBase):
@@ -83,12 +75,6 @@ class TransferCheckInModelAdmin(ProductTransferModelAdminBase):
             FieldPanel('description'),
         ]),
     ]
-
-    edit_handler = TabbedInterface([
-        ObjectList(order_panel, heading=_('Information')),
-        ObjectList(INVENTORY_PANEL, heading=_('Inventory')),
-        ObjectList(ASSET_PANEL, heading=_('Asset')),
-    ])
 
     def complete_view(self, request, instance_pk):
         # Set status
@@ -125,12 +111,6 @@ class TransferCheckOutModelAdmin(ProductTransferModelAdminBase):
             FieldPanel('description'),
         ]),
     ]
-
-    edit_handler = TabbedInterface([
-        ObjectList(order_panel, heading=_('Information')),
-        ObjectList(INVENTORY_PANEL, heading=_('Inventory')),
-        ObjectList(ASSET_PANEL, heading=_('Asset')),
-    ])
 
     def validate_view(self, request, instance_pk):
         # Set status
@@ -189,12 +169,6 @@ class TransferScrappedModelAdmin(ProductTransferModelAdminBase):
         ]),
     ]
 
-    edit_handler = TabbedInterface([
-        ObjectList(order_panel, heading=_('Information')),
-        ObjectList(INVENTORY_PANEL, heading=_('Inventory')),
-        ObjectList(ASSET_PANEL, heading=_('Asset')),
-    ])
-
     def validate_view(self, request, instance_pk):
         # Set status
         codename = 'validate'
@@ -224,3 +198,18 @@ class TransferScrappedModelAdmin(ProductTransferModelAdminBase):
         except Exception as err:
             messages.add_message(request, messages.ERROR, err)
             return redirect(self.url_helper.get_action_url('inspect', quote(instance_pk)))
+
+
+class WarehouseLocationModelAdmin(ModelAdmin):
+    model = WarehouseLocation
+    menu_label = _('Locations')
+    menu_icon = 'fa-podcast'
+
+    edit_handler = ObjectList([
+        MultiFieldPanel([
+            FieldPanel('parent'),
+            FieldPanel('code'),
+            FieldPanel('name'),
+            FieldPanel('loc_type'),
+        ])
+    ])

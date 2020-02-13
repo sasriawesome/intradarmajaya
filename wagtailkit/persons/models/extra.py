@@ -1,4 +1,4 @@
-import uuid
+import enum
 from django.db import models
 from django.utils import translation, text, timezone
 
@@ -11,35 +11,17 @@ from wagtailkit.core.models import (
 
 _ = translation.gettext_lazy
 
-
-@register_snippet
-class EducationLevel(KitBaseModel):
-    class Meta:
-        verbose_name = _('Education Level')
-        verbose_name_plural = _('Education Levels')
-
-    slug = models.CharField(
-        max_length=3, unique=True,
-        verbose_name=_("Slug"))
-    name = models.CharField(
-        max_length=MAX_LEN_SHORT,
-        verbose_name=_("Name"))
-    description = models.TextField(
-        max_length=MAX_LEN_MEDIUM,
-        null=True, blank=True,
-        verbose_name=_("Description"))
-
-    edit_handler = ObjectList([
-        MultiFieldPanel([
-            FieldPanel('slug'),
-            FieldPanel('name'),
-            FieldPanel('description'),
-        ])
-    ])
-
-    def __str__(self):
-        self.slug = text.slugify(self.slug).upper()
-        return self.name
+class KKNILevel(enum.Enum):
+    SD = '0'
+    SMP = '1'
+    SMA = '2'
+    D1 = '3'
+    D2 = '4'
+    D3 = '5'
+    D4 = '6'
+    S1 = '7'
+    S2 = '8'
+    S3 = '9'
 
 
 class ContactInfo(models.Model):

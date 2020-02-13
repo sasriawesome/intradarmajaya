@@ -1,7 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import Group, Permission
-from django.utils.html import format_html
-from django.templatetags.static import static
 from wagtail.core import hooks
 from wagtail.core.models import (
     Collection,
@@ -10,27 +8,22 @@ from wagtail.core.models import (
 )
 
 
-@hooks.register('insert_global_admin_css')
-def global_admin_css():
-    return format_html('<link rel="stylesheet" href="{}">', static('wagtailkit/css/admin_theme.css'))
-
-
 @hooks.register('after_create_user')
 def create_group_and_collection_for_user(request, user):
     """ Create private collection and group for given User """
 
     group_prefix = 'USER_GROUP_'
-    collection_prefix = 'USER_COLLECTION'
+    collection_prefix = 'USER_COLLECTION_'
 
     # create user's private_group and bind to user
-    group_name = '%s_%s_%s' % (group_prefix, user.username, str(user.id))
+    group_name = '%s_%s_%s' % (group_prefix, user.username, str(user.id).replace('-','')[0:8])
     group, new_group = Group.objects.get_or_create(
         name=group_name,
         defaults={'name': group_name}
     )
 
     # create user's private_collection
-    collection_name = '%s_%s_%s' % (collection_prefix, user.username, str(user.id))
+    collection_name = '%s_%s_%s' % (collection_prefix, user.username, str(user.id).replace('-','')[0:8])
     collection = Collection(name=collection_name)
     root_collection = Collection.get_first_root_node()
     root_collection.add_child(instance=collection)

@@ -5,6 +5,7 @@ def apply_create_wh_group(apps, schema_editor):
     """ Create Warehouse Groups """
     Group = apps.get_model('auth', 'Group')
     Group.objects.bulk_create([
+        Group(name=u'Warehouse Assists'),
         Group(name=u'Warehouse Users'),
         Group(name=u'Warehouse Staffs'),
         Group(name=u'Warehouse Supervisors'),
@@ -18,6 +19,7 @@ def revert_create_wh_group(apps, schema_editor):
     Group = apps.get_model('auth', 'Group')
     Group.objects.filter(name__in=[
         u'Warehouse Users',
+        u'Warehouse Assists',
         u'Warehouse Staffs',
         u'Warehouse Supervisors',
         u'Warehouse Managers',
@@ -29,15 +31,25 @@ def apply_create_wh_group_permissions(apps, schema_editor):
     Group = apps.get_model('auth', 'Group')
     Permission = apps.get_model('auth', 'Permission')
 
-    wh_users, created = Group.objects.get_or_create(name=u'Warehouse Users')
+    wh_assists, created = Group.objects.get_or_create(name=u'Warehouse Assists')
+    wh_users, created = Group.objects.get_or_create(name=u'Warehouse User')
     wh_staffs, created = Group.objects.get_or_create(name=u'Warehouse Staffs')
     wh_supervisors, created = Group.objects.get_or_create(name=u'Warehouse Supervisors')
     wh_managers, created = Group.objects.get_or_create(name=u'Warehouse Managers')
     wh_admins, created = Group.objects.get_or_create(name=u'Warehouse Admins')
 
+    wh_assists_perms = Permission.objects.filter(codename__in=[
+        'access_admin',
+        'view_requestorder',
+        'add_requestorder',
+        'change_requestorder',
+        'trash_requestorder',
+        'draft_requestorder',
+        'print_requestorder',
+    ])
+
     wh_users_perms = Permission.objects.filter(codename__in=[
         'access_admin',
-
         'view_requestorder',
         'add_requestorder',
         'change_requestorder',
@@ -46,8 +58,6 @@ def apply_create_wh_group_permissions(apps, schema_editor):
         'validate_requestorder',
         'print_requestorder',
     ])
-
-    print(wh_users_perms)
 
     wh_staffs_perms = Permission.objects.filter(codename__in=[
         'access_admin',
@@ -246,6 +256,9 @@ def apply_create_wh_group_permissions(apps, schema_editor):
         'print_transferscrapped',
     ])
 
+    wh_assists.permissions.set(wh_assists_perms, clear=True)
+    wh_assists.save()
+
     wh_users.permissions.set(wh_users_perms, clear=True)
     wh_users.save()
 
@@ -264,6 +277,12 @@ def apply_create_wh_group_permissions(apps, schema_editor):
 def revert_create_wh_group_permissions(apps, schema_editor):
     Group = apps.get_model('auth', 'Group')
     Permission = apps.get_model('auth', 'Permission')
+
+    wh_user_assistants = Group.objects.get(name=u'Warehouse User Assistants')
+    wh_user_assistants.permissions.clear()
+
+    wh_users = Group.objects.get(name=u'Warehouse Users')
+    wh_users.permissions.clear()
 
     wh_users = Group.objects.get(name=u'Warehouse Users')
     wh_users.permissions.clear()

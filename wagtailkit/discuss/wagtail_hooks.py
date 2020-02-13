@@ -1,3 +1,4 @@
+from django.contrib.auth import get_permission_codename
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.site_summary import SummaryItem
 from wagtail.core import hooks
@@ -18,9 +19,6 @@ class DiscussionWelcomePanel(SummaryItem):
         }
 
     def is_shown(self):
-        # return permission_policy.user_has_any_permission(
-        #     self.request.user, ['add', 'change', 'delete']
-        # )
         return True
 
 

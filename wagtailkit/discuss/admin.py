@@ -5,11 +5,10 @@ from wagtail.contrib.modeladmin.views import CreateView, IndexView, InspectView
 from wagtail.contrib.modeladmin.helpers import PermissionHelper, ButtonHelper
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, ObjectList, InlinePanel, TabbedInterface
 
-from .models import Discussion
+from .models import Discussion, DiscussionCategory
 
 
 class DiscussionIndexView(IndexView):
-
     def inspect_url(self):
         return self.url_helper.get_action_url('inspect')
 
@@ -27,7 +26,6 @@ class DiscussionInspectView(InspectView):
 
 
 class DiscussionCreateView(CreateView):
-
     def get_instance(self):
         instance = super().get_instance()
         instance.creator = self.request.user
@@ -54,7 +52,6 @@ class DiscussionButtonHelper(ButtonHelper):
 
 
 class DiscussionPermissionHelper(PermissionHelper):
-
     def user_can_edit_obj(self, user, obj):
         edit_own = self.get_perm_codename('change')
         edit_other = self.get_perm_codename('changeother')
@@ -76,8 +73,9 @@ class DiscussionPermissionHelper(PermissionHelper):
             return can_delete and obj.creator == user
 
 
-class DiscussionAdmin(ModelAdmin):
-    menu_icon = 'openquote'
+class DiscussionModelAdmin(ModelAdmin):
+    menu_label = _('Discusses')
+    menu_icon = 'fa-comments'
     model = Discussion
     inspect_view_enabled = True
     index_view_class = DiscussionIndexView
@@ -118,10 +116,20 @@ class DiscussionAdmin(ModelAdmin):
             return qs
         else:
             owner_filter = (
-                    models.Q(status__exact=self.model.PUBLISHED)
-                    | models.Q(creator__exact=request.user)
+                models.Q(status__exact=self.model.PUBLISHED)
+                | models.Q(creator__exact=request.user)
             )
             return qs.filter(owner_filter)
 
 
-modeladmin_register(DiscussionAdmin)
+class DiscussionCategoryModelAdmin(ModelAdmin):
+    menu_icon = 'fa-tags'
+    menu_label = _('Categories')
+    model = DiscussionCategory
+
+    edit_handler = ObjectList([
+        MultiFieldPanel([
+            FieldPanel('name'),
+            FieldPanel('description')
+        ])
+    ])

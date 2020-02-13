@@ -1,4 +1,4 @@
-from django.contrib.admin.utils import quote, capfirst
+from django.contrib.admin.utils import quote
 from django.conf.urls import url
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import gettext_lazy as _
@@ -10,22 +10,14 @@ from wagtail.admin.edit_handlers import (
     FieldPanel, InlinePanel, FieldRowPanel, TabbedInterface,
     MultiFieldPanel, ObjectList)
 
-from wagtailkit.admin.views import CreateView, InspectView
-from wagtailkit.admin.helpers import ButtonHelper, PermissionHelper
+from wagtailkit.autocompletes.edit_handlers import AutocompletePanel
+from wagtailkit.admin.views import CreateView
+from wagtailkit.admin.helpers import PermissionHelper
 from wagtailkit.printpdf.admin import PrintPDFModelAdminMixin
-from wagtailkit.printpdf.helpers import PrintPDFButtonHelperMixin
-from wagtailkit.importexport.admin import ImportExportModelAdminMixin
 from wagtailkit.warehouse.models import StockCard, StockAdjustment
 
-from wagtailautocomplete.edit_handlers import AutocompletePanel
-
-class StockCardInspectView(InspectView):
-    def get_context_data(self, **kwargs):
-        context = {
-            'histories': self.instance.get_history_items(self.request)
-        }
-        context.update(kwargs)
-        return super().get_context_data(**context)
+from .helpers import AdjustmentButtonHelper
+from .views import StockCardInspectView
 
 
 class StockCardModelAdmin(ModelAdmin):
@@ -37,36 +29,6 @@ class StockCardModelAdmin(ModelAdmin):
     search_fields = ['product__inner_id', 'product__name']
     list_display = ['product', 'stock_min', 'stock_max', 'stock_on_hand', 'stock_on_request',
                     'stock_on_delivery', 'stock_scrapped', 'stock', 'unit_price', 'total_price']
-
-
-class AdjustmentButtonHelper(PrintPDFButtonHelperMixin, ButtonHelper):
-    """ Stock adjusment button helper """
-
-    buttons_exclude = []
-
-    def get_buttons_for_obj(self, obj, exclude=None, classnames_add=None, classnames_exclude=None):
-        exclude = [] if not exclude else exclude
-        exclude = exclude + self.buttons_exclude
-        classnames_add = [] if not classnames_add else classnames_add
-        classnames_exclude = [] if not classnames_exclude else classnames_exclude
-        ph = self.permission_helper
-        usr = self.request.user
-        pk = getattr(obj, self.opts.pk.attname)
-
-        # add custom button
-        btns = super().get_buttons_for_obj(obj, exclude, classnames_add, classnames_exclude)
-
-        if 'validate' not in exclude and ph.user_can('validate', usr, obj) and not obj.is_valid:
-            btns.append(self.create_custom_button('validate', pk, classnames_add, classnames_exclude))
-
-        if 'reconcile' not in exclude and ph.user_can('reconcile', usr, obj) and obj.is_valid and not obj.is_reconciled:
-            btns.append(self.create_custom_button('reconcile', pk, classnames_add, classnames_exclude))
-
-        if 'add_all_product' not in exclude and ph.user_can('reconcile', usr,
-                                                            obj) and not obj.is_valid and not obj.is_reconciled:
-            btns.append(self.create_custom_button('add_all_product', pk, classnames_add, classnames_exclude))
-
-        return btns
 
 
 class StockAdjustmentModelAdmin(PrintPDFModelAdminMixin, ModelAdmin):
@@ -92,7 +54,7 @@ class StockAdjustmentModelAdmin(PrintPDFModelAdminMixin, ModelAdmin):
 
     product_panel = [
         InlinePanel(
-            'adjusted_products', label=_('Products'),
+            'adjusted_products',
             panels=[
                 AutocompletePanel('product'),
                 FieldRowPanel([

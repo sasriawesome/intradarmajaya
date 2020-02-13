@@ -8,7 +8,9 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register, ModelAdminGroup
 from wagtail.contrib.modeladmin.views import InspectView, CreateView
 
-from wagtailkit.products.models import Product, Inventory, Asset, Service, Bundle
+from wagtailkit.products.models import (
+    Inventory, Asset, Service, Bundle,
+    PaymentMethod, ProductCategory, DeliveryMethod, UnitOfMeasure)
 from wagtailkit.products.resources import InventoryResource, AssetResource, ServiceResource, BundleResource
 from wagtailkit.importexport.admin import ImportExportModelAdminMixin
 from wagtailkit.importexport.views import ImportExportIndexView
@@ -134,3 +136,27 @@ class BundleModelAdmin(ProductModelAdminBase):
         ObjectList(PART_PANEL, heading=_('Spareparts')),
         ObjectList(OPTION_PANEL, heading=_('Options')),
     ])
+
+
+class PaymentMethodModelAdmin(ModelAdmin):
+    menu_icon = 'fa-book'
+    menu_label = _('Payments')
+    model = PaymentMethod
+
+
+class UnitOfMeasureModelAdmin(ModelAdmin):
+    menu_icon = 'fa-exchange'
+    menu_label = _('Units')
+    model = UnitOfMeasure
+
+
+class ProductCategoryModelAdmin(ModelAdmin):
+    menu_icon = 'fa-tags'
+    menu_label = _('Categories')
+    model = ProductCategory
+
+
+class DeliveryMethodModelAdmin(ModelAdmin):
+    menu_icon = 'fa-truck'
+    menu_label = _('Couriers')
+    model = DeliveryMethod

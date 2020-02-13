@@ -2,49 +2,31 @@ from django.contrib import admin
 from django.utils import translation, timezone
 from mptt.admin import MPTTModelAdmin
 
-from wagtailkit.employees.models import Department, Chair, Chairman, Employee, PersonAsEmployee
+from wagtailkit.employees.models import Employee, EmployeePersonal, Employment, ExtraPosition
 
 _ = translation.gettext_lazy
 
 
-@admin.register(Department)
-class DepartmentAdmin(MPTTModelAdmin):
-    show_in_index = True
-    exclude = ['slug', 'metafield', 'creator']
-    search_fields = ['name']
-    list_display = ['name', 'level']
-
-
-@admin.register(Chair)
-class ChairAdmin(MPTTModelAdmin):
-    show_in_index = True
-    search_fields = ['department__name']
-    exclude = ['slug', 'metafield']
-    list_select_related = ['department']
-    list_display = ['position', 'level', 'department']
-
-
-@admin.register(Chairman)
+@admin.register(ExtraPosition)
 class ChairmanAdmin(admin.ModelAdmin):
-    exclude = ['metafield']
-    list_display = ['verbose_name', 'is_active']
-    list_select_related = ['employee', 'chair']
+    list_display = ['is_active']
+    list_select_related = ['employee', 'position']
 
     def department(self, obj):
-        return obj.chair.department
+        return obj.position.department
 
 
 class EmployeeInline(admin.TabularInline):
     min_num = 1
     model = Employee
-    exclude = ['metafield', 'creator', 'date_created']
+    exclude = ['creator', 'date_created']
 
 
-@admin.register(PersonAsEmployee)
-class PersonAsEmployeeAdmin(admin.ModelAdmin):
+@admin.register(EmployeePersonal)
+class EmployeePersonalAdmin(admin.ModelAdmin):
     show_in_index = True
     inlines = [EmployeeInline]
-    exclude = ['reg_number', 'date_created', 'creator']
+    exclude = ['reg_number', 'date_created']
     search_fields = ['person__name']
     list_display = ['fullname']
 
@@ -87,7 +69,6 @@ class PersonAsEmployeeAdmin(admin.ModelAdmin):
 class EmployeeAdmin(admin.ModelAdmin):
     show_in_index = True
     search_fields = ['eid', ]
-    exclude = ['creator', 'date_created', 'metafield']
     list_display = ['eid', 'person', 'department', 'is_active_label', 'is_user']
     list_select_related = ['person', 'department']
 
@@ -102,5 +83,6 @@ class EmployeeAdmin(admin.ModelAdmin):
     is_active_label.short_description = _("Active")
 
 
+@admin.register(Employment)
 class EmploymentAdmin(admin.ModelAdmin):
-    exclude = ['slug']
+    pass

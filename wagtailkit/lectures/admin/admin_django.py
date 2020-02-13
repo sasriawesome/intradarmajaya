@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from wagtailkit.lectures.models import (
     Lecture, LectureStudent, LectureScoreWeighting,
-    LectureSchedule, StudentScore, LectureEvaluation, LectureEvaluationScore)
+    LectureSchedule, StudentScore)
 
 
 class LectureScoreWeightInline(admin.TabularInline):
@@ -38,8 +38,8 @@ class LectureStudentInline(admin.TabularInline):
 class LectureAdmin(admin.ModelAdmin):
     search_fields = ['teacher__person__fullname', 'course__name']
     inlines = [LectureScoreWeightInline, LectureStudentInline, LectureSceduleInline]
-    list_display = ['name', 'code', 'course', 'teacher', 'room', 'date_start', 'series', 'duration']
-    raw_id_fields = ['teacher', 'assistant', 'course', 'semester', 'room', 'prodi']
+    list_display = ['code', 'course', 'teacher', 'room', 'date_start', 'series', 'duration']
+    raw_id_fields = ['teacher', 'assistant', 'course', 'academic_year', 'room', 'rmu']
 
 
 @admin.register(LectureStudent)
@@ -83,17 +83,3 @@ class StudentScoreAdmin(admin.ModelAdmin):
         'lecture__teacher__person__fullname', ]
     raw_id_fields = ['lecture', 'student']
     list_display = ['student', 'lecture']
-
-
-class LectureEvaluationScoreLine(admin.TabularInline):
-    extra = 0
-    model = LectureEvaluationScore
-    radio_fields = {"score": admin.HORIZONTAL, }
-    readonly_fields = ['question']
-
-
-@admin.register(LectureEvaluation)
-class LectureEvaluationAdmin(admin.ModelAdmin):
-    save_as = True
-    search_fields = ['student__person__fullname', 'lecture__name']
-    inlines = [LectureEvaluationScoreLine]

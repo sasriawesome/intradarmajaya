@@ -151,8 +151,8 @@
     <div class="col-sm-4 text-center">
         <p>
             {% trans 'Requester' %}<br/>
-            {{ instance.creator.person.employee.primary_chair.chair.position }}<br/>
-            {{ instance.creator.person.employee.primary_chair.chair.department.name }}
+            {{ instance.requester }}<br/>
+            {{ instance.department }}
         </p> <br/><br/><br/>
         <p>
             <strong>{{ instance.creator.person }}</strong><br/>

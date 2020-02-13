@@ -1,112 +1,112 @@
 {% load i18n wagtailcore_tags wagtailadmin_tags %}
 
 <style>
-    #discuss-summary {
-        background-color: #f4f4f4;
-        display: block;
-        overflow: hidden;
-        padding-top: 30px;
-        padding-bottom: 60px;
-    }
+  #discuss-summary {
+    background-color: #f4f4f4;
+    display: block;
+    overflow: hidden;
+    padding-top: 30px;
+    padding-bottom: 60px;
+  }
 
-    .discuss-widget {
-        display: block;
-        overflow: hidden;
-    }
+  .discuss-widget {
+    display: block;
+    overflow: hidden;
+  }
 
-    .left {
-        float: left;
-    }
+  .left {
+    float: left;
+  }
 
-    .clear {
-        clear: both;
-        display: block;
-        overflow: hidden;
-    }
+  .clear {
+    clear: both;
+    display: block;
+    overflow: hidden;
+  }
 
-    .recent-list {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-    }
+  .recent-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
 
-    .discuss-item {
-        margin-top: 10px;
-        overflow: hidden;
-    }
+  .discuss-item {
+    margin-top: 10px;
+    overflow: hidden;
+  }
 
-    .author {
-        margin: 0 0 0 7px;
-    }
+  .author {
+    margin: 0 0 0 7px;
+  }
 
-    .author-meta {
-        font-size: .85em;
-    }
+  .author-meta {
+    font-size: .85em;
+  }
 
-    .avatar {
-        margin-top: 7px !important;
-    }
+  .avatar {
+    margin-top: 7px !important;
+  }
 
 </style>
 
 <div id="discuss-summary" class="nice-padding">
 
-    <div class="discuss-widget col7">
-        {% if first_discuss.first %}
-            <div class="clear">
+  <div class="discuss-widget col7">
+    {% if first_discuss.first %}
+    <div class="clear">
             <span class="avatar small left">
                 <a href="{{ first_discuss.first.get_absolute_url }}">
                     <img src="{% avatar_url first_discuss.first.creator %}"
                          title="{{ first_discuss.first.creator.get_full_name }}"/>
                 </a>
             </span>
-                <div class="author left small">
-                    <div><strong><a href="{{ first_discuss.first.get_absolute_url }}">
-                        {{ first_discuss.first.creator }}</a>
-                    </strong></div>
-                    <div class="author-meta">{{ first_discuss.first.date_created }}
-                        {% if first_discuss.first.category %}
-                            , {{ first_discuss.first.category }}
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            <div class="discussion-title">
-                <h1 style="text-transform:none">
-                    <a href="{{ first_discuss.first.get_absolute_url }}">{{ first_discuss.first.title | title }}</a>
-                </h1>
-            </div>
-            <div class="discussion-body">
-                {{ first_discuss.first.summary | richtext }}
-            </div>
-        {% endif %}
+      <div class="author left small">
+        <div><strong><a href="{{ first_discuss.first.get_absolute_url }}">
+          {{ first_discuss.first.creator }}</a>
+        </strong></div>
+        <div class="author-meta">{{ first_discuss.first.date_created }}
+          {% if first_discuss.first.category %}
+          , {{ first_discuss.first.category }}
+          {% endif %}
+        </div>
+      </div>
     </div>
+    <div class="discussion-title">
+      <h1 style="text-transform:none">
+        <a href="{{ first_discuss.first.get_absolute_url }}">{{ first_discuss.first.title | title }}</a>
+      </h1>
+    </div>
+    <div class="discussion-body">
+      {{ first_discuss.first.summary | richtext }}
+    </div>
+    {% endif %}
+  </div>
 
-    <div class="discuss-widget col5">
-        <h2>{% trans 'Most Recent Discusses' %}</h2>
-        <ul class="recent-list">
-            {% if recent_discussions %}
-                {% for recent in recent_discussions %}
-                    <li class="discuss-item clear icon">
+  <div class="discuss-widget col5">
+    <h2>{% trans 'Most Recent Discusses' %}</h2>
+    <ul class="recent-list">
+      {% if recent_discussions %}
+      {% for recent in recent_discussions %}
+      <li class="discuss-item clear icon">
             <span class="avatar small left">
                 <a href="{{ recent.get_absolute_url }}">
                     <img src="{% avatar_url recent.creator %}" title="{{ recent.creator.get_full_name }}"/>
                 </a>
             </span>
-                        <div class="author left small">
-                            <div><strong><a href="{{ recent.get_absolute_url }}">{{ recent.title }}</a></strong></div>
-                            <div class="author-meta">{{ recent.date_created }}
-                                {% if recent.category %}
-                                    , {{ recent.category }}
-                                {% endif %}
-                            </div>
-                        </div>
-                    </li>
-                {% endfor %}
-            {% else %}
-                <li><p>{% trans 'Sorry there is no discussion.' %}</p></li>
+        <div class="author left small">
+          <div><strong><a href="{{ recent.get_absolute_url }}">{{ recent.title }}</a></strong></div>
+          <div class="author-meta">{{ recent.date_created }}
+            {% if recent.category %}
+            , {{ recent.category }}
             {% endif %}
-        </ul>
-    </div>
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+      {% else %}
+      <li><p>{% trans 'Sorry there is no discussion.' %}</p></li>
+      {% endif %}
+    </ul>
+  </div>
 
 </div>

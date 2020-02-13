@@ -1,32 +1,38 @@
 from django.db import models
 from django.utils import translation
-from django.core.validators import MinValueValidator, MaxValueValidator
-from django.contrib.auth import get_user_model
-
-from mptt.models import TreeForeignKey
-from wagtailkit.numerators.models import NumeratorMixin
-from wagtailkit.core.models import KitBaseModel, MAX_LEN_SHORT, MAX_LEN_LONG
-from wagtailkit.persons.models import Person
-from wagtailkit.academic.models import ProgramStudy
+from wagtailkit.numerators.models import NumeratorMixin, Numerator
+from wagtailkit.core.models import KitBaseModel, MAX_LEN_SHORT, MAX_LEN_MEDIUM
+from wagtailkit.persons.models import Person, PersonManager
+from wagtailkit.academic.models import ProgramStudy, SchoolYear
 
 _ = translation.gettext_lazy
 
 
-class PersonAsStudent(Person):
+class StudentPersonalManager(PersonManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(
+            models.Q(student__isnull=False) | models.Q(is_matriculant=True)
+        ).prefetch_related('student')
+
+
+class StudentPersonal(Person):
     class Meta:
-        verbose_name = _('Persons')
-        verbose_name_plural = _('Persons')
+        verbose_name = _('Student Personal')
+        verbose_name_plural = _('Student Personals')
         proxy = True
 
-    def save(self, force_insert=False, force_update=False,
-             using=None,
-             update_fields=None):
-        super().save(force_insert, force_update, using,
-                     update_fields)
+    objects = StudentPersonalManager()
+
+    @property
+    def is_student(self):
+        return bool(getattr(self, 'student', False))
+
+    def save(self, *args, **kwargs):
+        self.is_matriculant = True
+        super().save(*args, **kwargs)
 
 
 class StudentManager(models.Manager):
-
     def get_by_natural_key(self, sid):
         return self.get(sid=sid)
 
@@ -35,47 +41,87 @@ class Student(NumeratorMixin, KitBaseModel):
     class Meta:
         verbose_name = _('Student')
         verbose_name_plural = _('Students')
+        permissions = (
+            ('register_student', _('Can Register New Student')),
+        )
+
+    ACTIVE = 'ACT'
+    ALUMNI = 'ALM'
+    DROP_OUT = 'DRO'
+    MOVED = 'MVD'
+    MISC = 'MSC'
+    STATUS = (
+        (ACTIVE, _('Active')),
+        (ALUMNI, _('Alumni')),
+        (DROP_OUT, _('Drop out')),
+        (MOVED, _('Moved')),
+        (MISC, _('Misc')),
+    )
 
     objects = StudentManager()
 
     inner_id = None
+    numbering = Numerator.FIXED
+
     sid = models.CharField(
-        editable=False, unique=True, max_length=MAX_LEN_SHORT,
+        editable=False, unique=True,
+        max_length=MAX_LEN_SHORT,
         verbose_name=_('Student ID'))
     person = models.OneToOneField(
         Person, on_delete=models.CASCADE,
         verbose_name=_("Person"))
-    year_of_force = models.CharField(
-        max_length=4,
-        choices=[(str(x), str(x)) for x in range(2010, 2030)],
-        default='2019',
+    year_of_force = models.ForeignKey(
+        SchoolYear, on_delete=models.PROTECT,
         verbose_name=_("Year of force"))
-    program_study = models.ForeignKey(
+    rmu = models.ForeignKey(
         ProgramStudy, on_delete=models.PROTECT,
         verbose_name=_('Program Study'))
+    registration_id = models.CharField(
+        max_length=MAX_LEN_SHORT,
+        verbose_name=_("Registration ID"))
     registration = models.CharField(
-        max_length=2,
-        choices=(('1','Reguler'), ('P', 'Transfer')),
-        default='1',
+        max_length=2, default='1',
+        choices=(('1', 'Reguler'), ('P', 'Transfer')),
         verbose_name=_("Registration"))
-    is_active = models.BooleanField(
-        default=False, verbose_name=_("Active status"))
+    status = models.CharField(
+        choices=STATUS, default=ACTIVE,
+        max_length=MAX_LEN_SHORT,
+        verbose_name=_('Status'))
+    status_note = models.CharField(
+        null=True, blank=True,
+        max_length=MAX_LEN_MEDIUM,
+        verbose_name=_('Status note'))
 
     def generate_inner_id(self):
         """ Generate human friendly Student Number,
             override this method to customize inner_id format
             """
         form = [
-            self.year_of_force[2:4],
-            self.program_study.faculty.code,
-            self.program_study.code,
+            str(self.year_of_force.year_start)[2:4],
+            self.rmu.number,
             self.registration,
             str(self.reg_number).zfill(4)
         ]
         self.sid = ''.join(form)
         return self.sid
 
+    def get_counter(self):
+        custom_code = self.get_custom_code()
+        ct_counter = Numerator.get_instance(self, custom_code=custom_code)
+        return ct_counter
+
+    def get_custom_code(self):
+        form = [
+            str(self.year_of_force.year_start)[2:4],
+            self.rmu.number,
+            self.registration
+        ]
+        return '{}{}{}'.format(*form)
+
     def __str__(self):
+        return self.person.fullname
+
+    def name(self):
         return self.person.fullname
 
     def natural_key(self):

@@ -1,0 +1,112 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n static wagtailadmin_tags %}
+
+{% block titletag %}{{ view.get_meta_title }}{% endblock %}
+
+{% block extra_css %}
+{{ view.media.css }}
+<link rel="stylesheet" href="{% versioned_static 'wagtailmodeladmin/css/breadcrumbs_page.css' %}" type="text/css"/>
+<link rel="stylesheet" href="{% static 'wagtailkit/css/inspect.css' %}" type="text/css"/>
+{% endblock %}
+
+{% block extra_js %}
+{{ view.media.js }}
+{% endblock %}
+
+{% block content %}
+
+{% block header %}
+{% include "modeladmin/persons/person/includes/header.html" with title=view.get_page_title subtitle=view.get_page_subtitle icon=view.header_icon tabbed=True %}
+{% endblock %}
+
+<div>
+  {% block content_main %}
+  <div class="nice-padding">
+
+    <div class="paper">
+      {% include 'modeladmin/wagtailkit/includes/letter-head.html' %}
+      <hr/>
+      <div align="center">
+        {% block header_title %}
+        {% if instance.user_account %}
+        <span class="avatar" style="width: 150px; height: 150px;">
+          <img src="{% avatar_url instance.user_account size=150 %}" alt=""/>
+        </span>
+        {% endif %}
+        <h2 class="list-value">
+          {{ instance.fullname_with_title }}
+        </h2>
+        {% endblock %}
+      </div>
+      <div class="paper-head">
+        <div class="col6">
+          {% block header_left %}
+            {% include 'modeladmin/persons/person/includes/basic_information.html' %}
+            {% if instance.employee %}
+              {% include 'modeladmin/persons/person/includes/employee_information.html' with employee=instance.employee %}
+            {% endif %}
+          {% endblock %}
+        </div>
+        <div class="col6">
+          {% block header_right %}
+            {% include 'modeladmin/persons/person/includes/contacts.html' %}
+          {% endblock %}
+        </div>
+      </div>
+      {% block body_listing %}
+        {% if instance.skill_sets.all %}
+        {% include 'modeladmin/persons/person/includes/skill.html' %}
+        {% endif %}
+
+        {% if instance.awards.all %}
+        {% include 'modeladmin/persons/person/includes/award.html' %}
+        {% endif %}
+
+        {% if instance.education_histories.all %}
+        {% include 'modeladmin/persons/person/includes/formal_education.html' %}
+        {% endif %}
+
+        {% if instance.nonformaleducation_histories.all %}
+        {% include 'modeladmin/persons/person/includes/nonformal_education.html' %}
+        {% endif %}
+
+        {% if instance.working_histories.all %}
+        {% include 'modeladmin/persons/person/includes/working.html' %}
+        {% endif %}
+
+        {% if instance.organization_histories.all %}
+        {% include 'modeladmin/persons/person/includes/organization.html' %}
+        {% endif %}
+
+        {% if instance.publications.all %}
+        {% include 'modeladmin/persons/person/includes/publication.html' %}
+        {% endif %}
+
+        {% if instance.families.all %}
+        {% include 'modeladmin/persons/person/includes/family.html' %}
+        {% endif %}
+      {% endblock %}
+      <p class="back">
+
+      </p>
+    </div>
+  </div>
+
+  {% endblock %}
+
+</div>
+
+{% block footer %}
+{% if buttons %}
+<footer role="contentinfo">
+  <div class="button-group">
+    {% for button in buttons %}
+    {% include "modeladmin/includes/button.html" %}
+    {% endfor %}
+  </div>
+</footer>
+{% endif %}
+{% endblock %}
+
+{% endblock %}
+

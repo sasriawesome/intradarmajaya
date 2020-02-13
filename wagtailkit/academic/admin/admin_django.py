@@ -2,7 +2,7 @@ from django.contrib import admin
 from mptt.admin import MPTTModelAdmin
 from wagtailkit.academic.models import (
     CoursePreRequisite, AcademicYear, AcademicActivity, SchoolYear, CourseGroup, CourseType,
-    ResourceManagementUnit, Faculty, ProgramStudy, Curriculum, Course,
+    ResourceManagementUnit, Curriculum, Course, CourseEqualizer,
     CurriculumCourse)
 
 
@@ -31,8 +31,21 @@ class AcademicYearAdmin(admin.ModelAdmin):
 
 @admin.register(ResourceManagementUnit)
 class ResourceManagementUnitAdmin(MPTTModelAdmin):
-    list_display = ['name', 'code', 'parent']
+    list_filter = ['level']
+    list_display = ['name', 'code', 'parent', 'courses', 'students', 'teachers']
 
+    def courses(self, obj):
+        return obj.total_cum_courses
+
+    def students(self, obj):
+        return obj.total_cum_students
+
+    def teachers(self, obj):
+        return obj.total_cum_teachers
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return ResourceManagementUnit.objects.get_with_summary(qs)
 
 class CurriculumCourseInline(admin.TabularInline):
     extra = 0
@@ -40,41 +53,80 @@ class CurriculumCourseInline(admin.TabularInline):
     raw_id_fields = ['course']
 
 
+class ProgramStudyFilter(admin.SimpleListFilter):
+    title = 'Program Study'
+    parameter_name = 'rmu__code'
+
+    def lookups(self, request, model_admin):
+        return [(rmu.code, rmu.name) for rmu in ResourceManagementUnit.objects.filter(status='4')]
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(rmu__code=self.value())
+        return queryset
+
+
 @admin.register(Curriculum)
 class CurriculumAdmin(admin.ModelAdmin):
-    search_fields = ['name', 'prodi__name']
+    search_fields = ['name', 'rmu__name']
     inlines = [CurriculumCourseInline]
-    list_display = ['name', 'sks_graduate', 'prodi']
-    raw_id_fields = ['prodi']
+    list_filter = [ProgramStudyFilter]
+    list_display = [
+        'name', 'rmu',
+        'sks_graduate',
+        'mandatory',
+        'choice',
+        'interest',
+        'research',
+        'meeting',
+        'practice',
+        'field_practice',
+        'simulation'
+    ]
+    raw_id_fields = ['rmu']
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return Curriculum.objects.get_with_summary(qs)
+
+    def mandatory(self, obj):
+        return obj.sks_mandatory
+
+    def choice(self, obj):
+        return obj.sks_choice
+
+    def interest(self, obj):
+        return obj.sks_interest
+
+    def research(self, obj):
+        return obj.sks_research
+
+    def meeting(self, obj):
+        return obj.sks_meeting
+
+    def practice(self, obj):
+        return obj.sks_practice
+
+    def field_practice(self, obj):
+        return obj.sks_field_practice
+
+    def simulation(self, obj):
+        return obj.sks_simulation
 
 
 @admin.register(CurriculumCourse)
 class CurriculumCourseAdmin(admin.ModelAdmin):
-    search_fields = ['course__name']
+    search_fields = ['course__name', 'curriculum__year']
+    list_filter = ['curriculum']
     list_select_related = ['course']
-    list_display = ['course_name', 'course_code', 'curricullum', 'semester_number',
-                    'sks_meeting', 'sks_practice', 'sks_field_practice',
-                    'sks_simulation', 'sks_total']
-    raw_id_fields = ['course', 'curricullum']
+    list_display = [
+        'course_name', 'curriculum', 'semester_number',
+        'sks_meeting', 'sks_practice', 'sks_field_practice',
+        'sks_simulation', 'sks_total']
+    raw_id_fields = ['course', 'curriculum']
 
     def course_name(self, obj):
         return obj.course_name
-
-    def course_code(self, obj):
-        return obj.course_code
-
-
-@admin.register(Faculty)
-class FacultyAdmin(admin.ModelAdmin):
-    search_fields = ['name']
-    list_display = ['name', 'code', 'alias']
-
-
-@admin.register(ProgramStudy)
-class ProgramStudyAdmin(admin.ModelAdmin):
-    search_fields = ['name']
-    list_display = ['name', 'code', 'alias', 'level', 'faculty', 'rmu']
-    raw_id_fields = ['rmu', 'faculty']
 
 
 @admin.register(CourseType)
@@ -99,4 +151,12 @@ class CoursePreRequisiteInline(admin.TabularInline):
 class CourseAdmin(admin.ModelAdmin):
     search_fields = ['name']
     inlines = [CoursePreRequisiteInline]
-    list_display = ['code', 'name', 'rmu', 'equal_to', 'description', 'is_active']
+    list_display = ['inner_id', 'name', 'rmu', 'level',
+                    'course_type', 'course_group', 'is_active']
+    list_filter = ['rmu', 'year_offered']
+
+
+@admin.register(CourseEqualizer)
+class CourseEqualizerAdmin(admin.ModelAdmin):
+    search_fields = ['old_course__course__name']
+    list_display  = ['old_course', 'new_course', 'sks_new_course', 'sks_old_course']

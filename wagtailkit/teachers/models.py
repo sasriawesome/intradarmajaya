@@ -1,84 +1,98 @@
 from django.db import models
-from django.core.exceptions import ValidationError
-from django.contrib.auth import get_user_model
 from django.utils import translation
 
-from mptt.models import TreeForeignKey
-
 from wagtailkit.core.models import KitBaseModel, CreatorModelMixin, MAX_LEN_SHORT
-from wagtailkit.numerators.models import NumeratorMixin
-from wagtailkit.core.utils.datetime import add_time
-from wagtailkit.persons.models import Person
-from wagtailkit.academic.models import CurriculumCourse, SchoolYear, ProgramStudy
+from wagtailkit.persons.models import Person, PersonManager
+from wagtailkit.employees.models import Employee, EmployeeManager
+from wagtailkit.academic.models import Course, ResourceManagementUnit
 
 _ = translation.gettext_lazy
 
 
-class PersonAsTeacher(Person):
+class TeacherPersonalManager(PersonManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(
+            models.Q(employee__teacher__isnull=False) | models.Q(employee__is_teacher_applicant=True)
+        ).prefetch_related('employee')
+
+
+class TeacherPersonal(Person):
     class Meta:
-        verbose_name = _('Person')
-        verbose_name_plural = _('Persons')
+        verbose_name = _('Teacher Personal')
+        verbose_name_plural = _('Teacher Personals')
         proxy = True
+
+    objects = TeacherPersonalManager()
+
+    @property
+    def is_employee(self):
+        return bool(getattr(self, 'employee', False))
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+
+class TeacherEmploymentManager(EmployeeManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(
+            models.Q(teacher__isnull=False) | models.Q(is_teacher_applicant=True)
+        ).prefetch_related('teacher')
+
+
+class TeacherEmployment(Employee):
+    class Meta:
+        verbose_name = _('Teacher Employment')
+        verbose_name_plural = _('Teacher Employments')
+        proxy = True
+
+    objects = TeacherEmploymentManager()
+
+    @property
+    def is_teacher(self):
+        return bool(getattr(self, 'teacher', False))
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
 
 class TeacherManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().select_related('employee')
 
-    def get_by_natural_key(self, lid):
-        return self.get(lid=lid)
+    def get_by_natural_key(self, tid):
+        return self.get(tid=tid)
 
 
-class Teacher(CreatorModelMixin, KitBaseModel):
+class Teacher(KitBaseModel):
     class Meta:
         verbose_name = _('Teacher')
         verbose_name_plural = _('Teachers')
 
     objects = TeacherManager()
-    person = models.OneToOneField(
-        Person, on_delete=models.CASCADE,
-        verbose_name=_("Person"))
-    fid = models.CharField(
+    employee = models.OneToOneField(
+        Employee, on_delete=models.CASCADE,
+        verbose_name=_("Employee"))
+    tid = models.CharField(
         unique=True, max_length=MAX_LEN_SHORT,
         verbose_name=_('Teacher ID'))
     is_nidn = models.BooleanField(
         default=False, verbose_name=_("ID is NIDN"))
-    homebase = models.ForeignKey(
-        ProgramStudy, on_delete=models.PROTECT,
+    rmu = models.ForeignKey(
+        ResourceManagementUnit, on_delete=models.PROTECT,
+        related_name='teachers',
         verbose_name=_('Homebase'))
     courses = models.ManyToManyField(
-        CurriculumCourse, verbose_name=_('Courses'))
+        Course, verbose_name=_('Courses'))
     is_active = models.BooleanField(
-        default=False, verbose_name=_("Active status"))
+        default=True, verbose_name=_("Active status"))
 
     def __str__(self):
-        return self.person.fullname
+        return self.employee.person.fullname
 
     @property
     def name(self):
-        return self.person.fullname
+        return self.employee.person.fullname
 
     def natural_key(self):
-        natural_key = (self.fid,)
+        natural_key = (self.tid,)
         return natural_key
-
-
-# class TeacherCourse(CreatorModelMixin, KitBaseModel):
-#     class Meta:
-#         verbose_name = _('Teacher course')
-#         verbose_name_plural = _('Teacher Courses')
-#
-
-    # is_active = models.BooleanField(
-    #     default=True, verbose_name=_("Active status"))
-#
-#     def clean(self):
-#         assistant = getattr(self, 'assistant', None)
-#         if self.teacher == assistant:
-#             raise ValidationError(
-#                 {"assistant": "Please select correct assistant."})
-#
-#     def __str__(self):
-#         return ", ".join(
-#             [str(self.teacher), str(self.curriculum_course)])

@@ -25,13 +25,15 @@ class Numerator(models.Model):
     class Meta:
         verbose_name = _('Numerator')
         verbose_name_plural = _('Numerators')
-        unique_together = ('ctype', 'date_start', 'date_end')
+        unique_together = ('ctype', 'dtype', 'date_start', 'date_end')
 
     YEARLY = 'Y'
     MONTHLY = 'M'
+    FIXED = 'F'
     DTYPE = (
         (YEARLY, _('Yearly')),
         (MONTHLY, _('Montly')),
+        (FIXED, _('Fixed')),
     )
 
     objects = NumeratorManager()
@@ -40,16 +42,14 @@ class Numerator(models.Model):
         ContentType, on_delete=models.CASCADE,
         verbose_name=_('Content type'))
     dtype = models.CharField(
-        max_length=1, choices=DTYPE, default=YEARLY,
-        verbose_name=_('Counter period'))
+        max_length=50, verbose_name=_('Counter period'))
     date_start = models.DateField(verbose_name=_('Date start'))
     date_end = models.DateField(verbose_name=_('Date end'))
     counter = models.PositiveIntegerField(
         default=0, verbose_name=_('Counter'))
 
     @staticmethod
-    def get_instance(instance, model=None):
-        date_type = None
+    def get_instance(instance, model=None, custom_code=None):
         if model is None:
             model = instance._meta.model
         year = instance.date_created.year
@@ -57,21 +57,25 @@ class Numerator(models.Model):
             date_type = Numerator.YEARLY
             date_start_month = 1
             date_end_month = 12
-        else:
+            last_day = calendar.monthlen(year, date_end_month)
+        elif instance.numbering == Numerator.MONTHLY:
             date_type = Numerator.MONTHLY
             date_start_month = instance.date_created.month
             date_end_month = instance.date_created.month
-        last_day = calendar.monthlen(year, date_end_month)
+            last_day = calendar.monthlen(year, date_end_month)
+        else:
+            date_type = custom_code
+            year = 2000
+            date_start_month = 1
+            date_end_month = 1
+            last_day = 1
         defaults = {
             'ctype': ContentType.objects.get_for_model(model),
             'dtype': date_type,
             'date_start': datetime.date(year, date_start_month, 1),
             'date_end': datetime.date(year, date_end_month, last_day)
         }
-        ct_manager = Numerator.objects
-        ct_counter, created = ct_manager.get_or_create(
-            **defaults, defaults=defaults
-        )
+        ct_counter, created = Numerator.objects.get_or_create(**defaults, defaults=defaults)
         return ct_counter
 
     def __str__(self):
@@ -99,6 +103,9 @@ class Numerator(models.Model):
         self.counter = 0
         return self.counter
 
+    def get_numbering(self):
+        return Numerator.YEARLY
+
 
 class NumeratorMixin(models.Model):
     """ Mixin for Numerator Model """
@@ -107,8 +114,9 @@ class NumeratorMixin(models.Model):
         abstract = True
 
     ct_counter = None
-    numbering = Numerator.YEARLY
     doc_code = 'IID'  # inner id code
+    numbering = Numerator.YEARLY
+
 
     reg_number = models.PositiveIntegerField(
         null=True, blank=True, editable=False,
@@ -123,9 +131,10 @@ class NumeratorMixin(models.Model):
         return self.doc_code
 
     def generate_inner_id(self):
-        """ Generate human friendly document number,
+        """
+            Generate human friendly document number,
             override this method to customize inner_id format
-            """
+        """
         form = [
             self.get_doc_code(),
             self.date_created.strftime("%m%y"),

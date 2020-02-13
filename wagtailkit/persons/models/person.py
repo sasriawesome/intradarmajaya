@@ -9,7 +9,7 @@ from modelcluster.fields import ParentalKey
 
 from wagtailkit.core.models import MAX_LEN_MEDIUM, KitBaseModel
 from wagtailkit.numerators.models import NumeratorMixin
-from .extra import Address, ContactInfo
+from .extra import Address, ContactInfo, KKNILevel
 
 _ = translation.gettext_lazy
 
@@ -37,7 +37,8 @@ class Person(index.Indexed, ClusterableModel, NumeratorMixin, ContactInfo, KitBa
         verbose_name_plural = _('Persons')
         permissions = (
             ('export_person', 'Can export Person'),
-            ('import_person', 'Can import Person')
+            ('import_person', 'Can import Person'),
+            ('change_status_person', 'Can change status Person')
         )
 
     MALE = 'M'
@@ -49,6 +50,7 @@ class Person(index.Indexed, ClusterableModel, NumeratorMixin, ContactInfo, KitBa
     objects = PersonManager()
 
     doc_code = 'PRS'
+
     show_title = models.BooleanField(
         default=False,
         verbose_name=_('Show title'),
@@ -64,6 +66,10 @@ class Person(index.Indexed, ClusterableModel, NumeratorMixin, ContactInfo, KitBa
     fullname = models.CharField(
         max_length=MAX_LEN_MEDIUM,
         verbose_name=_("Full name"))
+    nickname = models.CharField(
+        null=True, blank=True,
+        max_length=MAX_LEN_MEDIUM,
+        verbose_name=_("Nick name"))
     front_title = models.CharField(
         null=True, blank=True,
         max_length=MAX_LEN_MEDIUM,
@@ -96,6 +102,17 @@ class Person(index.Indexed, ClusterableModel, NumeratorMixin, ContactInfo, KitBa
         max_length=255,
         verbose_name=_('Place of birth'))
 
+    # Last Education
+    last_education_level = models.CharField(
+        max_length=3,
+        choices=[(str(lvl.value), str(lvl.name)) for lvl in KKNILevel],
+        default=KKNILevel.SMA.value,
+        verbose_name=_('Edu Level'))
+    last_education_name = models.CharField(
+        null=True, blank=False,
+        max_length=MAX_LEN_MEDIUM,
+        verbose_name=_('Edu Name'))
+
     # SOCIALMEDIA
     facebook = models.URLField(
         null=True, blank=True,
@@ -118,14 +135,19 @@ class Person(index.Indexed, ClusterableModel, NumeratorMixin, ContactInfo, KitBa
         on_delete=models.CASCADE,
         verbose_name=_('User account'))
 
-    autocomplete_search_field = 'fullname'
+    is_employee_applicant = models.BooleanField(default=False, verbose_name=_('Employee applicant'))
+    is_partner_applicant = models.BooleanField(default=False, verbose_name=_('Partner applicant'))
+    is_matriculant = models.BooleanField(default=False, verbose_name=_('Matriculant'))
 
     search_fields = [
         index.SearchField('fullname', partial_match=True),
     ]
 
+    # wagtail autocomplete
+    autocomplete_search_field = 'fullname'
+
     def autocomplete_label(self):
-        return self.fullname_with_title
+        return "{} | {}".format(self.inner_id, self.fullname_with_title)
 
     @property
     def fullname_with_title(self):
@@ -160,35 +182,30 @@ class Person(index.Indexed, ClusterableModel, NumeratorMixin, ContactInfo, KitBa
         user = self.user_account
         return bool(user)
 
-    @property
     def is_employee(self):
         employee = getattr(self, 'employee', None)
         if employee:
             employee = employee.is_active
         return bool(employee)
 
-    @property
     def is_teacher(self):
         teacher = getattr(self, 'teacher', None)
         if teacher:
             teacher = teacher.is_active
         return bool(teacher)
 
-    @property
     def is_student(self):
         student = getattr(self, 'student', None)
         if student:
             student = student.is_active
         return bool(student)
 
-    @property
     def is_partner(self):
         partner = getattr(self, 'partner', None)
         if partner:
             partner = partner.is_active
         return bool(partner)
 
-    @property
     def is_customer(self):
         partner = getattr(self, 'partner', None)
         customer = None
@@ -196,7 +213,6 @@ class Person(index.Indexed, ClusterableModel, NumeratorMixin, ContactInfo, KitBa
             customer = partner.is_active and partner.is_customer
         return bool(customer)
 
-    @property
     def is_supplier(self):
         partner = getattr(self, 'partner', None)
         supplier = None
@@ -204,13 +220,15 @@ class Person(index.Indexed, ClusterableModel, NumeratorMixin, ContactInfo, KitBa
             supplier = partner.is_active and partner.is_supplier
         return bool(supplier)
 
-    @property
     def is_vendor(self):
         partner = getattr(self, 'partner', None)
         vendor = None
         if partner:
             vendor = partner.is_active and partner.is_vendor
         return bool(vendor)
+
+    def get_last_education_level_display(self):
+        return KKNILevel(self.last_education_level).name
 
     def create_user_account(self, username=None, password=None):
         if not self.user_account:

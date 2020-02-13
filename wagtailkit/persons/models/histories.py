@@ -13,7 +13,7 @@ from wagtailkit.core.models import (
     KitBaseModel
 )
 
-from .extra import EducationLevel
+from .extra import KKNILevel
 from .person import Person
 
 _ = translation.gettext_lazy
@@ -32,7 +32,6 @@ class FormalEducation(Orderable, KitBaseModel):
     class Meta:
         verbose_name = _('Formal Education')
         verbose_name_plural = _('Formal Educations')
-        unique_together = ('person', 'level')
 
     FINISHED = 'FNS'
     ONGOING = 'ONG'
@@ -47,10 +46,11 @@ class FormalEducation(Orderable, KitBaseModel):
         Person, on_delete=models.CASCADE,
         related_name='education_histories',
         verbose_name=_("Person"))
-    level = models.ForeignKey(
-        EducationLevel,
-        on_delete=models.PROTECT,
-        verbose_name=_("Level"))
+    level = models.CharField(
+        max_length=3,
+        choices=[(str(lvl.value), str(lvl.name)) for lvl in KKNILevel],
+        default=KKNILevel.S1,
+        verbose_name=_('Level'))
     institution_name = models.CharField(
         max_length=MAX_LEN_MEDIUM,
         verbose_name=_("Institution"))
@@ -71,6 +71,9 @@ class FormalEducation(Orderable, KitBaseModel):
     attachment = models.ForeignKey(
         Document, null=True, blank=True,
         on_delete=models.SET_NULL)
+
+    def get_level_display(self):
+        return KKNILevel(self.level).name
 
     def __str__(self):
         return self.institution_name
@@ -146,6 +149,10 @@ class Working(Orderable, KitBaseModel):
     position = models.CharField(
         max_length=MAX_LEN_MEDIUM,
         verbose_name=_("Position"))
+    description = models.TextField(
+        null=True, blank=True,
+        max_length=MAX_LEN_MEDIUM,
+        verbose_name=_("Description"))
     date_start = models.DateField(
         default=timezone.now, verbose_name=_("Date start"))
     date_end = models.DateField(

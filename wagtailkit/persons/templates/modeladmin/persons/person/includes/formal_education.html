@@ -19,7 +19,7 @@
     {% with instance.education_histories.all as educations %}
     {% for item in educations %}
     <tr>
-        <td>{{ item.level.slug | upper }}</td>
+        <td>{{ item.get_level_display | upper }}</td>
         <td>{% firstof item.institution_name '-' %}</td>
         <td>{% firstof item.major '-' %}</td>
         <td>{% firstof item.date_start '-' %}</td>

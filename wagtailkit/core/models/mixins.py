@@ -1,7 +1,6 @@
 from django.db import models, transaction
 from django.utils import translation
 
-
 _ = translation.gettext_lazy
 
 
@@ -109,6 +108,9 @@ class StatusMixin(models.Model):
     def clean_validate_action(self):
         pass
 
+    def after_validate_action(self):
+        pass
+
     @transaction.atomic
     def validate(self):
         """ Validate drafted order """
@@ -118,6 +120,7 @@ class StatusMixin(models.Model):
             self.clean_validate_action()
             self.status = 'valid'
             self.save()
+            self.after_validate_action()
         else:
             msg = _("{} #{} is {}, it can't be validated")
             raise PermissionError(
@@ -161,6 +164,9 @@ class FourStepStatusMixin(StatusMixin):
     def clean_process_action(self):
         pass
 
+    def after_process_action(self):
+        pass
+
     @transaction.atomic
     def process(self):
         """ Process valid order """
@@ -170,6 +176,7 @@ class FourStepStatusMixin(StatusMixin):
             self.clean_process_action()
             self.status = 'process'
             self.save()
+            self.after_process_action()
         else:
             msg = _("{} #{} is {}, it can't be processed.")
             raise PermissionError(
@@ -204,6 +211,9 @@ class FiveStepStatusMixin(StatusMixin):
     def clean_approve_action(self):
         pass
 
+    def after_approve_action(self):
+        pass
+
     @transaction.atomic
     def approve(self):
         """ Approve valid order """
@@ -213,12 +223,16 @@ class FiveStepStatusMixin(StatusMixin):
             self.clean_approve_action()
             self.status = 'approved'
             self.save()
+            self.after_approve_action()
         else:
             msg = _("{} #{} is {}, it can't be approved.")
             raise PermissionError(
                 str(msg).format(self._meta.verbose_name, self.inner_id, self.status))
 
     def clean_reject_action(self):
+        pass
+
+    def after_reject_action(self):
         pass
 
     @transaction.atomic
@@ -230,12 +244,16 @@ class FiveStepStatusMixin(StatusMixin):
             self.clean_reject_action()
             self.status = 'rejected'
             self.save()
+            self.after_reject_action()
         else:
             msg = _("{} #{} is {}, it can't be rejected.")
             raise PermissionError(
                 str(msg).format(self._meta.verbose_name, self.inner_id, self.status))
 
     def clean_process_action(self):
+        pass
+
+    def after_process_action(self):
         pass
 
     @transaction.atomic
@@ -247,12 +265,16 @@ class FiveStepStatusMixin(StatusMixin):
             self.clean_process_action()
             self.status = 'process'
             self.save()
+            self.after_process_action()
         else:
             msg = _("{} #{} is {}, it can't be processed.")
             raise PermissionError(
                 str(msg).format(self._meta.verbose_name, self.inner_id, self.status))
 
     def clean_complete_action(self):
+        pass
+
+    def after_complete_action(self):
         pass
 
     @transaction.atomic
@@ -264,6 +286,7 @@ class FiveStepStatusMixin(StatusMixin):
             self.clean_complete_action()
             self.status = 'complete'
             self.save()
+            self.after_process_action()
         else:
             msg = _("{} {} is {}, it can't be completed.")
             raise PermissionError(
@@ -274,13 +297,21 @@ class CloseStatusMixin(models.Model):
     class Meta:
         abstract = True
 
+    def clean_close_action(self):
+        pass
+
+    def after_close_action(self):
+        pass
+
     def close(self):
         """ Close the order """
         if getattr(self, 'is_closed'):
             return
         if getattr(self, 'is_completed'):
+            self.clean_close_action()
             self.status = 'closed'
             self.save()
+            self.after_close_action()
         else:
             msg = _("{} {} is {}, it can't be finished.")
             raise PermissionError(

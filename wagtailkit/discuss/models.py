@@ -30,7 +30,6 @@ class DiscussionTag(TaggedItemBase):
     )
 
 
-@register_snippet
 class DiscussionCategory(MPTTModel):
     class Meta:
         verbose_name = _('Discussion Category')
@@ -47,18 +46,11 @@ class DiscussionCategory(MPTTModel):
     def __str__(self):
         return self.name
 
-    panels = [
-        MultiFieldPanel([
-            FieldPanel('name'),
-            FieldPanel('description')
-        ])
-    ]
-
 
 class Discussion(ClusterableModel, models.Model):
     class Meta:
-        verbose_name = _('Discussion')
-        verbose_name_plural = _('Discussions')
+        verbose_name = _('Discuss')
+        verbose_name_plural = _('Discusses')
         ordering = ['-date_created']
         permissions = (
             ('changeother_discussion', _('Can change other Discussion')),

@@ -1,0 +1,75 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block titletag %}{{ view.get_meta_title }}{% endblock %}
+
+{% block extra_css %}
+    {{ edit_handler.form.media.css }}
+    {{ view.media.css }}
+    <link rel="stylesheet" href="{% versioned_static 'wagtailmodeladmin/css/breadcrumbs_page.css' %}" type="text/css"/>
+
+    <style>
+        .warning {
+            margin-bottom: 30px;
+            background-color: #FFF0B5;
+            max-width: 800px;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+    </style>
+
+{% endblock %}
+
+{% block extra_js %}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ edit_handler.form.media.js }}
+    {{ edit_handler.html_declarations }}
+    {{ view.media.js }}
+{% endblock %}
+
+{% block content %}
+
+    {% block header %}
+        {% include "modeladmin/includes/header_with_breadcrumb.html" with title=view.get_page_title subtitle=view.get_page_subtitle icon=view.header_icon tabbed=True %}
+    {% endblock %}
+
+    <div class="nice-padding">
+        <div class="warning">
+            NOTE :<br>
+            Registrasi melalui form ini akan merecord mahasiswa dengan <code>"Data Personal"</code>,
+            dan <code>"User Account"</code> Baru. <br>
+            Jika Mahasiswa telah memiliki Data Personal dan User Account, gunakan form Tambah Mahasiswa.
+        </div>
+    </div>
+
+    <form action="{% block form_action %}{{ view.export_url }}{% endblock %}"{% if is_multipart %}
+          enctype="multipart/form-data"{% endif %} method="POST" novalidate>
+
+        <div class="nice-padding">
+            {% csrf_token %}
+            <ul class="fields">
+                {% for field in form %}
+                    {% include 'wagtailadmin/shared/field_as_li.html' %}
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% block footer %}
+            <footer role="contentinfo">
+                <ul>
+                    {% block form_actions %}
+                        <li class="actions">
+                            <div class="dropdown dropup dropdown-button match-width">
+                                <button type="submit" class="button action-save button-longrunning"
+                                        data-clicked-text="{% trans 'Registering ...' %}">
+                                    <span class="icon icon-spinner"></span><em>{% trans 'Register New Student' %}</em>
+                                </button>
+                            </div>
+                        </li>
+                    {% endblock %}
+                </ul>
+            </footer>
+        {% endblock %}
+
+    </form>
+{% endblock %}

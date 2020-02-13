@@ -10,10 +10,12 @@ from wagtail.documents import urls as wagtaildocs_urls
 from wagtailautocomplete.urls.admin import urlpatterns as autocomplete_urls
 
 from wagtailkit.api.graphql import graphql_schema
+from wagtailkit.accounts import urls as accounts_urls
 
 from search import views as search_views
 
 urlpatterns = [
+
     url(r'^api/', GraphQLView.as_view(graphiql=True, schema=graphql_schema.get_schema())),
     url(r'^select2/', include('django_select2.urls')),
     url(r'^documents/', include(wagtaildocs_urls)),
@@ -22,6 +24,9 @@ urlpatterns = [
     url(r'^django-admin/docs/', include(docs_urls)),
     url(r'^admin/autocomplete/', include(autocomplete_urls)),
     url(r'^admin/', include(wagtailadmin_urls)),
+    url(r'accounts/', include(accounts_urls)),
+    url(r'^accounts/', include('allauth.urls')),
+
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's page serving mechanism. This should be the last pattern in
     # the list:
@@ -29,16 +34,17 @@ urlpatterns = [
 
     # Alternatively, if you want Wagtail pages to be served from a subpath
     # of your site, rather than the site root:
-    #    url(r'^pages/', include(wagtail_urls)),
+    # url(r'^pages/', include(wagtail_urls)),
 ]
 
 if settings.DEBUG:
     from django.conf.urls.static import static
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+    import debug_toolbar
 
     # Serve static and media files from development server
-    urlpatterns += [
-
-    ]
+    urlpatterns = [
+        url(r'__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

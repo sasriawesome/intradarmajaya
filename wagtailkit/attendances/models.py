@@ -10,6 +10,27 @@ from wagtailkit.lectures.models import LectureSchedule
 _ = translation.gettext_lazy
 
 
+class Holiday(KitBaseModel):
+    class Meta:
+        verbose_name = _("Holiday")
+        verbose_name_plural = _("Holidays")
+
+    date_start = models.DateField(
+        verbose_name=_("Date start"))
+    date_end = models.DateField(
+        verbose_name=_("Date end"))
+    name = models.CharField(
+        max_length=MAX_LEN_LONG,
+        verbose_name=_("Note"))
+    note = models.TextField(
+        null=True, blank=True,
+        max_length=MAX_LEN_LONG,
+        verbose_name=_("Description"))
+
+    def __str__(self):
+        return self.name
+
+
 class LectureAttendance(LectureSchedule):
     class Meta:
         proxy = True
@@ -26,7 +47,7 @@ class StudentAttendance(KitBaseModel):
     PRESENT = 'PR'
     SICK = 'SC'
     ABSENT = 'AB'
-    PERMIT = 'PR'
+    PERMIT = 'PE'
     STATUS = (
         (PRESENT, _('Present')),
         (SICK, _('Sick')),
@@ -47,6 +68,9 @@ class StudentAttendance(KitBaseModel):
         max_length=MAX_LEN_LONG,
         null=True, blank=True,
         verbose_name=_("Note"))
+
+    def __str__(self):
+        return "{} {}".format(self.student, self.schedule)
 
 
 class TeacherAttendance(KitBaseModel):

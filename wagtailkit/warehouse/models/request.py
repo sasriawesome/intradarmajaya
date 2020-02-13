@@ -1,16 +1,49 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from wagtail.core.models import ClusterableModel, Orderable
 from wagtail.core.fields import RichTextField
 from modelcluster.fields import ParentalKey
 
+from mptt.models import TreeForeignKey
+
 from wagtailkit.core.models import (
-    MAX_LEN_SHORT, MAX_LEN_MEDIUM, MAX_LEN_LONG, MAX_RICHTEXT,
+    MAX_LEN_MEDIUM, MAX_LEN_LONG, MAX_RICHTEXT,
     CreatorModelMixin, FiveStepStatusMixin, KitBaseModel)
 from wagtailkit.numerators.models import NumeratorMixin
-from wagtailkit.products.models import Product, Inventory, Asset
+from wagtailkit.organizations.models import Position, Department
+from wagtailkit.products.models import Inventory, Asset
+
+
+class RequestOrderManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().select_related('requester', 'department', 'creator')
+
+    def get_summary(self, requester=None, tree=False, date_start=None, date_end=None):
+        filter = {}
+        qs = self.get_queryset()
+        if requester:
+            if tree:
+                filter.update({'requester__in': [requester] + list(requester.get_children())})
+            else:
+                filter.update({'requester': requester})
+        if date_start and date_end:
+            filter.update({'date_created__gte': date_start, 'date_created__lte': date_end})
+        if filter:
+            qs = qs.filter(**filter)
+        return qs.aggregate(
+            count_trash=models.Count('id', filter=models.Q(status=RequestOrder.TRASH)),
+            count_draft=models.Count('id', filter=models.Q(status=RequestOrder.DRAFT)),
+            count_valid=models.Count('id', filter=models.Q(status=RequestOrder.VALID)),
+            count_approved=models.Count('id', filter=models.Q(status=RequestOrder.APPROVED)),
+            count_rejected=models.Count('id', filter=models.Q(status=RequestOrder.REJECTED)),
+            count_processed=models.Count('id', filter=models.Q(status=RequestOrder.PROCESS)),
+            count_completed=models.Count('id', filter=models.Q(status=RequestOrder.COMPLETE)),
+            count_close=models.Count('id', filter=models.Q(status=RequestOrder.CLOSED)),
+            count_total=models.Count('id'),
+        )
 
 
 class RequestOrder(NumeratorMixin, ClusterableModel, FiveStepStatusMixin, CreatorModelMixin, KitBaseModel):
@@ -43,12 +76,15 @@ class RequestOrder(NumeratorMixin, ClusterableModel, FiveStepStatusMixin, Creato
     )
 
     doc_code = 'FPB'
+    objects=RequestOrderManager()
 
-    requester = models.CharField(
-        max_length=MAX_LEN_MEDIUM,
+    requester = TreeForeignKey(
+        Position, on_delete=models.PROTECT,
+        related_name='position_wh_requests',
         verbose_name=_("Requester"))
-    department = models.CharField(
-        max_length=MAX_LEN_MEDIUM,
+    department = TreeForeignKey(
+        Department, on_delete=models.PROTECT,
+        related_name='department_wh_requests',
         verbose_name=_("Department"))
     deliver_to = models.CharField(
         max_length=MAX_LEN_MEDIUM,
@@ -89,14 +125,20 @@ class RequestOrder(NumeratorMixin, ClusterableModel, FiveStepStatusMixin, Creato
             msg = _("Please add 1 or more product.")
             raise Exception(msg)
 
+    def after_validate_action(self):
+        """ Send Email : Waiting For Approval """
+        pass
+
     def approve_validation(self):
         """ Check each product stock on hands for approval """
         for req_prd in self.requested_inventories.all():
             if req_prd.product.stockcard.stock < req_prd.quantity_approved:
-                raise Exception("Sorry stock %s is %s " % (req_prd.product.name, req_prd.product.stock_on_hand))
+                msg = "Sorry stock %s is %s " % (req_prd.product.name, req_prd.product.stockcard.stock)
+                raise ValidationError(msg)
         for req_prd in self.requested_assets.all():
             if req_prd.product.stockcard.stock < req_prd.quantity_approved:
-                raise Exception("Sorry stock %s is %s " % (req_prd.product.name, req_prd.product.stock_on_hand))
+                msg = "Sorry stock %s is %s " % (req_prd.product.name, req_prd.product.stockcard.stock)
+                raise ValidationError(msg)
 
     def update_on_request_stock(self):
         for req_prd in self.requested_inventories.all():
@@ -118,28 +160,15 @@ class RequestOrder(NumeratorMixin, ClusterableModel, FiveStepStatusMixin, Creato
             req_prd.product.stockcard.save()
             req_prd.save()
 
-    def set_chairman_department(self):
-        # Set chairman and department from user employee information
-        # otherwise leave it blank
-        if self.creator.is_person:
-            employee = getattr(self.creator.person, 'employee', None)
-            if employee:
-                primary_chair = getattr(employee, 'primary_chair', None)
-                if primary_chair:
-                    self.requester = primary_chair.chair.position
-                else:
-                    self.requester = str(employee.person.fullname)
-                self.department = employee.department.verbose_name
-        else:
-            self.requester = self.creator.fullname
-
     def clean(self):
         if self.status == 'approved':
             self.approve_validation()
 
     def save(self, *args, **kwargs):
         self.clean()
-        self.set_chairman_department()
+        if self._state.adding:
+            self.requester = self.creator.person.employee.position
+            self.department = self.creator.person.employee.position.department
         super().save(*args, **kwargs)
 
 

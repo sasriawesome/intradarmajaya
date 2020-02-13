@@ -2,14 +2,14 @@ from import_export.resources import ModelResource
 from import_export.widgets import ForeignKeyWidget
 from import_export import fields
 
-from wagtailkit.importexport.widgets import UUIDWidget
+from wagtailkit.importexport.widgets import UUIDWidget, ExcelDateWidget
 
 from .models import Inventory, Asset, Service, Bundle, ProductCategory, UnitOfMeasure
 
 product_fields = [
     'id', 'inner_id', 'reg_number', 'name', 'barcode', 'description', 'category', 'unit_price',
     'minimum_stock', 'maximum_stock', 'unit_of_measure',
-    'is_active', 'is_sparepart', 'can_be_sold', 'can_be_purchased'
+    'is_active', 'is_sparepart', 'can_be_sold', 'can_be_purchased', 'date_created'
 ]
 
 service_fields = [
@@ -19,6 +19,8 @@ service_fields = [
 
 class ProductResourceMixin(ModelResource):
     id = fields.Field(attribute='id', column_name='id', widget=UUIDWidget())
+    date_created = fields.Field(attribute='date_created', column_name='date_created',
+                          widget=ExcelDateWidget(date_format='%d/%m/%Y %H:%M'))
     category = fields.Field(
         column_name='category',
         attribute='category',

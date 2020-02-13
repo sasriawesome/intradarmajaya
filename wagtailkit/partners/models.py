@@ -10,34 +10,36 @@ from wagtailkit.numerators.models import NumeratorMixin
 from wagtailkit.persons.models import Person, Address, ContactInfo
 
 
-class PersonAsPartnerManager(models.Manager):
+class PartnerPersonalManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset()
-
-    def get_partners(self):
         return super().get_queryset().filter(
-            models.Q(partner__isnull=False))
+            models.Q(partner__isnull=False) | models.Q(is_partner_applicant=True)
+        ).prefetch_related('partner')
 
 
-class PersonAsPartner(Person):
+class PartnerPersonal(Person):
     class Meta:
         proxy = True
         verbose_name = _('Person')
         verbose_name_plural = _('Persons')
         permissions = (
-            ('export_personaspartner', 'Can export Person as Partner'),
-            ('import_personaspartner', 'Can import Person as Partner')
+            ('export_partnerpersonal', 'Can export Person Personal'),
+            ('import_partnerpersonal', 'Can import Person Personal')
         )
 
-    objects = PersonAsPartnerManager()
+    objects = PartnerPersonalManager()
 
     @property
-    def has_partner(self):
-        partner = getattr(self, 'partner_set', None)
+    def is_partner(self):
+        partner = getattr(self, 'partner', None)
         return bool(partner)
 
     def __str__(self):
         return "{}".format(self.fullname)
+
+    def save(self, *args, **kwargs):
+        self.is_partner_applicant = True
+        super().save(*args, **kwargs)
 
 
 class PartnerManager(models.Manager):
@@ -74,6 +76,12 @@ class Partner(ClusterableModel, NumeratorMixin, KitBaseModel, CreatorModelMixin)
         null=True, blank=True,
         default=timezone.now,
         verbose_name=_('Created date'))
+
+    # wagtail autocomplete
+    autocomplete_search_field = 'name'
+
+    def autocomplete_label(self):
+        return "{} | {}".format(self.inner_id, self.name)
 
     @property
     def is_customer(self):

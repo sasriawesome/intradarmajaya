@@ -28,6 +28,11 @@ class PermissionHelper(PermissionHelperBase):
     def is_owner(self, user, obj):
         return obj.creator == user
 
+    def is_owner_manager(self, user, obj):
+        creator_manager_position = obj.creator.person.employee.position.get_ancestors(ascending=True)[0]
+        user_position = user.person.employee.position
+        return user_position == creator_manager_position
+
     def user_can_edit_obj(self, user, obj):
         return self.user_can('change', user)
 

@@ -1,1 +1,1 @@
-default_app_config = 'wagtailkit.numerators.apps.NumeratorConfig'
+default_app_config = 'wagtailkit.numerators.apps.NumeratorsConfig'

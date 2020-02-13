@@ -2,22 +2,22 @@
 
 <h3><strong>{% trans 'Skills' as skills %} {{ skills | upper }}</strong></h3>
 <table class="listing full-width">
-    <thead>
-    <tr>
-        <th>{% trans 'Name' %}</th>
-        <th>{% trans 'Description' %}</th>
-        <th>{% trans 'Level' %}</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% with instance.skill_sets.all as skills %}
-    {% for item in skills %}
-    <tr>
-        <td>{{ item.name }}</td>
-        <td>{% firstof item.description '-' %}</td>
-        <td>{{ item.level }}/10</td>
-    </tr>
-    {% endfor %}
-    {% endwith %}
-    </tbody>
+  <thead>
+  <tr>
+    <th>{% trans 'Name' %}</th>
+    <th>{% trans 'Description' %}</th>
+    <th>{% trans 'Level' %}</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% with instance.skill_sets.all as skills %}
+  {% for item in skills %}
+  <tr>
+    <td>{{ item.name }}</td>
+    <td>{% firstof item.description '-' %}</td>
+    <td>{{ item.level }}/10</td>
+  </tr>
+  {% endfor %}
+  {% endwith %}
+  </tbody>
 </table>

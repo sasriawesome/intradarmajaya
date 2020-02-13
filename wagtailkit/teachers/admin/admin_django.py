@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from wagtailkit.persons.admin.admin_django import PersonAdmin
-from wagtailkit.teachers.models import Teacher, PersonAsTeacher
+from wagtailkit.teachers.models import Teacher, TeacherPersonal
 
 
 class TeacherFilter(admin.SimpleListFilter):
@@ -30,13 +30,7 @@ class TeacherFilter(admin.SimpleListFilter):
 class TeacherInline(admin.TabularInline):
     model = Teacher
 
-
 @admin.register(Teacher)
 class TeacherAdmin(admin.ModelAdmin):
-    search_fields = ['person__fullname']
-    list_display = ['name', 'fid', 'homebase', 'is_active']
-    raw_id_fields = ('person',)
-
-@admin.register(PersonAsTeacher)
-class PersonAsTeacherAdmin(PersonAdmin):
-    inlines = [TeacherInline]
+    list_display = ['name', 'tid', 'rmu', 'is_active']
+    raw_id_fields = ['employee']

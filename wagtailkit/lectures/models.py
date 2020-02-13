@@ -1,19 +1,15 @@
 from django.db import models
 from django.utils import timezone, translation
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 from wagtailkit.core.models import KitBaseModel, CreatorModelMixin, MAX_LEN_SHORT
 from wagtailkit.core.utils.datetime import add_time
 
-from wagtailkit.academic.models import CurriculumCourse, AcademicYear, ProgramStudy
+from wagtailkit.academic.models import CurriculumCourse, AcademicYear, ResourceManagementUnit
 from wagtailkit.rooms.models import Room
 from wagtailkit.teachers.models import Teacher
 from wagtailkit.students.models import Student
-from wagtailkit.numerators.models import NumeratorMixin
-from wagtailkit.evaluations.models import EvalQuestion, Evaluation
 
 _ = translation.gettext_lazy
 
@@ -45,9 +41,6 @@ class Lecture(CreatorModelMixin, KitBaseModel):
     code = models.CharField(
         max_length=MAX_LEN_SHORT,
         verbose_name=_('Code'))
-    name = models.CharField(
-        max_length=MAX_LEN_SHORT,
-        verbose_name=_('Name'))
     teacher = models.ForeignKey(
         Teacher, on_delete=models.CASCADE,
         related_name='lecture_teacher',
@@ -57,16 +50,16 @@ class Lecture(CreatorModelMixin, KitBaseModel):
         null=True, blank=True,
         related_name='lecture_assistant',
         verbose_name=_("Assistant"))
-    prodi = models.ForeignKey(
-        ProgramStudy,
+    rmu = models.ForeignKey(
+        ResourceManagementUnit,
         on_delete=models.PROTECT,
         verbose_name=_("Program Study"))
     course = models.ForeignKey(
         CurriculumCourse, on_delete=models.CASCADE,
         verbose_name=_("Course"))
-    semester = models.ForeignKey(
+    academic_year = models.ForeignKey(
         AcademicYear, on_delete=models.PROTECT,
-        verbose_name=_("Academic year"))
+        verbose_name=_("Academic Year"))
     room = models.ForeignKey(
         Room, on_delete=models.PROTECT,
         verbose_name=_("Room Name"))
@@ -242,9 +235,14 @@ class StudentScore(KitBaseModel):
         unique_together = ('lecture', 'student')
 
     lecture = models.ForeignKey(
-        Lecture,
-        on_delete=models.CASCADE,
+        Lecture, null=True, blank=True,
+        on_delete=models.SET_NULL,
         verbose_name=_("Lecture"))
+    course = models.ForeignKey(
+        CurriculumCourse,
+        on_delete=models.PROTECT,
+        related_name='student_scores',
+        verbose_name=_('Course'))
     student = models.ForeignKey(
         Student, on_delete=models.CASCADE,
         verbose_name=_("Student"))
@@ -300,68 +298,3 @@ class StudentScore(KitBaseModel):
 
     def __str__(self):
         return str(self.student) + ' Scores'
-
-
-class LectureEvaluation(NumeratorMixin, CreatorModelMixin, KitBaseModel):
-    class Meta:
-        verbose_name = _("Lecture Evaluation")
-        verbose_name_plural = _("Lecture Evaluations")
-
-    doc_code = 'LEV'
-
-    lecture = models.ForeignKey(
-        Lecture, on_delete=models.CASCADE,
-        verbose_name=_("Lecture"))
-    student = models.ForeignKey(
-        Student, null=True, blank=False,
-        on_delete=models.SET_NULL,
-        verbose_name=_("Student"))
-    evaluation = models.ForeignKey(
-        Evaluation, on_delete=models.PROTECT,
-        verbose_name=_('Evaluation'))
-
-    @property
-    def title(self):
-        return "Evaluasi {} oleh {}".format(self.lecture, self.student)
-
-    def __str__(self):
-        return self.title
-
-
-class LectureEvaluationScore(KitBaseModel):
-    class Meta:
-        verbose_name = _("Lecture Evaluation Score")
-        verbose_name_plural = _("Lecture Evaluation Scores")
-        ordering = ('question__group__code', 'question__date_created',)
-
-    lecture_evaluation = models.ForeignKey(
-        LectureEvaluation, on_delete=models.CASCADE,
-        verbose_name=_("Lecture evaluation"))
-    question = models.ForeignKey(
-        EvalQuestion, on_delete=models.PROTECT,
-        verbose_name=_("Question"))
-    score = models.PositiveIntegerField(
-        choices=((1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5'),),
-        help_text=_('1:Tidak Setuju > 5:Setuju'),
-        validators=[
-            MinValueValidator(1),
-            MaxValueValidator(5)
-        ],
-        default=3, verbose_name=_('Score'))
-
-    @staticmethod
-    @receiver(post_save, sender=LectureEvaluation)
-    def create_evaluation_questions(sender, **kwargs):
-        created = kwargs.pop('created', False)
-        instance = kwargs.pop('instance', None)
-        if created:
-            questions = []
-            for question in instance.evaluation.questions.all():
-                lect_question = LectureEvaluationScore(
-                    lecture_evaluation=instance,
-                    question=question)
-                questions.append(lect_question)
-            LectureEvaluationScore.objects.bulk_create(questions)
-
-    def __str__(self):
-        return self.question.group.name
