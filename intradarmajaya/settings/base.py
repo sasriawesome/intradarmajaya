@@ -213,10 +213,11 @@ MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
 # EMAIL CONFIG
 # ======================================================================
 
-EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
-SENDGRID_ECHO_TO_STDOUT = True
-SENDGRID_SANDBOX_MODE_IN_DEBUG = False
-SENDGRID_API_KEY = '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'
+# Sendgrid Web API
+# EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+# SENDGRID_ECHO_TO_STDOUT = True
+# SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+# SENDGRID_API_KEY = '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'
 
 # If using SMTP
 # EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
@@ -226,3 +227,11 @@ SENDGRID_API_KEY = 'SG.kb-0tzJWR4a21jm1V61cBA.KrG6bCtHwiys0bVqRLUCLyG6cuFPrwyzWZ
 # EMAIL_HOST_USER = "intranet_darmajaya_email_api"
 # EMAIL_HOST_PASSWORD = "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"
 # DEFAULT_FROM_EMAIL = "noreply@intimdev.com"
+
+# Gmail Web API
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "sasri.djproject@gmail.com"
+EMAIL_HOST_PASSWORD = "habibie099"
