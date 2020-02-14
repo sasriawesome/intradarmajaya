@@ -19,7 +19,6 @@ import environ
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -96,7 +95,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'intradarmajaya.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -106,7 +104,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -126,7 +123,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -139,7 +135,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -188,7 +183,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Activate Django-Heroku.
 django_heroku.settings(locals())
 
-
 # AWS SETUP
 # ============================================================
 
@@ -198,7 +192,10 @@ env = environ.Env(
     AWS_ACCESS_KEY_ID=(str, ''),
     AWS_SECRET_ACCESS_KEY=(str, ''),
     AWS_S3_CUSTOM_DOMAIN=(str, ''),
-    REDIS_URL=(str, '')
+    REDIS_URL=(str, ''),
+    EMAIL_HOST_USER=(str, ''),
+    DEFAULT_FROM_EMAIL=(str, ''),
+    EMAIL_HOST_PASSWORD=(str, ''),
 )
 
 AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
@@ -210,19 +207,17 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
 
-
 # EMAIL CONFIG
 # ======================================================================
 
 # Gmail Web API
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = "sasri.gg@gmail.com"
-DEFAULT_FROM_EMAIL = "Intranet Darmajaya <{}>".format(EMAIL_HOST_USER)
-EMAIL_HOST_PASSWORD = "eelhfcfhvoxjunxk"
-
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST="smtp.gmail.com"
+EMAIL_PORT=587
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+EMAIL_HOST_PASSWORD = DEFAULT_FROM_EMAIL
 
 # DRAMATIQ CONFIG ======================================================================
 
