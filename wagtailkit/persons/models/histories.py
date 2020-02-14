@@ -47,7 +47,7 @@ class FormalEducation(Orderable, KitBaseModel):
         related_name='education_histories',
         verbose_name=_("Person"))
     level = models.CharField(
-        max_length=3,
+        max_length=5,
         choices=[(str(lvl.value), str(lvl.name)) for lvl in KKNILevel],
         default=KKNILevel.S1,
         verbose_name=_('Level'))
@@ -66,7 +66,7 @@ class FormalEducation(Orderable, KitBaseModel):
         default=timezone.now,
         verbose_name=_("Date end"))
     status = models.CharField(
-        max_length=3, default=FINISHED, choices=STATUS,
+        max_length=5, default=FINISHED, choices=STATUS,
         verbose_name=_("Current status"))
     attachment = models.ForeignKey(
         Document, null=True, blank=True,
@@ -112,7 +112,7 @@ class NonFormalEducation(Orderable, KitBaseModel):
     date_end = models.DateField(
         default=timezone.now, verbose_name=_("Date end"))
     status = models.CharField(
-        max_length=3, default=FINISHED, choices=STATUS,
+        max_length=5, default=FINISHED, choices=STATUS,
         verbose_name=_("Current status"))
     attachment = models.ForeignKey(
         Document, null=True, blank=True,
@@ -158,7 +158,7 @@ class Working(Orderable, KitBaseModel):
     date_end = models.DateField(
         default=timezone.now, verbose_name=_("Date end"))
     status = models.CharField(
-        max_length=3, default=CONTRACT, choices=STATUS,
+        max_length=5, default=CONTRACT, choices=STATUS,
         verbose_name=_("Employment"))
     attachment = models.ForeignKey(
         Document, null=True, blank=True,
@@ -201,7 +201,7 @@ class Volunteer(Orderable, KitBaseModel):
         Document, null=True, blank=True,
         on_delete=models.SET_NULL)
     status = models.CharField(
-        max_length=3, default=ACTIVE, choices=STATUS,
+        max_length=5, default=ACTIVE, choices=STATUS,
         verbose_name=_("Status"))
 
     def __str__(self):
