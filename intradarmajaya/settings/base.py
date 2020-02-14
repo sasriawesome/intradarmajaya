@@ -229,9 +229,9 @@ MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
 # DEFAULT_FROM_EMAIL = "noreply@intimdev.com"
 
 # Gmail Web API
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = "sasri.djproject@gmail.com"
+EMAIL_HOST_USER = "sasri.gg@gmail.com"
 EMAIL_HOST_PASSWORD = "eelhfcfhvoxjunxk"
