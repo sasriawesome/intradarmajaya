@@ -16,6 +16,17 @@ import django_heroku
 import dj_database_url
 import environ
 
+env = environ.Env(
+    SECRET_KEY=(str, ""),
+    AWS_STORAGE_BUCKET_NAME=(str, ""),
+    AWS_ACCESS_KEY_ID=(str, ''),
+    AWS_SECRET_ACCESS_KEY=(str, ""),
+    AWS_S3_CUSTOM_DOMAIN=(str, ""),
+    REDIS_URL=(str, "")
+)
+
+environ.Env.read_env()
+
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
@@ -161,14 +172,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # MEDIA_URL = "/media/"
 
 
-# Wagtail settings
-
-SITE_ID = 1
-WAGTAIL_SITE_NAME = "intradarmajaya"
-
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = 'http://localhost:8000'
+SITE_ID = 1
+BASE_URL = env('BASE_URL')
+WAGTAIL_SITE_NAME = "intradarmajaya"
+
+
 
 # HEROKU SETUP
 # ============================================================
@@ -186,37 +196,25 @@ django_heroku.settings(locals())
 # AWS SETUP
 # ============================================================
 
-env = environ.Env(
-    SECRET_KEY=(str, ''),
-    AWS_STORAGE_BUCKET_NAME=(str, ''),
-    AWS_ACCESS_KEY_ID=(str, ''),
-    AWS_SECRET_ACCESS_KEY=(str, ''),
-    AWS_S3_CUSTOM_DOMAIN=(str, ''),
-    REDIS_URL=(str, ''),
-    EMAIL_HOST_USER=(str, ''),
-    EMAIL_HOST_PASSWORD=(str, ''),
-)
-
-AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
-AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = env.str('AWS_STORAGE_BUCKET_NAME')
+AWS_ACCESS_KEY_ID = env.str('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env.str('AWS_SECRET_ACCESS_KEY')
 AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN')
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
 MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # EMAIL CONFIG
 # ======================================================================
 
 # Gmail Web API
 EMAIL_USE_TLS = True
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST="smtp.gmail.com"
-EMAIL_PORT=587
-EMAIL_HOST_USER = "sasri.gg@gmail.com"
-DEFAULT_FROM_EMAIL = "eelhfcfhvoxjunxk"
+EMAIL_HOST=env("EMAIL_HOST")
+EMAIL_PORT=env.int('EMAIL_PORT')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+DEFAULT_FROM_EMAIL = env('EMAIL_HOST_PASSWORD')
 EMAIL_HOST_PASSWORD = DEFAULT_FROM_EMAIL
+EMAIL_BACKEND = env('EMAIL_BACKEND')
 
 # DRAMATIQ CONFIG ======================================================================
 
@@ -239,7 +237,7 @@ DRAMATIQ_BROKER = {
 DRAMATIQ_RESULT_BACKEND = {
     "BACKEND": "dramatiq.results.backends.redis.RedisBackend",
     "BACKEND_OPTIONS": {
-        "url": env('REDIS_URL'),
+        "url": env.url('REDIS_URL'),
     },
     "MIDDLEWARE_OPTIONS": {
         "result_ttl": 60000
