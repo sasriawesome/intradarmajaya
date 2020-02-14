@@ -1,1 +1,0 @@
-default_app_config = 'wagtailkit.partners.apps.WagtalkitPartnersConfig'

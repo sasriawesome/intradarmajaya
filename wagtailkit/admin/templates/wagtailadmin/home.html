@@ -1,9 +1,0 @@
-{% extends "wagtailadmin/home.html" %}
-{% load i18n static wagtailsettings_tags %}
-{% get_settings %}
-
-{% if settings.wagtailkitcore.CompanySettings.sitename %}
-{% block branding_welcome %}
-{% trans 'Welcome to' %} {% firstof settings.wagtailkitcore.CompanySettings.sitename 'Wagtail' %}
-{% endblock %}
-{% endif %}

@@ -1,2 +1,2 @@
 release: bash ./release-task.sh
-web: gunicorn wagtailkits.wsgi
+web: gunicorn intradarmajaya.wsgi
