@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 # Application definition
 
-installed_app_base = [
+INSTALLED_APPS = [
     'home',
     'search',
     'intranet',

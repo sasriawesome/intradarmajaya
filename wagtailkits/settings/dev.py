@@ -11,11 +11,6 @@ SECRET_KEY = '(*1#c*+)m3bt@o4dfcr_sp63^@b4prr(59ebe$ibz+kz%o7dsk'
 ALLOWED_HOSTS = ['*'] 
 
 
-INSTALLED_APPS = [
-    # 'debug_toolbar',
-    'django_extensions'
-] + installed_app_base
-
 try:
     from .local import *
 except ImportError:
