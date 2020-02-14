@@ -104,7 +104,7 @@ class Person(index.Indexed, ClusterableModel, NumeratorMixin, ContactInfo, KitBa
 
     # Last Education
     last_education_level = models.CharField(
-        max_length=3,
+        max_length=5,
         choices=[(str(lvl.value), str(lvl.name)) for lvl in KKNILevel],
         default=KKNILevel.SMA.value,
         verbose_name=_('Edu Level'))
