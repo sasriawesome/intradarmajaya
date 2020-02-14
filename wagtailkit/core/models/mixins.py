@@ -138,6 +138,9 @@ class ThreeStepStatusMixin(StatusMixin):
     def clean_complete_action(self):
         pass
 
+    def after_complete_action(self):
+        pass
+
     @transaction.atomic
     def complete(self):
         """ Complete validated order """
@@ -147,6 +150,7 @@ class ThreeStepStatusMixin(StatusMixin):
             self.clean_complete_action()
             self.status = 'complete'
             self.save()
+            self.after_complete_action()
         else:
             msg = _("{} {} is {}, it can't be completed.")
             raise PermissionError(
@@ -185,6 +189,9 @@ class FourStepStatusMixin(StatusMixin):
     def clean_complete_action(self):
         pass
 
+    def after_complete_action(self):
+        pass
+
     @transaction.atomic
     def complete(self):
         """ Complete validated order """
@@ -194,6 +201,7 @@ class FourStepStatusMixin(StatusMixin):
             self.clean_complete_action()
             self.status = 'complete'
             self.save()
+            self.after_complete_action()
         else:
             msg = _("{} {} is {}, it can't be completed.")
             raise PermissionError(
@@ -286,7 +294,7 @@ class FiveStepStatusMixin(StatusMixin):
             self.clean_complete_action()
             self.status = 'complete'
             self.save()
-            self.after_process_action()
+            self.after_complete_action()
         else:
             msg = _("{} {} is {}, it can't be completed.")
             raise PermissionError(

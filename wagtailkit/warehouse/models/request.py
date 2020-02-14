@@ -3,18 +3,27 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.conf import settings
+from django.shortcuts import reverse
+from django.contrib.auth.models import Group
 from wagtail.core.models import ClusterableModel, Orderable
 from wagtail.core.fields import RichTextField
 from modelcluster.fields import ParentalKey
 
 from mptt.models import TreeForeignKey
 
+from wagtailkit.core.tasks import send_html_email
 from wagtailkit.core.models import (
     MAX_LEN_MEDIUM, MAX_LEN_LONG, MAX_RICHTEXT,
     CreatorModelMixin, FiveStepStatusMixin, KitBaseModel)
 from wagtailkit.numerators.models import NumeratorMixin
 from wagtailkit.organizations.models import Position, Department
 from wagtailkit.products.models import Inventory, Asset
+
+warehouse_admins = Group.objects.get(name='Warehouse Admins')
+warehouse_managers = Group.objects.get(name='Warehouse Managers')
+warehouse_supervisors = Group.objects.get(name='Warehouse Supervisors')
+warehouse_staffs = Group.objects.get(name='Warehouse Staffs')
 
 
 class RequestOrderManager(models.Manager):
@@ -76,7 +85,7 @@ class RequestOrder(NumeratorMixin, ClusterableModel, FiveStepStatusMixin, Creato
     )
 
     doc_code = 'FPB'
-    objects=RequestOrderManager()
+    objects = RequestOrderManager()
 
     requester = TreeForeignKey(
         Position, on_delete=models.PROTECT,
@@ -126,8 +135,66 @@ class RequestOrder(NumeratorMixin, ClusterableModel, FiveStepStatusMixin, Creato
             raise Exception(msg)
 
     def after_validate_action(self):
-        """ Send Email : Waiting For Approval """
-        pass
+        """
+            Send Email : Waiting For Approval
+        """
+        recipients = ['sasri.darmajaya@gmail.com']
+        for user in warehouse_admins.user_set.all():
+            recipients.append(user.email)
+        for user in warehouse_managers.user_set.all():
+            recipients.append(user.email)
+        subject = _('Request Order #{} Approval')
+        message_text = _("Request Order #{} waiting for approval, please visit this link to inspect and approve detail."
+                         " <a href='{}{}'>Approve Request Order</a>")
+        message = message_text.format(self.inner_id, settings.BASE_URL, self.get_absolute_admin_url())
+        send_html_email(
+            subject=subject.format(self.inner_id),
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=recipients,
+            message=message,
+        )
+
+    def after_reject_action(self):
+        """
+            Send Email Notification To Requester: Request Order Rejected
+        """
+        recipients = ['sasri.darmajaya@gmail.com']
+        for user in warehouse_admins.user_set.all():
+            recipients.append(user.email)
+        recipients.append(self.creator.email)
+        subject = _('Request Order #{} Rejected')
+        message_text = _("Request Order #{} rejected, please visit this link to inspect detail."
+                         " <a href='{}{}'>Inspect Request Order</a>")
+        message = message_text.format(self.inner_id, settings.BASE_URL, self.get_absolute_admin_url())
+        send_html_email(
+            subject=subject.format(self.inner_id),
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=recipients,
+            message=message,
+        )
+
+    def after_approve_action(self):
+        """
+            Send Email Notification To Requester: Request Order Approved
+        """
+        recipients = ['sasri.darmajaya@gmail.com']
+        for user in warehouse_admins.user_set.all():
+            recipients.append(user.email)
+        for user in warehouse_supervisors.user_set.all():
+            recipients.append(user.email)
+        for user in warehouse_staffs.user_set.all():
+            recipients.append(user.email)
+        recipients.append(self.creator.email)
+        subject = _('Request Order #{} Approved')
+        message_text = _("Request Order #{} approved, please visit this link to inspect approval detail."
+                         " <a href='{}{}'> Approved Request Order</a>")
+        message = message_text.format(self.inner_id, settings.BASE_URL, self.get_absolute_admin_url())
+        send_html_email(
+            subject=subject.format(self.inner_id),
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=recipients,
+            message=message,
+        )
 
     def approve_validation(self):
         """ Check each product stock on hands for approval """
@@ -139,6 +206,43 @@ class RequestOrder(NumeratorMixin, ClusterableModel, FiveStepStatusMixin, Creato
             if req_prd.product.stockcard.stock < req_prd.quantity_approved:
                 msg = "Sorry stock %s is %s " % (req_prd.product.name, req_prd.product.stockcard.stock)
                 raise ValidationError(msg)
+
+    def after_process_action(self):
+        """
+            Send Email Notification To Requester: Request Order Processed
+        """
+        recipients = ['sasri.darmajaya@gmail.com']
+        for user in warehouse_admins.user_set.all():
+            recipients.append(user.email)
+        recipients.append(self.creator.email)
+        subject = _('Request Order #{} Processed')
+        message_text = _("Request Order #{} processed, please visit this link to inspect detail."
+                         " <a href='{}{}'>Inspect Request Order</a>")
+        message = message_text.format(self.inner_id, settings.BASE_URL, self.get_absolute_admin_url())
+        send_html_email(
+            subject=subject.format(self.inner_id),
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=recipients,
+            message=message,
+        )
+
+    def after_complete_action(self):
+        """
+            Send Email Notification To Requester: Request Order Complete
+        """
+        recipients = ['sasri.darmajaya@gmail.com']
+        for user in warehouse_admins.user_set.all():
+            recipients.append(user.email)
+        recipients.append(self.creator.email)
+        subject = _('Request Order #{} Complete')
+        message_text = _("Request Order #{} complete. Thanks.")
+        message = message_text.format(self.inner_id, settings.BASE_URL, self.get_absolute_admin_url())
+        send_html_email(
+            subject=subject.format(self.inner_id),
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=recipients,
+            message=message,
+        )
 
     def update_on_request_stock(self):
         for req_prd in self.requested_inventories.all():
@@ -169,7 +273,11 @@ class RequestOrder(NumeratorMixin, ClusterableModel, FiveStepStatusMixin, Creato
         if self._state.adding:
             self.requester = self.creator.person.employee.position
             self.department = self.creator.person.employee.position.department
+            self.deliver_to = self.creator.person.fullname
         super().save(*args, **kwargs)
+
+    def get_absolute_admin_url(self):
+        return reverse('warehouse_requestorder_modeladmin_inspect', args=(self.id,))
 
 
 class ProductRequestLineMixin(models.Model):

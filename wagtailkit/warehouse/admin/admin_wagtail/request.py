@@ -39,7 +39,7 @@ class RequestOrderModelAdmin(PrintPDFModelAdminMixin, StatusModelAdminMixin):
             # FieldPanel('status'),
             # FieldPanel('requester'),
             # FieldPanel('department'),
-            FieldPanel('deliver_to'),
+            # FieldPanel('deliver_to'),
             FieldPanel('critical_status'),
             FieldPanel('deadline'),
             FieldPanel('title'),

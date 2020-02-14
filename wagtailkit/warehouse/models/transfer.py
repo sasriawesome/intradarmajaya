@@ -210,6 +210,9 @@ class TransferCheckOut(ProductTransfer):
 
     def save(self, *args, **kwargs):
         self.reftype = ProductTransfer.OUT
+        self.requester = self.request_order.requester.name
+        self.department = self.request_order.department.name
+        self.deliver_to = self.request_order.deliver_to
         self.clean()
         return super().save(**kwargs)
 

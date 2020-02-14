@@ -72,27 +72,6 @@ class RequestOrderApproveView(ModelFormView, InstanceSpecificView):
         instance = form.save()
         # update stock_on_request for lock requestable stock
         instance.update_on_request_stock()
+        instance.approve()
         messages.success(self.request, self.get_success_message(instance))
-
-        from sendgrid import SendGridAPIClient
-        from sendgrid.helpers.mail import Mail
-        from django.conf import settings
-        from django.template.loader import render_to_string
-        message = Mail(
-            from_email='Intra Darmajaya: Warehouse <noreply@intimdev.com>',
-            to_emails='sasri.darmajaya@gmail.com',
-            subject='Request Order #{} sudah diapprove'.format(instance),
-            html_content=render_to_string(
-                'modeladmin/warehouse/requestorder/inspect.html',
-                context={'instance': instance}, request=self.request))
-        try:
-            sg = SendGridAPIClient(settings.SENDGRID_API_KEY)
-            response = sg.send(message)
-            print(response.status_code)
-            print(response.body)
-            print(response.headers)
-        except Exception as e:
-            print(e)
-
-
         return redirect(self.get_success_url())

@@ -39,7 +39,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 INSTALLED_APPS = [
     'home',
     'search',
-
+    'intranet',
     'wagtailkit.core',
     'wagtailkit.accounts',
     'wagtailkit.admin',
@@ -48,6 +48,12 @@ INSTALLED_APPS = [
     'wagtailkit.printpdf',
     'wagtailkit.importexport',
     'wagtailkit.persons',
+
+    'wagtailkit.employees',
+    'wagtailkit.organizations',
+    'wagtailkit.partners',
+    'wagtailkit.products',
+    'wagtailkit.warehouse',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -63,11 +69,16 @@ INSTALLED_APPS = [
     'wagtail.admin',
     'wagtail.core',
 
+    'mptt',
+    'taggit',
     'wagtailautocomplete',
     'wagtailfontawesome',
     'import_export',
     'modelcluster',
-    'taggit',
+    'polymorphic',
+    'graphene_django',
+    'django_dramatiq',
+    'generic_chooser',
 
     'django.contrib.sites',
     'django.contrib.admin',
@@ -251,7 +262,7 @@ DRAMATIQ_BROKER = {
 DRAMATIQ_RESULT_BACKEND = {
     "BACKEND": "dramatiq.results.backends.redis.RedisBackend",
     "BACKEND_OPTIONS": {
-        "url": env.url('REDIS_URL'),
+        "url": env('REDIS_URL'),
     },
     "MIDDLEWARE_OPTIONS": {
         "result_ttl": 60000
