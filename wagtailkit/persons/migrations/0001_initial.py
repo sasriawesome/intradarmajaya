@@ -18,7 +18,6 @@ class Migration(migrations.Migration):
     dependencies = [
         ('wagtaildocs', '0010_document_file_hash'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('wagtailcore', '0045_assign_unlock_grouppagepermission'),
     ]
 
     operations = [

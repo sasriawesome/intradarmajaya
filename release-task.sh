@@ -1,2 +1,2 @@
 python ./manage.py migrate
-python collectstatic --noinput
+python ./manage.py collectstatic --noinput
