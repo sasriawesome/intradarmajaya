@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'modelcluster',
     'taggit',
 
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
