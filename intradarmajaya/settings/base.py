@@ -40,6 +40,15 @@ INSTALLED_APPS = [
     'home',
     'search',
 
+    'wagtailkit.core',
+    'wagtailkit.accounts',
+    'wagtailkit.admin',
+    'wagtailkit.autocompletes',
+    'wagtailkit.numerators',
+    'wagtailkit.printpdf',
+    'wagtailkit.importexport',
+    'wagtailkit.persons',
+
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.settings',
@@ -54,6 +63,9 @@ INSTALLED_APPS = [
     'wagtail.admin',
     'wagtail.core',
 
+    'wagtailautocomplete',
+    'wagtailfontawesome',
+    'import_export',
     'modelcluster',
     'taggit',
 
@@ -118,6 +130,8 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
+
+AUTH_USER_MODEL = 'accounts.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
