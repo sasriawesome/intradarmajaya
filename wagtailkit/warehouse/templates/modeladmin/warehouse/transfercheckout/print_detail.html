@@ -1,0 +1,135 @@
+{% extends 'modeladmin/print_base.html' %}
+{% load static i18n wagtailadmin_tags %}
+
+{% block content %}
+<div class=row">
+    <div class="col col-sm-7">
+        <ul class="head-list">
+            <li class="head-list-item">
+                <span class="list-label">{% trans 'Request order' %}</span>
+                <span class="list-value">: {{ instance.request_order }}</span>
+            </li>
+            <li class="head-list-item">
+                <span class="list-label">{% trans 'Requester' %}</span>
+                <span class="list-value">: {{ instance.requester }}</span>
+            </li>
+            <li class="head-list-item">
+                <span class="list-label">{% trans 'Department' %}</span>
+                <span class="list-value">: {{ instance.department }}</span>
+            </li>
+            <li class="head-list-item">
+                <span class="list-label">{% trans 'Deliver to' %}</span>
+                <span class="list-value">: {{ instance.deliver_to }}</span>
+            </li>
+        </ul>
+        <ul class="head-list">
+            <li class="head-list-item">
+                <span class="list-label"> {% trans 'Title' %} :</span>
+                <p class="list-value">{{ instance.title }}</p>
+            </li>
+            <li class="head-list-item">
+                <span class="list-label"> {% trans 'Description' %} :</span>
+                <p class="list-value">{{ instance.description }}</p>
+            </li>
+        </ul>
+    </div>
+    <div class="col col-sm-5">
+        <ul class="head-list">
+            <li class="head-list-item">
+                <span class="list-label">{% trans 'Number' %}</span>
+                <span class="list-value">: {{ instance.inner_id }}</span>
+            </li>
+            <li class="head-list-item">
+                <span class="list-label">{% trans 'Created on' %}</span>
+                <span class="list-value">: {{ instance.date_created }}</span>
+            </li>
+            <li class="head-list-item">
+                <span class="list-label">{% trans 'Delivered on' %}</span>
+                <span class="list-value">: {{ instance.delivered_date }}</span>
+            </li>
+            <li class="head-list-item">
+                <span class="list-label">{% trans 'Status' %} :</span>
+                <span class="list-value">: {{ instance.status.title }}</span>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        {% if instance.inventory_transfers.all or instance.assets_transfers.all %}
+        <table class="listing paper-listing">
+            <thead>
+            <tr>
+                <th>Inner ID</th>
+                <th>Product/Service</th>
+                <th>Category</th>
+                <th>Note</th>
+                <th>Qty</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% with instance.inventory_transfers.all as inventories %}
+            {% for item in inventories %}
+            <tr>
+                <td>{{ item.product.inner_id }}</td>
+                <td><strong>{{ item.product.name }}</strong><br/>
+                    {% if item.product.specifications.all %}
+                    {% with item.product.specifications.all as specs %}
+                    <span class="spec">Specification:</span>
+                    <ul class="spec-list">
+                        {% for spec in specs %}
+                        <li>{{ spec.feature }}, {{ spec.value }}, {% firstof spec.note '-' %}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endwith %}
+                    {% endif %}
+                </td>
+                <td>{% firstof item.category '-' %}</td>
+                <td>{% firstof item.note '-' %}</td>
+                <td>{{ item.quantity }}</td>
+            </tr>
+            {% endfor %}
+            {% endwith %}
+
+            {% with instance.asset_transfers.all as assets %}
+            {% for item in assets %}
+            <tr>
+                <td>{{ item.product.inner_id }}</td>
+                <td><strong>{{ item.product.name }}</strong><br/>
+                    {% if item.product.specifications.all %}
+                    {% with item.product.specifications.all as specs %}
+                    <span class="spec">Specification:</span>
+                    <ul class="spec-list">
+                        {% for spec in specs %}
+                        <li>{{ spec.feature }}, {{ spec.value }}, {% firstof spec.note '-' %}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endwith %}
+                    {% endif %}
+                </td>
+                <td>{% firstof item.product.category '-' %}</td>
+                <td>{% firstof item.note '-' %}</td>
+                <td>{{ item.quantity }}</td>
+            </tr>
+            {% endfor %}
+            {% endwith %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-8">&nbsp;</div>
+    <div class="col-sm-4 text-center">
+        <p>
+            {{ instance.creator.person.employee.primary_chair.chair.position }}<br/>
+            {{ instance.creator.person.employee.primary_chair.chair.department.name }}
+        </p> <br/><br/> <br/>
+        <p>
+            <strong>{{ instance.creator.person }}</strong><br/>
+            {{ instance.creator.person.employee.eid }}
+        </p>
+
+    </div>
+</div>
+{% endblock %}

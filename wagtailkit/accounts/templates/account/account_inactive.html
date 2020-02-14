@@ -1,0 +1,15 @@
+{% extends 'account/auth_base.html' %}
+{% load i18n static wagtailsettings_tags %}
+{% load account socialaccount %}
+
+{% block title %}{% trans "Account Inactive!" %}{% endblock %}
+{% block head_title %}{% trans "Account Inactive!" %}{% endblock %}
+
+{% block form_body %}
+    <p class="small text-center">
+        {% trans "Hmmm... This account is inactive.. " %}<br/>
+        {% trans "Please check your email, and click activation link .."%}
+    </p>
+{% endblock %}
+
+{% block form_footer %}{% endblock %}

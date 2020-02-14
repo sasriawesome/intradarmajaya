@@ -1,0 +1,28 @@
+{% load i18n %}
+
+<header class="{% if merged %}merged{% endif %} {% if tabbed %}tab-merged{% endif %} {% if search_form %}hasform{% endif %}" role="banner">
+  <nav aria-label="{% trans 'Breadcrumb' %}">
+    <ul class="breadcrumb">
+      <li class="home"><a href="{% url 'wagtailadmin_home' %}" class="icon icon-home text-replace">{% trans 'Home' %}</a></li>
+      <li><a href="#">{{ title }}</a></li>
+    </ul>
+  </nav>
+  <div class="row nice-padding">
+    <div class="left">
+      <div class="col header-title">
+        <h1 class="icon icon-{{ icon }}">
+          {{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}</h1>
+      </div>
+    </div>
+    <div class="right">
+      <div class="addbutton">
+        <a href="{% url 'wagtailadmin_account' %}" class="button bicolor icon icon-fa-print">{% trans 'Update' %}</a>
+      </div>
+    </div>
+    <div class="right" style="margin-right: 10px;">
+      <div class="addbutton">
+        <a href="{% url 'persons_person_modeladmin_account_profile_pdf' %}" class="button bicolor icon icon-edit">{% trans 'Export PDF' %}</a>
+      </div>
+    </div>
+  </div>
+</header>

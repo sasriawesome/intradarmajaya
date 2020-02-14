@@ -1,0 +1,68 @@
+{% load i18n wagtailadmin_tags wagtailcore_tags modeladmin_tags %}
+{% if object_list %}
+{% with object_list as results %}
+{% for instance in results %}
+<div class="discussion nice-padding">
+    <div class="clear mb15 mt15">
+        <div class="col8">
+            <div class="discussion-title">
+                <h2 style="text-transform:none">
+                    <a href="{{ instance.get_absolute_url }}">{{ instance.title | title }}</a>
+                </h2>
+                {% if instance.category %}
+                    <p>{% trans 'Posted in' %} :
+                        <a href="{{ view.index_url }}?category__name={{ instance.category }}">
+                            <button class="button button-secondary button-xsmall" type="button">
+                                {{ instance.category }}</button>
+                        </a>
+                    </p>
+                {% endif %}
+            </div>
+            <div class="discussion-body">
+                {{ instance.summary | richtext }}
+            </div>
+        </div>
+
+        <div class="col4 mt15">
+            <span class="avatar left">
+                <img src="{% avatar_url instance.creator %}" alt=""/>
+            </span>
+            <div class="author left font-small ml15">
+                <span>{{ instance.date_created }}</span><br/>
+                <strong>
+                    <a href="{{ view.index_url }}?creator_id={{ instance.creator.id }}">
+                        {{ instance.creator }}
+                    </a>
+                </strong><br/>
+                <span><a href="http://localhost:8000{{ instance.get_absolute_url }}#disqus_thread">Comment</a></span>
+            </div>
+            <div class="clear"></div>
+
+            {% if instance.tags %}
+            <div class="tag-list mt15">
+                {% with instance.tags as tags %}
+                {% if tags.count == 1 %}
+                <a href="{{ view.index_url }}?tags__name={{ tags.first }}">
+                    <button class="button button-secondary button-xsmall" type="button"> {{ tags.first }}</button>
+                </a>
+                {% else %}
+                {% for tag in tags.all %}
+                <a href="{{ view.index_url }}?tags__name={{ tag }}">
+                    <button class="button button-secondary button-xsmall" type="button">{{ tag }}</button>
+                </a>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endwith %}
+{% else %}
+    <div class="nice-padding no-search-results">
+        <p>{% blocktrans with view.verbose_name_plural as name %}Sorry, there are no {{ name }} matching your search parameters.{% endblocktrans %}</p>
+    </div>
+{% endif %}
+

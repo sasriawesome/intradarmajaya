@@ -1,0 +1,24 @@
+<table class="listing paper-listing">
+    <thead>
+    <tr>
+        <th style="text-align: center" align="center">{% trans 'Min Stock' %}</th>
+        <th style="text-align: center" align="center">{% trans 'Max Stock' %}</th>
+        <th style="text-align: center" align="center">{% trans 'On Hand' %}</th>
+        <th style="text-align: center" align="center">{% trans 'On Request' %}</th>
+        <th style="text-align: center" align="center">{% trans 'On Delivery' %}</th>
+        <th style="text-align: center" align="center">{% trans 'Scrapped' %}</th>
+        <th style="text-align: center" align="center">{% trans 'Real Stock' %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td align="center">{{ instance.minimum_stock }}</td>
+        <td align="center">{{ instance.maximum_stock }}</td>
+        <td align="center">{{ instance.stock_on_hand }}</td>
+        <td align="center">{{ instance.stock_on_request }}</td>
+        <td align="center">{{ instance.stock_on_delivery }}</td>
+        <td align="center">{{ instance.stock_scrapped }}</td>
+        <td align="center">{{ instance.stock }}</td>
+    </tr>
+    </tbody>
+</table>

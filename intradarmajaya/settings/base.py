@@ -173,7 +173,7 @@ WAGTAIL_SITE_NAME = "intradarmajaya"
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = 'http://example.com'
+BASE_URL = 'http://localhost:8000'
 
 # HEROKU SETUP
 # ============================================================
@@ -197,7 +197,8 @@ env = environ.Env(
     AWS_STORAGE_BUCKET_NAME=(str, ''),
     AWS_ACCESS_KEY_ID=(str, ''),
     AWS_SECRET_ACCESS_KEY=(str, ''),
-    AWS_S3_CUSTOM_DOMAIN=(str, '')
+    AWS_S3_CUSTOM_DOMAIN=(str, ''),
+    REDIS_URL=(str, '')
 )
 
 AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
@@ -213,25 +214,44 @@ MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
 # EMAIL CONFIG
 # ======================================================================
 
-# Sendgrid Web API
-# EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
-# SENDGRID_ECHO_TO_STDOUT = True
-# SENDGRID_SANDBOX_MODE_IN_DEBUG = False
-# SENDGRID_API_KEY = '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'
-
-# If using SMTP
-# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-# EMAIL_USE_TLS = True
-# EMAIL_PORT = 587
-# EMAIL_HOST = "smtp.sendgrid.net"
-# EMAIL_HOST_USER = "intranet_darmajaya_email_api"
-# EMAIL_HOST_PASSWORD = "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"
-# DEFAULT_FROM_EMAIL = "noreply@intimdev.com"
-
 # Gmail Web API
-EMAIL_BACKEND = "core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "sasri.gg@gmail.com"
+DEFAULT_FROM_EMAIL = "Intranet Darmajaya <{}>".format(EMAIL_HOST_USER)
 EMAIL_HOST_PASSWORD = "eelhfcfhvoxjunxk"
+
+
+# DRAMATIQ CONFIG ======================================================================
+
+DRAMATIQ_BROKER = {
+    "BROKER": "dramatiq.brokers.redis.RedisBroker",
+    "OPTIONS": {
+        "url": env('REDIS_URL'),
+    },
+    "MIDDLEWARE": [
+        "dramatiq.middleware.Prometheus",
+        "dramatiq.middleware.AgeLimit",
+        "dramatiq.middleware.TimeLimit",
+        "dramatiq.middleware.Callbacks",
+        "dramatiq.middleware.Retries",
+        "django_dramatiq.middleware.AdminMiddleware",
+        "django_dramatiq.middleware.DbConnectionsMiddleware",
+    ]
+}
+
+DRAMATIQ_RESULT_BACKEND = {
+    "BACKEND": "dramatiq.results.backends.redis.RedisBackend",
+    "BACKEND_OPTIONS": {
+        "url": env('REDIS_URL'),
+    },
+    "MIDDLEWARE_OPTIONS": {
+        "result_ttl": 60000
+    }
+}
+
+# Defines which database should be used to persist Task objects when the
+# AdminMiddleware is enabled.  The default value is "default".
+DRAMATIQ_TASKS_DATABASE = "default"

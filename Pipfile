@@ -42,7 +42,7 @@ wagtail-generic-chooser = "*"
 wagtail-autocomplete = "*"
 django-sendgrid-v5 = "*"
 redis = "*"
-
+pika = "*"
 
 [requires]
 python_version = "3.7"

@@ -1,0 +1,508 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-13 14:53+0700\n"
+"PO-Revision-Date: 2019-12-13 14:58+0700\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.2.3\n"
+
+#: .\apps.py:7
+msgid "AI: Warehouse"
+msgstr "AI: Gudang"
+
+#: .\models\core.py:12
+msgid "Warehouse Location"
+msgstr "Lokasi Gudang"
+
+#: .\models\core.py:13
+msgid "Warehouse Locations"
+msgstr "Lokasi Gudang"
+
+#: .\models\core.py:18
+msgid "Physical"
+msgstr "Fisik"
+
+#: .\models\core.py:19
+msgid "Virtual"
+msgstr "Virtual"
+
+#: .\models\core.py:25 .\models\operation.py:17
+msgid "Name"
+msgstr "Name"
+
+#: .\models\core.py:28
+msgid "Location type"
+msgstr "Jenis lokasi"
+
+#: .\models\core.py:31 .\models\operation.py:27 .\models\operation.py:56
+#: .\models\transfer.py:55 .\models\transfer.py:199
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:79
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:205
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:77
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:228
+msgid "Created by"
+msgstr "Dibuat oleh"
+
+#: .\models\core.py:45 .\models\core.py:46
+msgid "Warehouse Cards"
+msgstr "Kartu Gudang"
+
+#: .\models\operation.py:12
+msgid "Inventory Adjustment"
+msgstr "Penyesuaian Persediaan"
+
+#: .\models\operation.py:13
+msgid "Inventory Adjustments"
+msgstr "Penyesuaian Persediaan"
+
+#: .\models\operation.py:20
+msgid "Effective date"
+msgstr "Tgl. Efektif"
+
+#: .\models\operation.py:23
+msgid "Validated date"
+msgstr "Tgl. Divalidasi"
+
+#: .\models\operation.py:26
+msgid "inventoryadjustment_created_by"
+msgstr ""
+
+#: .\models\operation.py:32
+msgid "inventoryadjustment_validated_by"
+msgstr ""
+
+#: .\models\operation.py:33
+msgid "Validated by"
+msgstr "Divalidasi oleh"
+
+#: .\models\operation.py:41
+msgid "Adjusted Product"
+msgstr "Barang Disesuaikan"
+
+#: .\models\operation.py:42
+msgid "Adjusted Products"
+msgstr "Barang Disesuaikan"
+
+#: .\models\operation.py:46
+msgid "Annual Adjustment"
+msgstr ""
+
+#: .\models\operation.py:49 .\models\request.py:106 .\models\request.py:145
+#: .\models\transfer.py:170 .\models\transfer.py:188
+msgid "Product"
+msgstr "Barang"
+
+#: .\models\operation.py:51
+msgid "Logical Quantity"
+msgstr "Quantity"
+
+#: .\models\operation.py:53
+msgid "Real Quantity"
+msgstr "Quantiti Real"
+
+#: .\models\request.py:15 .\models\request.py:123
+msgid "Request Order"
+msgstr "Permintaan Barang"
+
+#: .\models\request.py:16
+msgid "Request Orders"
+msgstr "Permintaan Barang"
+
+#: .\models\request.py:24
+msgid "Pending"
+msgstr "Tunda"
+
+#: .\models\request.py:25
+msgid "Approved"
+msgstr "Disetujui"
+
+#: .\models\request.py:26
+msgid "Rejected"
+msgstr "Ditolak"
+
+#: .\models\request.py:27
+msgid "Processed"
+msgstr "Diproses"
+
+#: .\models\request.py:28
+msgid "Complete"
+msgstr "Selesai"
+
+#: .\models\request.py:35
+msgid "Normal"
+msgstr "Biasa"
+
+#: .\models\request.py:36
+msgid "Urgent"
+msgstr "Mendesak"
+
+#: .\models\request.py:37
+msgid "Critical"
+msgstr "Sangat mendesak"
+
+#: .\models\request.py:42
+msgid "Mark as read"
+msgstr "Sudah dibaca"
+
+#: .\models\request.py:45
+msgid "Request status"
+msgstr "Status permintaan"
+
+#: .\models\request.py:49
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:104
+msgid "Chairman"
+msgstr "Pejabat"
+
+#: .\models\request.py:51
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:108
+msgid "Department"
+msgstr "Departemen"
+
+#: .\models\request.py:54
+msgid "Purpose of use"
+msgstr "Tujuan penggunaan"
+
+#: .\models\request.py:56
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:122
+msgid "Description"
+msgstr "Deskripsi"
+
+#: .\models\request.py:59
+msgid "Rejection note"
+msgstr "Catatan penolakan"
+
+#: .\models\request.py:63
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:142
+msgid "Status"
+msgstr "Status"
+
+#: .\models\request.py:65
+msgid "On Deadline"
+msgstr "Deadline"
+
+#: .\models\request.py:68
+msgid "Date approved"
+msgstr "Tgl. Disetujui"
+
+#: .\models\request.py:70 .\models\transfer.py:48
+msgid "Date processed"
+msgstr "Tgl. Diproses"
+
+#: .\models\request.py:72
+msgid "Date completed"
+msgstr "Tgl. Selesai"
+
+#: .\models\request.py:74
+msgid "Date rejected"
+msgstr "Tgl. Ditolak"
+
+#: .\models\request.py:78
+msgid "RO Created by"
+msgstr ""
+
+#: .\models\request.py:81
+msgid "RO Approved by"
+msgstr ""
+
+#: .\models\request.py:84
+msgid "RO Processed by"
+msgstr ""
+
+#: .\models\request.py:87
+msgid "RO Completed by"
+msgstr ""
+
+#: .\models\request.py:90
+msgid "RO Rejected by"
+msgstr ""
+
+#: .\models\request.py:98 .\models\request.py:99
+msgid "Inventory Request Item"
+msgstr "Item Permintaan Persediaan"
+
+#: .\models\request.py:104
+msgid "Request Inventory"
+msgstr "Permintaan Persediaan"
+
+#: .\models\request.py:108 .\models\request.py:128 .\models\request.py:147
+msgid "Requested Quantity"
+msgstr "Quantiti diminta"
+
+#: .\models\request.py:110 .\models\request.py:130 .\models\request.py:149
+msgid "Approved Quantity"
+msgstr "Quantiti disetuji"
+
+#: .\models\request.py:118 .\models\request.py:119
+msgid "Request New Product"
+msgstr "Permintaan Barang Baru"
+
+#: .\models\request.py:126
+msgid "New Product"
+msgstr "Barang Baru"
+
+#: .\models\request.py:138 .\models\request.py:139
+msgid "Asset Request Item"
+msgstr ""
+
+#: .\models\request.py:143
+msgid "Asset Request Order"
+msgstr ""
+
+#: .\models\transfer.py:21
+msgid "Product Transfer"
+msgstr "Transfer Barang"
+
+#: .\models\transfer.py:22
+msgid "Product Transfers"
+msgstr "Transfer Barang"
+
+#: .\models\transfer.py:29 .\models\transfer.py:93
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:112
+msgid "Purchase Order"
+msgstr "Purchase Order"
+
+#: .\models\transfer.py:30
+msgid "Sales Order"
+msgstr "Sales Order"
+
+#: .\models\transfer.py:31
+msgid "Inventory Request Order"
+msgstr "Form Permintaan Persediaan"
+
+#: .\models\transfer.py:32
+msgid "Internal Memo"
+msgstr "Internal Memo"
+
+#: .\models\transfer.py:42 .\models\transfer.py:194
+msgid "Note"
+msgstr "Catatan"
+
+#: .\models\transfer.py:45
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:142
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:134
+msgid "Date created"
+msgstr "Tgl. Dibuat"
+
+#: .\models\transfer.py:51
+msgid "Date closed"
+msgstr "Tgl. Ditutup"
+
+#: .\models\transfer.py:61
+msgid "Accepted by"
+msgstr "Diterima oleh"
+
+#: .\models\transfer.py:82 .\models\transfer.py:109
+msgid "Check In"
+msgstr "Penerimaan Barang"
+
+#: .\models\transfer.py:83
+msgid "Check Ins"
+msgstr "Penerimaan Barang"
+
+#: .\models\transfer.py:88
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:123
+msgid "From"
+msgstr "Dari"
+
+#: .\models\transfer.py:95
+msgid "Please fill Purchase Order number"
+msgstr "Silahkan isi nomor Purchase Order"
+
+#: .\models\transfer.py:100 .\models\transfer.py:137
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:118
+msgid "Reference"
+msgstr "Referensi"
+
+#: .\models\transfer.py:102
+msgid "Please fill reference number from vendor/supplier Invoice"
+msgstr ""
+
+#: .\models\transfer.py:105
+msgid "Date received"
+msgstr "Tgl. Diterima"
+
+#: .\models\transfer.py:120
+msgid "Purchase Order Does not exist"
+msgstr "Nomor Purchase Order tidak ditemukan."
+
+#: .\models\transfer.py:129 .\models\transfer.py:147
+msgid "Check Out"
+msgstr "Pengiriman Barang"
+
+#: .\models\transfer.py:130
+msgid "Check Outs"
+msgstr "Pengiriman Barang"
+
+#: .\models\transfer.py:140
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:129
+msgid "To"
+msgstr "Kepada"
+
+#: .\models\transfer.py:143 .\models\transfer.py:161
+msgid "Date delivered"
+msgstr "Tanggal dikirim"
+
+#: .\models\transfer.py:152
+msgid "Product Scrapped"
+msgstr "Barang Rusak"
+
+#: .\models\transfer.py:153
+msgid "Product Scrappeds"
+msgstr "Barang Rusak"
+
+#: .\models\transfer.py:158
+msgid "Product Scrap Location"
+msgstr ""
+
+#: .\models\transfer.py:165
+msgid "Scrapped"
+msgstr ""
+
+#: .\models\transfer.py:171
+msgid "Products"
+msgstr "Barang"
+
+#: .\models\transfer.py:176
+msgid "In"
+msgstr "Masuk"
+
+#: .\models\transfer.py:177
+msgid "Out"
+msgstr "Keluar"
+
+#: .\models\transfer.py:182
+msgid "Transfer type"
+msgstr "Jenis transfer"
+
+#: .\models\transfer.py:185
+msgid "Product transfer"
+msgstr "Formulir Barang Keluar"
+
+#: .\models\transfer.py:190
+msgid "Quantity"
+msgstr "Quantiti"
+
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:6
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:6
+msgid "Home"
+msgstr "Beranda"
+
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:42
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:40
+msgid "Back"
+msgstr "Kembali"
+
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:46
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:44
+msgid "Edit"
+msgstr "Ubah"
+
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:51
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:49
+msgid "Delete"
+msgstr "Hapus"
+
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:56
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:54
+msgid "Make Valid"
+msgstr "Validasi"
+
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:61
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:59
+msgid "Make Complete"
+msgstr "Selesaikan"
+
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:66
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:64
+msgid "Create Invoice"
+msgstr ""
+
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:71
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:69
+msgid "Show Invoice"
+msgstr ""
+
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:75
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:73
+msgid "Print "
+msgstr ""
+
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:106
+msgid "Transfer"
+msgstr ""
+
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:138
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:130
+msgid "Number"
+msgstr ""
+
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:147
+msgid "Received date"
+msgstr ""
+
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:152
+msgid "Delivered date"
+msgstr ""
+
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:164
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:152
+msgid "ID"
+msgstr ""
+
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:165
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:153
+msgid "PRODUCT/SERVICE"
+msgstr ""
+
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:166
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:154
+msgid "CATEGORY"
+msgstr ""
+
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:168
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:156
+msgid "NOTE"
+msgstr ""
+
+#: .\templates\admin\zerp_warehouse\producttransfer_detail.html:171
+msgid "QTY"
+msgstr ""
+
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:112
+msgid "Critical Status"
+msgstr ""
+
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:118
+msgid "Purpose Of Use"
+msgstr "Tujuan penggunaan"
+
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:138
+msgid "Deadline"
+msgstr ""
+
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:159
+msgid "REQ QTY"
+msgstr ""
+
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:162
+msgid "APPROVED"
+msgstr ""
+
+#: .\templates\admin\zerp_warehouse\requestorder_detail.html:198
+msgid "New Product Requested"
+msgstr ""
+
+#~ msgid "Request Type"
+#~ msgstr "Jenis permintaan"

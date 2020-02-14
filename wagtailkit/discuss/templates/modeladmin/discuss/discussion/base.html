@@ -1,0 +1,118 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n static wagtailadmin_tags modeladmin_tags %}
+
+{% block extra_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% versioned_static 'wagtailmodeladmin/css/breadcrumbs_page.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'wagtailkit/css/inspect.css' %}" type="text/css"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'discuss/vendor/lightgallery/css/lightgallery.css' %}"/>
+    <style>
+        .left {
+            float: left;
+        }
+
+        .right {
+            float: right;
+        }
+
+        .clear {
+            clear: both;
+            overflow: hidden;
+        }
+
+        .mt15 {
+            margin-top: 15px;
+        }
+
+        .mb15 {
+            margin-bottom: 15px;
+        }
+
+        .ml15 {
+            margin-left: 15px;
+        }
+
+        .mr15 {
+            margin-right: 15px;
+        }
+
+        .text-small {
+            font-size: .8em;
+        }
+
+        .button-xsmall {
+            padding: 0 .5em;
+            height: 2em;
+            font-size: .8em;
+        }
+
+        .discussion {
+            border-bottom: 1px dashed #d9d9d9;
+        }
+
+        .pagination {
+            border-top: none !important;
+        }
+
+        .discussion-wrapper {
+            margin-bottom: 60px;
+        }
+
+        .discussion-body {
+            clear: both;
+            display: inline-block;
+        }
+
+        .author {
+            line-height: 1.3em;
+        }
+
+        .tag-list {
+            margin-bottom: 15px;
+        }
+
+        .gallery {
+            clear: both;
+            display: inline-block;
+            list-style: none;
+            margin-top: 15px;
+            padding: 0;
+        }
+
+        .img-wrapper {
+            float: left;
+            margin: 10px;
+            display: inline-block;
+        }
+
+        .rich-text img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .responsive-object {
+            position: relative;
+        }
+
+        .responsive-object iframe,
+        .responsive-object object,
+        .responsive-object embed {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'discuss/vendor/lightgallery/js/lightgallery-all.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#lightgallery").lightGallery();
+        });
+    </script>
+{% endblock %}

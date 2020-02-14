@@ -1,0 +1,59 @@
+{% with employee.get_anchestors as anchestors %}
+<h3 style="margin-left: -15px;">
+  <strong>{% trans 'Structure' as fe_structs %} {{ fe_structs | upper }}</strong>
+</h3>
+<ul style="padding: 0; list-style: none;">
+  <li>
+    <div class="author left small" style="padding-bottom: 8px">
+      {% if anchestors.0.get_active_chairman %}
+      <span class="avatar small" style="float: left;">
+        <img src="{% avatar_url anchestors.0.get_active_chairman.person.user_account %}"
+             title="{{ anchestors.0.get_active_chairman }}"/>
+      </span>
+      {% endif %}
+      <div>
+        {% if anchestors.0.get_active_chairman %}
+          <span>{{ anchestors.0.get_active_chairman }}</span>
+        {% else %}
+          {% trans 'Vacant' %}
+        {% endif %}
+        <div style="font-size: .8em; margin-top: -5px;">{{ anchestors.0.name }}</div>
+      </div>
+    </div>
+  </li>
+  {% for position in anchestors.0.get_children %}
+  <li>
+    <div style='margin-left: {{ position.level }}em'>
+      {% with position.get_active_chairman as active_chairmans %}
+        {% if active_chairmans %}
+          {% if position.is_manager or position.is_manager %}
+            <div class="author left small" style="padding-bottom: 8px">
+              <span class="avatar small" style="float: left;">
+                <img src="{% avatar_url position.get_active_chairman.person.user_account %}"
+                     title="{{ position.get_active_chairman }}"/>
+              </span>
+              <div>
+                <span>{{ position.get_active_chairman }}</span>
+                <div style="font-size: .8em; margin-top: -5px;">{{ position.name }}</div>
+              </div>
+            </div>
+          {% else %}
+            {% for chairman in active_chairmans %}
+              <div class="author left small"  style="padding-bottom: 8px">
+                <span class="avatar small" style="float: left;">
+                  <img src="{% avatar_url chairman.person.user_account %}" title="{{ chairman }}"/>
+                </span>
+                <div>
+                  <span>{{ chairman }}</span>
+                  <div style="font-size: .8em; margin-top: -5px;">{{ chairman.position }}</div>
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endif %}
+      {% endwith %}
+      </div>
+  </li>
+  {% endfor %}
+</ul>
+{% endwith %}

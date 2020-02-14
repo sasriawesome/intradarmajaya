@@ -1,0 +1,157 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    align-items: center;
+    background-color: #f5f5f5;
+}
+
+.form-container {
+    width: 350px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.form-signin {
+    width: 100%;
+    padding: 30px;
+    border: 1px solid #d9d9d9;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.form-header {
+    padding-top: 60px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.form-header .logo {
+    width: 100px;
+    margin-bottom: 15px;
+}
+
+.form-header h1 {
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: -.5px;
+}
+
+.form-signin .checkbox {
+    font-weight: 400;
+}
+
+.form-signin label {
+    text-align: left;
+    display: block;
+}
+
+.form-signin label .label-link {
+    float: right;
+}
+
+.form-signin .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 7px 15px;
+}
+
+.form-group {
+    margin-bottom: .5rem;
+}
+
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+
+.form-signin input[type="email"] {
+    margin-bottom: -1px;
+}
+
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+}
+
+.input-wrapper p {
+    font-size: small;
+    margin-bottom: 8px;
+}
+
+.form-footer {
+    padding: 15px;
+    font-size: small;
+    text-align: center;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    margin-bottom: 60px;
+}
+
+.submit-row {
+    margin-bottom: 12px;
+}
+
+.socialaccount_ballot {
+    clear: both;
+    overflow: hidden;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.socialaccount_ballot p {
+    margin-bottom: 12px;
+}
+
+.socialaccount_providers {
+    list-style: None;
+    padding: 0;
+    margin: 0;
+}
+
+.socialaccount_providers li {
+    display: inline-block;
+}
+
+.socialaccount_provider {
+    display: flex;
+    width: 32px;
+    height: 32px;
+    color: #777777;
+    border-radius: 50%;
+    background: #dedede;
+    margin: 0 3px;
+    text-decoration: none;
+    align-items: center;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.socialaccount_provider:hover {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.socialaccount_provider .icon {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.socialaccount_provider.facebook:hover {
+    background: #395697;
+}
+
+.socialaccount_provider.google:hover {
+    background: #ea4335;
+}
+
+.socialaccount_provider.github:hover {
+    background: #444444;
+}
+
+.socialaccount_provider.slack:hover {
+    background: #a900ae;
+}

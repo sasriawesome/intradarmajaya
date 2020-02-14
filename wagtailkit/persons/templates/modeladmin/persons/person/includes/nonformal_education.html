@@ -1,0 +1,41 @@
+{% load i18n %}
+
+<h3><strong>{% trans 'Non Formal Educations' as nfe_title %} {{ nfe_title | upper }}</strong></h3>
+<table class="listing full-width">
+  <thead>
+  <tr>
+    <th>{% trans 'Name' %}</th>
+    <th>{% trans 'Institution' %}</th>
+    <th>{% trans 'Date start' %}</th>
+    <th>{% trans 'Date end' %}</th>
+    <th>{% trans 'Status' %}</th>
+    {% if not is_print %}
+    <th>{% trans 'Attachment' %}</th>
+    {% endif %}
+  </tr>
+  </thead>
+  <tbody>
+  {% with instance.nonformaleducation_histories.all as educations %}
+  {% for item in educations %}
+  <tr>
+    <td><strong>{{ item.name }}</strong>
+      <div>{% firstof item.description '-' %}</div>
+    </td>
+    <td>{% firstof item.institution_name '-' %}</td>
+    <td>{% firstof item.date_start '-' %}</td>
+    <td>{% firstof item.date_end '-' %}</td>
+    <td>{% firstof item.get_status_display '-' %}</td>
+    {% if not is_print %}
+    <td>
+      {% if item.attachment %}
+      <a href="{{ item.attachment.file.url }}" target="_blank">Download</a>
+      {% else %}
+      -
+      {% endif %}
+    </td>
+    {% endif %}
+  </tr>
+  {% endfor %}
+  {% endwith %}
+  </tbody>
+</table>

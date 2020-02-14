@@ -1,0 +1,171 @@
+{% extends 'modeladmin/products/product/inspect.html' %}
+{% load i18n static wagtailadmin_tags %}
+
+{% block header_title %}
+<h1 class="paper-title">{% trans 'Sales Order' %}</h1>
+{% endblock %}
+
+{% block header_left %}
+<ul class="head-list">
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Customer ID' %}</span>
+        <span class="list-value">: {{ instance.customer.inner_id }}</span>
+    </li>
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Customer Name' %}</span>
+        <span class="list-value">: {{ instance.customer }}</span>
+    </li>
+</ul>
+<ul class="head-list">
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Address' %}:</span>
+        <span class="list-value">
+            {% with instance.customer.partner.full_address as address %}
+            <p>
+                {{ address.0 }} <br/>
+                {{ address.1 }} <br/>
+                {{ instance.customer.partner.full_contactinfo.0 }}<br/>
+                {{ instance.customer.partner.full_contactinfo.1 }}<br/>
+            </p>
+            {% endwith %}
+        </span>
+    </li>
+</ul>
+{% endblock %}
+
+{% block header_right %}
+<ul class="head-list">
+
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Number' %}</span>
+        <span class="list-value">: {{ instance.inner_id }}</span>
+    </li>
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Date Created' %}</span>
+        <span class="list-value">: {{ instance.date_created }}</span>
+    </li>
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Service' %}</span>
+        <span class="list-value">: {{ instance.order_type }}</span>
+    </li>
+    <li class="head-list-item">
+        <span class="list-label">{% trans 'Status' %} :</span>
+        <span class="list-value">: {{ instance.status | capfirst }}</span>
+    </li>
+</ul>
+{% endblock %}
+
+
+{% block body_listing %}
+{% if instance.product_fees.all %}
+<h3><i class="icon icon-fa-list"></i>
+    <strong> {% trans 'Extra Fees' as fees %}{{ fees | upper }}</strong>
+</h3>
+<table class="listing full-width">
+    <thead>
+    <tr>
+        <th width="70%">{% trans 'Name' %}</th>
+        <th style="text-align: right;">{% trans 'Price' %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% with instance.product_fees.all as params %}
+    {% for item in params %}
+    <tr>
+        <td>{{ item.fee }}</td>
+        <td style="text-align: right;">{{ item.price }}</td>
+    </tr>
+    {% endfor %}
+    {% endwith %}
+    </tbody>
+</table>
+{% endif %}
+
+{% if instance.order_products.all %}
+<h3><i class="icon icon-fa-list"></i>
+    <strong> {% trans 'Service Lines' as products %}{{ products | upper }}</strong>
+</h3>
+<table class="listing full-width">
+    <thead>
+    <tr>
+        <th>{% trans 'SID' %}</th>
+        <th width="30%">{% trans 'Name' %}</th>
+        <th style="text-align: right;">{% trans 'Price' %}</th>
+        <th style="text-align: right;">{% trans 'Quantity' %}</th>
+        <th style="text-align: right;">{% trans 'Sub Total' %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% with instance.order_products.all as lines %}
+    {% for item in lines %}
+    <tr>
+        <td>{{ item.product.inner_id }}</td>
+        <td>{{ item.product.name }}<br/>
+
+            {% if item.product.specifications.all %}
+            {% with item.product.specifications.all as specs %}
+            <span class="spec">Specification:</span>
+            <ul class="spec-list">
+                {% for spec in specs %}
+                <li>{{ spec.feature }}, {{ spec.value }}, {% firstof spec.note '-' %}</li>
+                {% endfor %}
+            </ul>
+            {% endwith %}
+            {% endif %}
+
+            {% if item.product.get_real_instance.product_parameters.all %}
+            {% with item.product.get_real_instance.product_parameters.all as params %}
+            <span class="spec">Parameter:</span>
+            <ul class="spec-list">
+                {% for param in params %}
+                <li>{{ param.tarif }}, @Rp.{{ param.price }}</li>
+                {% endfor %}
+            </ul>
+            {% endwith %}
+            {% endif %}
+            
+            {% if item.product.get_real_instance.product_fees.all %}
+            {% with item.product.get_real_instance.product_fees.all as fees %}
+            <span class="spec">Extra Fees:</span>
+            <ul class="spec-list">
+                {% for fee in fees %}
+                <li>{{ fee.fee }}, @Rp.{{ fee.price }}</li>
+                {% endfor %}
+            </ul>
+            {% endwith %}
+            {% endif %}
+        </td>
+        <td style="text-align: right;">{{ item.unit_price }}</td>
+        <td style="text-align: right;">{{ item.quantity }}</td>
+        <td style="text-align: right;">{{ item.total_price }}</td>
+    </tr>
+    {% endfor %}
+    {% endwith %}
+    
+    <tr>
+        <td colspan="2" rowspan="3">
+            <h1>Rp. {{ instance.grand_total }} </h1>
+            <p><em>{{ instance.grand_total_text | title }}</em></p>
+        </td>
+        <td colspan="2" style="text-align: right;">
+            {% trans 'Total order' as total_order %}{{ total_order | upper }} :
+        </td>
+        <td style="text-align: right;">{{ instance.total_order }}</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: right;">
+            {% trans 'Discount' as total_order %}{{ total_order | upper }} {{ instance.discount_percentage }}% :
+        </td>
+        <td style="text-align: right;">({{ instance.discount }})</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: right;">
+            {% trans 'Grand total' as grand_total %}{{ grand_total | upper }} :
+        </td>
+        <td style="text-align: right;">{{ instance.grand_total }}</td>
+    </tr>
+    </tbody>
+</table>
+{% endif %}
+
+{% endblock %}

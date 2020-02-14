@@ -1,0 +1,119 @@
+{% extends 'modeladmin/print_base.html' %}
+{% load static i18n wagtailadmin_tags %}
+
+{% block content %}
+<div class=row">
+    <div class="col col-sm-7">
+        <ul class="head-list">
+            <li class="head-list-item">
+                <span class="list-label">{% trans 'Title' %}</span>
+                <span class="list-value">: {{ instance.title }}</span>
+            </li>
+            <li class="head-list-item">
+                <span class="list-label">{% trans 'Created by' %}</span>
+                <span class="list-value">: {{ instance.creator.person }}</span>
+            </li>
+            <li class="head-list-item">
+                <span class="list-label">{% trans 'Reconciled by' %}</span>
+                <span class="list-value">: {{ instance.reconciled_by.person }}</span>
+            </li>
+        </ul>
+        <ul class="head-list">
+            <li class="head-list-item">
+                <span class="list-label"> {% trans 'Description' %}</span> :
+                <p class="list-value">{{ instance.description | safe }}</p>
+            </li>
+        </ul>
+    </div>
+    <div class="col col-sm-5">
+        <ul class="head-list">
+            <li class="head-list-item">
+                <span class="list-label">{% trans 'Number' %}</span>
+                <span class="list-value">: {{ instance.inner_id }}</span>
+            </li>
+            <li class="head-list-item">
+                <span class="list-label">{% trans 'Date created' %}</span>
+                <span class="list-value">: {{ instance.date_created }}</span>
+            </li>
+            <li class="head-list-item">
+                <span class="list-label">{% trans 'Effective' %}</span>
+                <span class="list-value">: {{ instance.effective_date }}</span>
+            </li>
+            <li class="head-list-item">
+                <span class="list-label">{% trans 'Valid' %}</span>
+                <span class="list-value">:
+            {% if instance.is_valid %}
+                <img src="{% static 'admin/img/icon-yes.svg' %}"
+                     alt="{% trans 'Valid' %}">
+            {% else %}
+                <img src="{% static 'admin/img/icon-no.svg' %}"
+                     alt="{% trans 'Invalid' %}">
+            {% endif %}
+        </span>
+            </li>
+            <li class="head-list-item">
+                <span class="list-label">{% trans 'Reconciled' %} :</span>
+                <span class="list-value">:
+            {% if instance.is_reconciled %}
+                <img src="{% static 'admin/img/icon-yes.svg' %}"
+                     alt="{% trans 'Reconciled' %}">
+            {% else %}
+                <img src="{% static 'admin/img/icon-no.svg' %}"
+                     alt="{% trans 'Not yet' %}">
+            {% endif %}</span>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        {% if instance.adjusted_products.all %}
+        <h3><i class="icon icon-fa-list"></i><strong> {% trans 'Product lines' %}</strong></h3>
+        <table class="listing paper-listing">
+            <thead>
+            <tr>
+                <th>{% trans 'ID' %}</th>
+                <th>{% trans 'Product' %}</th>
+                <!--<th style="text-align: right">{% trans 'Unit Price' %}</th>-->
+                <th style="text-align: center">{% trans 'Stock On Hand ' %}</th>
+                <th style="text-align: center">{% trans 'Scrapped' %}</th>
+                <!--<th style="text-align: right">{% trans 'New Unit Price' %}</th>-->
+                <th style="text-align: center">{% trans 'New Stock On Hand ' %}</th>
+                <th style="text-align: center">{% trans 'New Scrapped' %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% with instance.adjusted_products.all as products %}
+            {% for item in products %}
+            <tr>
+                <td>{{ item.product.inner_id }}</td>
+                <td>{{ item.product.name }}</td>
+                <!--<td align="right">{{ item.unit_price }}</td>-->
+                <td align="center">{{ item.stock_on_hand }}</td>
+                <td align="center">{{ item.stock_scrapped }}</td>
+                <!--<td align="right">{{ item.new_unit_price }}</td>-->
+                <td align="center">{{ item.new_stock_on_hand }}</td>
+                <td align="center">{{ item.new_stock_scrapped }}</td>
+            </tr>
+            {% endfor %}
+            {% endwith %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-8">&nbsp;</div>
+    <div class="col-sm-4 text-center">
+        <p>
+            {{ instance.creator.person.employee.primary_chair.chair.position }}<br/>
+            {{ instance.creator.person.employee.primary_chair.chair.department.name }}
+        </p> <br/><br/> <br/>
+        <p>
+            <strong>{{ instance.creator.person }}</strong><br/>
+            {{ instance.creator.person.employee.eid }}
+        </p>
+
+    </div>
+</div>
+{% endblock %}

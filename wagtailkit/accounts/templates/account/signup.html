@@ -1,0 +1,46 @@
+{% extends 'account/auth_base.html' %}
+{% load i18n static wagtailsettings_tags %}
+{% load account socialaccount %}
+
+{% block title %}
+    {% trans "Signup to" %}{% firstof settings.wagtailkitcore.CompanySettings.sitename 'Wagtail' %}
+{% endblock %}
+{% block head_title %}{% trans "Join " %} {% firstof company.sitename 'Wagtail' %}{% endblock %}
+{% block form_action %} {{ app_path }} {% endblock %}
+
+
+{% block form_body %}
+
+  <div class="input-wrapper">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+  </div>
+  <div class="submit-row">
+      <input type="submit" class="btn btn-primary btn-block" value="{% trans 'Sign up' %}">
+  </div>
+
+  {% get_providers as socialaccount_providers %}
+    {% if socialaccount_providers %}
+    <div class="socialaccount_ballot small">
+        <p>{% trans 'Or Sign in with' %}:</p>
+        <ul class="socialaccount_providers">
+            {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+        </ul>
+    </div>
+    {% include "socialaccount/snippets/login_extra.html" %}
+    {% endif %}
+
+{% endblock %}
+
+{% block form_footer %}
+    {% if not user.is_authenticated %}
+        <div class="form-footer">
+            <span>Has {% firstof settings.wagtailkitcore.CompanySettings.sitename 'Wagtail' %} account?
+                <a href="{% url 'account_login' %}">Sign In</a>.
+            </span>
+        </div>
+    {% endif %}
+{% endblock %}

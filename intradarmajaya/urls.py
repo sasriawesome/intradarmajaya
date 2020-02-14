@@ -7,6 +7,7 @@ from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 from search import views as search_views
+from intranet.views import test_dramatiq
 
 urlpatterns = [
     url(r'^django-admin/', admin.site.urls),
@@ -14,6 +15,7 @@ urlpatterns = [
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
 
+    url(r'^test_drama/$', test_dramatiq),
     url(r'^search/$', search_views.search, name='search'),
 
 ]

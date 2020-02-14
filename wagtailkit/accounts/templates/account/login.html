@@ -1,0 +1,63 @@
+{% extends 'account/auth_base.html' %}
+{% load i18n static wagtailsettings_tags %}
+{% load account socialaccount %}
+
+{% block title %}
+    {% trans "Welcome to" %}{% firstof settings.wagtailkitcore.CompanySettings.sitename 'Wagtail' %}
+{% endblock %}
+{% block head_title %}{% trans "Welcome to" %} {% firstof company.sitename 'Wagtail' %}{% endblock %}
+{% block form_action %} {{ app_path }} {% endblock %}
+
+{% block form_body %}
+    {% csrf_token %}
+    <div class="form-group">
+        {{ form.login.errors }}
+        <label for="{{ form.login.name }}" class="small">{{ form.login.label }}</label>
+        {{ form.login }}
+    </div>
+    <div class="form-group">
+        {{ form.password.errors }}
+        <label for="{{ form.password.name }}" class="small">
+            {{ form.password.label }}
+            <a href="{% url 'account_reset_password' %}" class="label-link">
+                {% trans 'Forgot password?' %}
+            </a>
+        </label>
+        {{ form.password }}
+    </div>
+    <div class="form-group">
+        <label class="custom-control custom-checkbox">
+            {{ form.remember }}
+            <span class="custom-control-label small" style="padding-top: 2px;"
+                  for="{{ form.remember.name }}">{{ form.remember.label }}
+            </span>
+        </label>
+    </div>
+
+
+    {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+    {% endif %}
+    <div class="submit-row">
+        <input type="submit" class="btn btn-primary btn-block" value="{% trans 'Sign in' %}">
+    </div>
+
+    {% get_providers as socialaccount_providers %}
+    {% if socialaccount_providers %}
+    <div class="socialaccount_ballot small">
+        <p>{% trans 'Sign in with' %}:</p>
+        <ul class="socialaccount_providers">
+            {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+        </ul>
+    </div>
+    {% include "socialaccount/snippets/login_extra.html" %}
+    {% endif %}
+{% endblock %}
+
+{% block form_footer %}
+    <div class="form-footer">
+        <span>New to {% firstof settings.wagtailkitcore.CompanySettings.sitename 'Wagtail' %}?
+            <a style="display: inline-block" href="{% url 'account_signup' %}">Create an account.</a>
+        </span>
+    </div>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% load wagtailcore_tags %}
+
+<li style="list-style: decimal; padding-left: 5px; margin-left: 35px;">
+    <h3 style="margin: 0 0 5px; font-weight: normal;">
+        {% include_block value.name %} ({{ value.type | title }})
+    </h3>
+    <p>{% include_block value.description %}</p>
+</li>

@@ -1,0 +1,31 @@
+{% load i18n static wagtailadmin_tags wagtailsettings_tags %}
+<div id="letter-head">
+    {% with settings.wagtailkitcore.CompanySettings as company %}
+        <div id="letter-head-left">
+            {% if company.logo %}
+            <img id="letter-logo"
+                 src="{{ company.logo.file.url }}" alt="Custom Project" width="100"/>
+            {% endif %}
+            <div id="letter-head-text">
+                {% if company.name %}
+                <h2 id="letter-title">{{ company.name }}</h2>
+                {% endif %}
+                <p id="letter-address">
+                    {{ company.full_address.0 }}<br/>
+                    {{ company.full_address.1 }}<br/>
+                    {% if company.phone %}
+                        {% trans 'Phone' %}: {{ company.phone }},
+                    {% endif %}
+                    {% if company.fax %}
+                        {% trans 'Fax' %}: {{ company.fax }},
+                    {% endif %}
+                    {% if company.email %}
+                        {% trans 'Email' %}: {{ company.email }}
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        <div id="letter-head-right">
+        </div>
+    {% endwith %}
+</div>

@@ -1,0 +1,67 @@
+{% extends 'modeladmin/print_base.html' %}
+{% load static i18n wagtailadmin_tags %}
+
+{% block title %}
+{% if instance.user_account %}
+<span class="avatar">
+    <img style="width: 125px; height: 125px;" src="{% avatar_url instance.user_account size=150 %}" alt=""/>
+</span>
+{% endif %}
+<h2 class="page-title">
+  {{ instance.fullname_with_title }}
+</h2>
+{% endblock %}
+
+{% block content %}
+<div class="clear">
+  <div class="col-sm-7">
+    {% block header_left %}
+      {% include 'modeladmin/persons/person/includes/basic_information.html' %}
+      {% if instance.employee %}
+        {% include 'modeladmin/persons/person/includes/employee_information.html' with employee=instance.employee %}
+      {% endif %}
+    {% endblock %}
+  </div>
+  <div class="col-sm-5">
+    {% block header_right %}
+      {% include 'modeladmin/persons/person/includes/contacts.html' %}
+    {% endblock %}
+  </div>
+</div>
+
+<div class="listing">
+
+  {% if instance.skill_sets.all %}
+  {% include 'modeladmin/persons/person/includes/skill.html' %}
+  {% endif %}
+
+  {% if instance.awards.all %}
+  {% include 'modeladmin/persons/person/includes/award.html' %}
+  {% endif %}
+
+  {% if instance.education_histories.all %}
+  {% include 'modeladmin/persons/person/includes/formal_education.html' %}
+  {% endif %}
+
+  {% if instance.nonformaleducation_histories.all %}
+  {% include 'modeladmin/persons/person/includes/nonformal_education.html' %}
+  {% endif %}
+
+  {% if instance.working_histories.all %}
+  {% include 'modeladmin/persons/person/includes/working.html' %}
+  {% endif %}
+
+  {% if instance.organization_histories.all %}
+  {% include 'modeladmin/persons/person/includes/organization.html' %}
+  {% endif %}
+
+  {% if instance.publications.all %}
+  {% include 'modeladmin/persons/person/includes/publication.html' %}
+  {% endif %}
+
+  {% if instance.families.all %}
+  {% include 'modeladmin/persons/person/includes/family.html' %}
+  {% endif %}
+
+</div>
+{% endblock %}

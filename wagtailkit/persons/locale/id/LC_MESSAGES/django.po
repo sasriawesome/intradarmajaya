@@ -1,0 +1,497 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-01 00:43+0700\n"
+"PO-Revision-Date: 2020-01-01 01:03+0700\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.2.3\n"
+
+#: .\admin\admin_wagtail.py:23 .\admin\admin_wagtail.py:52
+msgid "Update"
+msgstr "Perbaharui"
+
+#: .\admin\admin_wagtail.py:46
+#, python-format
+msgid "%(model_name)s '%(instance)s' updated."
+msgstr "%(model_name)s '%(instance)s' sudah diperbaharui."
+
+#: .\admin\admin_wagtail.py:71 .\models\person.py:32 .\models\settings.py:9
+#: .\wagtail_hooks.py:35
+msgid "Persons"
+msgstr "Personal"
+
+#: .\admin\admin_wagtail.py:106 .\models\extra.py:35 .\models\histories.py:105
+#: .\models\person.py:239
+#: .\templates\modeladmin\wag_person\person\includes\nonformal_education.html:7
+#: .\templates\modeladmin\wag_person\person\includes\organization.html:7
+#: .\templates\modeladmin\wag_person\person\includes\working.html:7
+msgid "Name"
+msgstr "Nama"
+
+#: .\admin\admin_wagtail.py:116
+msgid "Contact Info"
+msgstr "Kontak Info"
+
+#: .\admin\admin_wagtail.py:119 .\admin\admin_wagtail.py:134
+#: .\models\person.py:227 .\models\person.py:228
+#: .\templates\modeladmin\wag_person\person\inspect.html:58
+#: .\templates\modeladmin\wag_person\person\print.html:33
+msgid "Address"
+msgstr "Alamat"
+
+#: .\admin\admin_wagtail.py:139 .\admin\admin_wagtail.py:155
+#: .\admin\admin_wagtail.py:176 .\models\histories.py:30
+msgid "Education Histories"
+msgstr "Riwayat Pendidikan"
+
+#: .\admin\admin_wagtail.py:159
+msgid "Non Formal Education Histories"
+msgstr "Riwayat Pendidikan Non Formal"
+
+#: .\admin\admin_wagtail.py:180 .\admin\admin_wagtail.py:196
+#: .\models\histories.py:135
+#: .\templates\modeladmin\wag_person\person\includes\working.html:3
+msgid "Working Histories"
+msgstr "Riwayat Pekerjaan"
+
+#: .\admin\admin_wagtail.py:200 .\admin\admin_wagtail.py:213
+#: .\models\histories.py:184
+#: .\templates\modeladmin\wag_person\person\includes\organization.html:3
+msgid "Organization Histories"
+msgstr "Riwayat Organisasi"
+
+#: .\admin\admin_wagtail.py:222
+msgid "Social Media Account"
+msgstr "Akun Sosial Media"
+
+#: .\admin\admin_wagtail.py:228
+msgid "Account"
+msgstr "Akun"
+
+#: .\admin\admin_wagtail.py:243
+msgid "User"
+msgstr "Pengguna"
+
+#: .\admin\admin_wagtail.py:244
+msgid "Employee"
+msgstr "Pegawai"
+
+#: .\admin\admin_wagtail.py:245
+msgid "Partner"
+msgstr "Rekanan"
+
+#: .\admin\admin_wagtail.py:257
+msgid "Profile"
+msgstr "Profil"
+
+#: .\admin\admin_wagtail.py:275
+msgid "Histories"
+msgstr "Riwayat"
+
+#: .\admin\admin_wagtail.py:277
+msgid "Social"
+msgstr "Sosial Media"
+
+#: .\models\extra.py:22
+msgid "Education Level"
+msgstr "Jenjang Pendidikan"
+
+#: .\models\extra.py:23
+msgid "Education Levels"
+msgstr "Jenjang Pendidikan"
+
+#: .\models\extra.py:29 .\models\extra.py:66 .\models\extra.py:93
+#: .\models\histories.py:44 .\models\histories.py:98 .\models\histories.py:148
+#: .\models\histories.py:197 .\models\person.py:47
+msgid "ID"
+msgstr ""
+
+#: .\models\extra.py:32
+msgid "Slug"
+msgstr ""
+
+#: .\models\extra.py:39 .\models\histories.py:112 .\models\histories.py:210
+#: .\templates\modeladmin\wag_person\person\includes\nonformal_education.html:9
+#: .\templates\modeladmin\wag_person\person\includes\organization.html:9
+#: .\templates\modeladmin\wag_person\person\includes\working.html:10
+msgid "Description"
+msgstr "Deskripsi"
+
+#: .\models\extra.py:43 .\models\histories.py:70 .\models\histories.py:120
+#: .\models\histories.py:169 .\models\histories.py:218 .\models\person.py:112
+msgid "Created date"
+msgstr "Tanggal dibuat"
+
+#: .\models\extra.py:70
+#: .\templates\modeladmin\wag_person\person\inspect.html:73
+#: .\templates\modeladmin\wag_person\person\print.html:49
+msgid "Phone 1"
+msgstr "Telpon 1"
+
+#: .\models\extra.py:74
+#: .\templates\modeladmin\wag_person\person\inspect.html:79
+#: .\templates\modeladmin\wag_person\person\print.html:55
+msgid "Phone 2"
+msgstr "Telpon 2"
+
+#: .\models\extra.py:78
+#: .\templates\modeladmin\wag_person\person\inspect.html:85
+#: .\templates\modeladmin\wag_person\person\print.html:61
+msgid "Email"
+msgstr "Email"
+
+#: .\models\extra.py:82
+#: .\templates\modeladmin\wag_person\person\inspect.html:91
+#: .\templates\modeladmin\wag_person\person\print.html:67
+msgid "Website"
+msgstr "Website"
+
+#: .\models\extra.py:97
+msgid "Address 1"
+msgstr "Alamat 1"
+
+#: .\models\extra.py:101
+msgid "Address 2"
+msgstr "Alamat 2"
+
+#: .\models\extra.py:105
+msgid "City"
+msgstr "Kota"
+
+#: .\models\extra.py:109
+msgid "Province"
+msgstr "Provinsi"
+
+#: .\models\extra.py:113
+msgid "Country"
+msgstr "Negara"
+
+#: .\models\extra.py:117
+msgid "Zip Code"
+msgstr "Kode Pos"
+
+#: .\models\histories.py:29
+msgid "Education History"
+msgstr "Riwayat Pendidikan"
+
+#: .\models\histories.py:37 .\models\histories.py:91
+msgid "Finished"
+msgstr "Selesai"
+
+#: .\models\histories.py:38 .\models\histories.py:92
+msgid "Ongoing"
+msgstr "Sedang berjalan"
+
+#: .\models\histories.py:39 .\models\histories.py:93
+msgid "Unfinished"
+msgstr "Tidak selesai"
+
+#: .\models\histories.py:48 .\models\histories.py:102 .\models\histories.py:152
+#: .\models\histories.py:201 .\models\person.py:31 .\models\person.py:233
+msgid "Person"
+msgstr "Personal"
+
+#: .\models\histories.py:52
+#: .\templates\modeladmin\wag_person\person\includes\formal_education.html:7
+msgid "Level"
+msgstr "Jenjang"
+
+#: .\models\histories.py:55 .\models\histories.py:108 .\models\histories.py:155
+#: .\templates\modeladmin\wag_person\person\includes\formal_education.html:8
+#: .\templates\modeladmin\wag_person\person\includes\nonformal_education.html:8
+msgid "Institution"
+msgstr "Institusi"
+
+#: .\models\histories.py:59
+#: .\templates\modeladmin\wag_person\person\includes\formal_education.html:9
+msgid "Major"
+msgstr "Jurusan"
+
+#: .\models\histories.py:60
+msgid "ex: IPA, IPS, Information System or Accounting"
+msgstr "contoh: IPA, IPS, Sistem Informasi atau Akuntansi"
+
+#: .\models\histories.py:63 .\models\histories.py:114 .\models\histories.py:163
+#: .\models\histories.py:212
+#: .\templates\modeladmin\wag_person\person\includes\formal_education.html:10
+#: .\templates\modeladmin\wag_person\person\includes\nonformal_education.html:10
+#: .\templates\modeladmin\wag_person\person\includes\organization.html:10
+#: .\templates\modeladmin\wag_person\person\includes\working.html:11
+msgid "Date start"
+msgstr "Tanggal mulai"
+
+#: .\models\histories.py:66 .\models\histories.py:116 .\models\histories.py:165
+#: .\models\histories.py:214
+#: .\templates\modeladmin\wag_person\person\includes\formal_education.html:11
+#: .\templates\modeladmin\wag_person\person\includes\nonformal_education.html:11
+#: .\templates\modeladmin\wag_person\person\includes\organization.html:11
+#: .\templates\modeladmin\wag_person\person\includes\working.html:12
+msgid "Date end"
+msgstr "Tanggal selesai"
+
+#: .\models\histories.py:73 .\models\histories.py:123
+msgid "Current status"
+msgstr "Status terkini"
+
+#: .\models\histories.py:84
+msgid "NonFormal Education History"
+msgstr "Riwayat Pendidikan Non Formal"
+
+#: .\models\histories.py:85
+msgid "NonFormal Education Histories"
+msgstr "Riwayat Pendidikan Non Formal"
+
+#: .\models\histories.py:134
+msgid "Working History"
+msgstr "Riwayat Pekerjaan"
+
+#: .\models\histories.py:141 .\models\histories.py:190
+msgid "Contract"
+msgstr "Kontrak"
+
+#: .\models\histories.py:142 .\models\histories.py:191
+msgid "Fixed"
+msgstr "Tetap"
+
+#: .\models\histories.py:143 .\models\histories.py:192
+msgid "Outsource"
+msgstr "Outsource"
+
+#: .\models\histories.py:158
+#: .\templates\modeladmin\wag_person\person\includes\working.html:8
+msgid "Department"
+msgstr "Departemen"
+
+#: .\models\histories.py:161 .\models\histories.py:207
+#: .\templates\modeladmin\wag_person\person\includes\organization.html:8
+#: .\templates\modeladmin\wag_person\person\includes\working.html:9
+msgid "Position"
+msgstr "Posisi"
+
+#: .\models\histories.py:172
+msgid "Employment"
+msgstr "Kepegawaian"
+
+#: .\models\histories.py:183
+msgid "Organization History"
+msgstr "Riwayat Organisasi"
+
+#: .\models\histories.py:204
+msgid "Organization"
+msgstr "Organisasi"
+
+#: .\models\person.py:37
+msgid "Male"
+msgstr "Pria"
+
+#: .\models\person.py:38
+msgid "Female"
+msgstr "Wanita"
+
+#: .\models\person.py:50
+msgid "Show title"
+msgstr "Tampilkan Gelar"
+
+#: .\models\person.py:51
+msgid "Show Mr or Mrs in front of name"
+msgstr "Tampilkan Bpk. atau Ibu di depan nama"
+
+#: .\models\person.py:54
+msgid "Show name only"
+msgstr "Tampilkan nama saja"
+
+#: .\models\person.py:55
+msgid "Show name only without academic title"
+msgstr "Tampilkan nama saja tanpa gelar akademis"
+
+#: .\models\person.py:59
+msgid "Title"
+msgstr "Gelar"
+
+#: .\models\person.py:62
+msgid "Full name"
+msgstr "Nama lengkap"
+
+#: .\models\person.py:66
+msgid "Front title"
+msgstr "Gelar depan"
+
+#: .\models\person.py:67
+msgid "Academic title prefix, eg: Dr or Prof. Dr"
+msgstr "Gelar akademis di depat, contoh: Dr atau Hi"
+
+#: .\models\person.py:71
+msgid "Back title"
+msgstr "Gelar akademis belakang"
+
+#: .\models\person.py:72
+msgid "Academic title suffix, eg: Phd"
+msgstr "Gelar akademik belakang, contoh: Phd"
+
+#: .\models\person.py:77
+msgid "Gender"
+msgstr "Jenis kelamin"
+
+#: .\models\person.py:81
+#: .\templates\modeladmin\wag_person\person\inspect.html:43
+#: .\templates\modeladmin\wag_person\person\print.html:20
+msgid "Date of birth"
+msgstr "Tanggal lahir"
+
+#: .\models\person.py:85
+#: .\templates\modeladmin\wag_person\person\inspect.html:49
+#: .\templates\modeladmin\wag_person\person\print.html:24
+msgid "Place of birth"
+msgstr "Tempat lahir"
+
+#: .\models\person.py:90
+msgid "Facebook page URL"
+msgstr "URL halaman Facebook"
+
+#: .\models\person.py:94
+msgid "twitter username, without the @"
+msgstr "Username twitter tanpa @"
+
+#: .\models\person.py:98
+msgid "Instagram username, without the @"
+msgstr "Username instagram tanpa @"
+
+#: .\models\person.py:101
+msgid "YouTube channel or user account URL"
+msgstr "URL Channel Youtube"
+
+#: .\models\person.py:107
+msgid "User account"
+msgstr "Akun pengguna"
+
+#: .\models\person.py:235
+msgid "Primary"
+msgstr "Primer"
+
+#: .\models\person.py:239
+msgid "E.g. Home Address or Office Address"
+msgstr "Contoh: Alamat Rumah atau Alamat Kantor"
+
+#: .\models\settings.py:15
+msgid "Show formal person histories tab"
+msgstr "Tampilkan Tab Riwayat"
+
+#: .\models\settings.py:19
+msgid "Show formal education histories panel"
+msgstr "Tampilkan panel Riwayat Pendidikan Formal"
+
+#: .\models\settings.py:23
+msgid "Show non formal education histories panel"
+msgstr "Tampilkan panel Riwayat Pendidikan Non Formal"
+
+#: .\models\settings.py:27
+msgid "Show working histories panel"
+msgstr "Tampilkan panel Riwayat Pekerjaan"
+
+#: .\models\settings.py:31
+msgid "Show organization histories panel"
+msgstr "Tampilkan panel Riwayat Organisasi"
+
+#: .\templates\modeladmin\wag_person\person\includes\formal_education.html:3
+msgid "Formal Educations"
+msgstr "Pendidkan Formal"
+
+#: .\templates\modeladmin\wag_person\person\includes\formal_education.html:12
+#: .\templates\modeladmin\wag_person\person\includes\nonformal_education.html:12
+#: .\templates\modeladmin\wag_person\person\includes\organization.html:12
+#: .\templates\modeladmin\wag_person\person\includes\working.html:13
+msgid "Status"
+msgstr "Status"
+
+#: .\templates\modeladmin\wag_person\person\includes\nonformal_education.html:3
+msgid "Non Formal Educations"
+msgstr "Pendidikan Non Formal"
+
+#: .\templates\modeladmin\wag_person\person\index.html:52
+msgid "Filter"
+msgstr "Filter"
+
+#: .\templates\modeladmin\wag_person\person\index.html:68
+#, python-format
+msgid ""
+"No %(name)s have been created yet. One of the following must be created "
+"before you can add any %(name)s:"
+msgstr ""
+"Belum ada %(name)s yang dibuat. Satu atau lebih harus dibuat sebelum kamu "
+"membuat %(name)s:"
+
+#: .\templates\modeladmin\wag_person\person\index.html:73
+#, python-format
+msgid "No %(name)s have been created yet."
+msgstr "Belum ada %(name)s yang dibuat."
+
+#: .\templates\modeladmin\wag_person\person\index.html:75
+#, python-format
+msgid ""
+"\n"
+"                                                Why not <a href=\"%(url)s"
+"\">add one</a>?\n"
+"                                            "
+msgstr ""
+"\n"
+"Kenapa tidak coba <a href=\"%(url)s\">buat satu</a>?"
+
+#: .\templates\modeladmin\wag_person\person\index.html:88
+msgid "Pagination"
+msgstr ""
+
+#: .\templates\modeladmin\wag_person\person\index.html:89
+#, python-format
+msgid "Page %(current_page)s of %(num_pages)s."
+msgstr "Halaman %(current_page)s dari %(num_pages)s."
+
+#: .\templates\modeladmin\wag_person\person\inspect.html:99
+#: .\templates\modeladmin\wag_person\person\print.html:75
+msgid "Facebook"
+msgstr ""
+
+#: .\templates\modeladmin\wag_person\person\inspect.html:105
+#: .\templates\modeladmin\wag_person\person\print.html:81
+msgid "Twitter"
+msgstr ""
+
+#: .\templates\modeladmin\wag_person\person\inspect.html:111
+#: .\templates\modeladmin\wag_person\person\print.html:87
+msgid "Instagram"
+msgstr ""
+
+#: .\templates\modeladmin\wag_person\person\inspect.html:117
+#: .\templates\modeladmin\wag_person\person\print.html:93
+msgid "Youtube"
+msgstr ""
+
+#: .\templates\modeladmin\wag_person\person\inspect.html:143
+#, python-format
+msgid ""
+"\n"
+"                                Back to %(model_name)s list"
+msgstr ""
+
+#: .\templates\modeladmin\wag_person\person\print.html:14
+msgid "Basic Information"
+msgstr "Infomasi Dasar"
+
+#: .\wagtail_hooks.py:43
+msgid "Set Personal Info"
+msgstr "Atur Informasi Personal"
+
+#: .\wagtail_hooks.py:44
+msgid "Update your personal infomation."
+msgstr "Perbaharui Informasi Personal Anda."
