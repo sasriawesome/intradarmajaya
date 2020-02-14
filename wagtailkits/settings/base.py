@@ -28,7 +28,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 INSTALLED_APPS = [
     'home',
     'search',
-    'intranet',
+    # 'intranet',
 
     'wagtailkit.core',
     'wagtailkit.accounts',
@@ -39,12 +39,12 @@ INSTALLED_APPS = [
     'wagtailkit.importexport',
     'wagtailkit.persons',
     'wagtailkit.discuss',
-
-    'wagtailkit.employees',
-    'wagtailkit.organizations',
-    'wagtailkit.partners',
-    'wagtailkit.products',
-    'wagtailkit.warehouse',
+    #
+    # 'wagtailkit.employees',
+    # 'wagtailkit.organizations',
+    # 'wagtailkit.partners',
+    # 'wagtailkit.products',
+    # 'wagtailkit.warehouse',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -221,7 +221,7 @@ STATICFILES_FINDERS = [
 ]
 
 STATICFILES_DIRS = [
-    os.path.join(PROJECT_DIR, 'static'),
+    os.path.join(PROJECT_DIR, 'static/'),
 ]
 
 # ManifestStaticFilesStorage is recommended in production, to prevent outdated
