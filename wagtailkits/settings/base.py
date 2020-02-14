@@ -231,6 +231,8 @@ STATICFILES_DIRS = [
 # TODO Wagtail default storage
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
+BASE_URL = 'localhost'
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
@@ -249,15 +251,6 @@ SELECT2_CSS = 'admin/css/vendor/select2/select2.min.css'
 SITE_ID = 1
 WAGTAIL_SITE_NAME = "wagtailkits"
 
-# Base URL to use when referring to full URLs within the Wagtail admin backend -
-# e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = 'http://intra.darmajaya.ac.id'
-
-# HEROKU SETUP
-# ============================================================
-
-# Change 'default' database configuration with $DATABASE_URL.
-DATABASES['default'].update(dj_database_url.config(conn_max_age=500, ssl_require=True))
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
