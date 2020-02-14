@@ -1,9 +1,8 @@
 from .base import *
 
-DEBUG = True
+DEBUG = False
 
 BASE_URL = 'http://intra.darmajaya.ac.id'
-
 
 
 # HEROKU SETUP
