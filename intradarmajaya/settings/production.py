@@ -1,6 +1,6 @@
 from .base import *
 
-DEBUG = False
+DEBUG = True
 
 BASE_URL = 'http://intra.darmajaya.ac.id'
 
