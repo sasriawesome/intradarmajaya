@@ -20,11 +20,6 @@ from wagtailkit.numerators.models import NumeratorMixin
 from wagtailkit.organizations.models import Position, Department
 from wagtailkit.products.models import Inventory, Asset
 
-warehouse_admins = Group.objects.get(name='Warehouse Admins')
-warehouse_managers = Group.objects.get(name='Warehouse Managers')
-warehouse_supervisors = Group.objects.get(name='Warehouse Supervisors')
-warehouse_staffs = Group.objects.get(name='Warehouse Staffs')
-
 
 class RequestOrderManager(models.Manager):
     def get_queryset(self):
@@ -138,6 +133,8 @@ class RequestOrder(NumeratorMixin, ClusterableModel, FiveStepStatusMixin, Creato
         """
             Send Email : Waiting For Approval
         """
+        warehouse_admins = Group.objects.get(name='Warehouse Admins')
+        warehouse_managers = Group.objects.get(name='Warehouse Managers')
         recipients = ['sasri.darmajaya@gmail.com']
         for user in warehouse_admins.user_set.all():
             recipients.append(user.email)
@@ -158,6 +155,7 @@ class RequestOrder(NumeratorMixin, ClusterableModel, FiveStepStatusMixin, Creato
         """
             Send Email Notification To Requester: Request Order Rejected
         """
+        warehouse_admins = Group.objects.get(name='Warehouse Admins')
         recipients = ['sasri.darmajaya@gmail.com']
         for user in warehouse_admins.user_set.all():
             recipients.append(user.email)
@@ -177,6 +175,9 @@ class RequestOrder(NumeratorMixin, ClusterableModel, FiveStepStatusMixin, Creato
         """
             Send Email Notification To Requester: Request Order Approved
         """
+        warehouse_admins = Group.objects.get(name='Warehouse Admins')
+        warehouse_supervisors = Group.objects.get(name='Warehouse Supervisors')
+        warehouse_staffs = Group.objects.get(name='Warehouse Staffs')
         recipients = ['sasri.darmajaya@gmail.com']
         for user in warehouse_admins.user_set.all():
             recipients.append(user.email)
@@ -211,6 +212,7 @@ class RequestOrder(NumeratorMixin, ClusterableModel, FiveStepStatusMixin, Creato
         """
             Send Email Notification To Requester: Request Order Processed
         """
+        warehouse_admins = Group.objects.get(name='Warehouse Admins')
         recipients = ['sasri.darmajaya@gmail.com']
         for user in warehouse_admins.user_set.all():
             recipients.append(user.email)
@@ -230,6 +232,7 @@ class RequestOrder(NumeratorMixin, ClusterableModel, FiveStepStatusMixin, Creato
         """
             Send Email Notification To Requester: Request Order Complete
         """
+        warehouse_admins = Group.objects.get(name='Warehouse Admins')
         recipients = ['sasri.darmajaya@gmail.com']
         for user in warehouse_admins.user_set.all():
             recipients.append(user.email)
