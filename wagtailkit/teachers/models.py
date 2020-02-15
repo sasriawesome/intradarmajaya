@@ -73,10 +73,9 @@ class Teacher(KitBaseModel):
         Employee, on_delete=models.CASCADE,
         verbose_name=_("Employee"))
     tid = models.CharField(
-        unique=True, max_length=MAX_LEN_SHORT,
+        unique=True, null=True, blank=True,
+        max_length=MAX_LEN_SHORT,
         verbose_name=_('Teacher ID'))
-    is_nidn = models.BooleanField(
-        default=False, verbose_name=_("ID is NIDN"))
     rmu = models.ForeignKey(
         ResourceManagementUnit, on_delete=models.PROTECT,
         related_name='teachers',
@@ -85,6 +84,12 @@ class Teacher(KitBaseModel):
         Course, verbose_name=_('Courses'))
     is_active = models.BooleanField(
         default=True, verbose_name=_("Active status"))
+
+    # wagtail autocomplete
+    autocomplete_search_field = 'employee__person__fullname'
+
+    def autocomplete_label(self):
+        return "{} | {}".format(self.employee.eid, self.name)
 
     def __str__(self):
         return self.employee.person.fullname

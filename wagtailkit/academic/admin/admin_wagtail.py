@@ -7,7 +7,7 @@ from wagtail.admin.edit_handlers import (
     MultiFieldPanel, InlinePanel, FieldRowPanel)
 from wagtail.contrib.modeladmin.options import ModelAdmin
 
-from wagtailautocomplete.edit_handlers import AutocompletePanel
+from wagtailkit.autocompletes.edit_handlers import AutocompletePanel
 
 from wagtailkit.academic.models import (
     Curriculum, ResourceManagementUnit, SchoolYear, CourseGroup, CourseType,
@@ -31,6 +31,7 @@ class ResourceManagementUnitModelAdmin(ModelAdmin):
         MultiFieldPanel([
             FieldPanel('parent', widget=RMUChooser),
             FieldPanel('name'),
+            FieldPanel('status'),
             FieldPanel('code'),
             FieldPanel('number'),
         ])

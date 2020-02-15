@@ -444,6 +444,12 @@ class Course(index.Indexed, ClusterableModel, NumeratorMixin, KitBaseModel):
         index.FilterField('rmu'),
     ]
 
+    # wagtail autocomplete
+    autocomplete_search_field = 'name'
+
+    def autocomplete_label(self):
+        return "{} | {}".format(self.inner_id, self.name)
+
     def __str__(self):
         return "{}, {}".format(self.inner_id, self.name)
 
@@ -677,8 +683,8 @@ class Curriculum(ClusterableModel, KitBaseModel):
 
     def save(self, *args, **kwargs):
         # Todo Next
-        # self.create_code()
-        # self.create_name()
+        self.create_code()
+        self.create_name()
         super(Curriculum, self).save(*args, **kwargs)
 
     def get_summary(self):
@@ -766,6 +772,12 @@ class CurriculumCourse(Orderable, KitBaseModel):
     sks_total = models.PositiveIntegerField(
         editable=False, default=0,
         verbose_name=_("SKS Total"))
+
+    # wagtail autocomplete
+    autocomplete_search_field = 'course__name'
+
+    def autocomplete_label(self):
+        return "{} | {} SKS | {}".format(self.curriculum.code, self.sks_total, self.course)
 
     def __str__(self):
         return self.course.name

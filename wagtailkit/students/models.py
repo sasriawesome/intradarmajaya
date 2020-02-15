@@ -92,6 +92,12 @@ class Student(NumeratorMixin, KitBaseModel):
         max_length=MAX_LEN_MEDIUM,
         verbose_name=_('Status note'))
 
+    # wagtail autocomplete
+    autocomplete_search_field = 'person__fullname'
+
+    def autocomplete_label(self):
+        return "{} | {}".format(self.sid, self.name())
+
     def generate_inner_id(self):
         """ Generate human friendly Student Number,
             override this method to customize inner_id format

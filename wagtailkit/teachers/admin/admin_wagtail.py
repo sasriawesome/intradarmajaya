@@ -4,6 +4,7 @@ from django.shortcuts import redirect, reverse
 
 from wagtail.admin.edit_handlers import ObjectList, TabbedInterface, FieldPanel, MultiFieldPanel
 from wagtailkit.admin.admin import ModelAdmin
+from wagtailkit.autocompletes.edit_handlers import AutocompletePanel
 from wagtailkit.persons.admin import PersonModelAdmin
 from wagtailkit.employees.admin import EmployeeModelAdmin
 from wagtailkit.teachers.models import Teacher, TeacherPersonal, TeacherEmployment
@@ -33,10 +34,9 @@ class TeacherModelAdmin(ModelAdmin):
     edit_handler = ObjectList([
         MultiFieldPanel([
             FieldPanel('tid'),
-            FieldPanel('is_nidn'),
-            FieldPanel('employee'),
-            FieldPanel('rmu'),
-            FieldPanel('courses'),
+            AutocompletePanel('employee'),
+            AutocompletePanel('rmu'),
+            AutocompletePanel('courses'),
             FieldPanel('is_active')
         ])
     ], heading=_('Student'))

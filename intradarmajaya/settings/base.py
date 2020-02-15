@@ -58,6 +58,12 @@ INSTALLED_APPS = [
 
     'wagtailkit.discuss',
 
+    'wagtailkit.academic',
+    'wagtailkit.rooms',
+    'wagtailkit.teachers',
+    'wagtailkit.students',
+    'wagtailkit.lectures',
+
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.settings',

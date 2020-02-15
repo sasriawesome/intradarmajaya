@@ -6,7 +6,7 @@ from django.views.generic import TemplateView
 from django.shortcuts import redirect, reverse
 from django.conf.urls import url
 
-from wagtailautocomplete.edit_handlers import AutocompletePanel
+from wagtailkit.autocompletes.edit_handlers import AutocompletePanel
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.edit_handlers import ObjectList, FieldPanel, MultiFieldPanel
 from wagtail.contrib.modeladmin.views import WMABaseView, FormView

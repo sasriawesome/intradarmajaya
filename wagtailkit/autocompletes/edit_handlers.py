@@ -1,5 +1,6 @@
 from wagtailautocomplete.edit_handlers import AutocompletePanel as AutocompletePanelBase, _can_create
 from .widgets import Autocomplete
+
 class AutocompletePanel(AutocompletePanelBase):
 
     def on_model_bound(self):

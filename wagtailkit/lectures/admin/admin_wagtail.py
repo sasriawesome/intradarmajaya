@@ -7,6 +7,7 @@ from wagtail.admin.edit_handlers import (
     MultiFieldPanel, InlinePanel, FieldRowPanel)
 from wagtail.contrib.modeladmin.options import ModelAdmin
 
+from wagtailkit.autocompletes.edit_handlers import AutocompletePanel
 from wagtailkit.academic.admin import RMUChooser, ProgramStudyFilter
 from wagtailkit.teachers.admin import TeacherChooser
 from wagtailkit.lectures.models import Lecture
@@ -31,35 +32,32 @@ class LectureModelAdmin(ModelAdmin):
     course_panels = [
         MultiFieldPanel([
             FieldPanel('code'),
-            FieldPanel('course'),
-            FieldRowPanel([
-                FieldPanel('rmu'),
-                FieldPanel('academic_year'),
-            ]),
-            FieldRowPanel([
-                FieldPanel('teacher'),
-                FieldPanel('assistant'),
-            ])
+            FieldPanel('academic_year'),
+            AutocompletePanel('rmu'),
+            AutocompletePanel('course'),
+            AutocompletePanel('teacher'),
+            AutocompletePanel('assistant'),
         ])
     ]
     datetime_panels = [
         MultiFieldPanel([
-            FieldRowPanel([
-                FieldPanel('room'),
-                FieldPanel('date_start'),
-            ]),
-            FieldRowPanel([
-                FieldPanel('default_time_start'),
-                FieldPanel('duration'),
-            ]),
-            FieldRowPanel([
-                FieldPanel('series'),
-                FieldPanel('status'),
-            ])
+            AutocompletePanel('room'),
+            FieldPanel('date_start'),
+            FieldPanel('default_time_start'),
+            FieldPanel('duration'),
+            FieldPanel('series'),
+            FieldPanel('status'),
+        ])
+    ]
+    student_panels = [
+        InlinePanel('students', panels=[
+            AutocompletePanel('student'),
+            FieldPanel('status')
         ])
     ]
 
     edit_handler = TabbedInterface([
         ObjectList(course_panels, heading=_('Course')),
         ObjectList(datetime_panels, heading=_('Date & Time')),
+        ObjectList(student_panels, heading=_('Students')),
     ])
