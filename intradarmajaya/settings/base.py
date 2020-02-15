@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'home',
     'search',
     'intranet',
+
     'wagtailkit.core',
     'wagtailkit.accounts',
     'wagtailkit.admin',
@@ -54,6 +55,8 @@ INSTALLED_APPS = [
     'wagtailkit.partners',
     'wagtailkit.products',
     'wagtailkit.warehouse',
+
+    'wagtailkit.discuss',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
