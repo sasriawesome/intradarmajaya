@@ -18,8 +18,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         {# Global stylesheets #}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/intradarmajaya.css' %}">
-
+        <link rel="stylesheet" type="text/css" href="{% static 'wagtailkit/css/vendor/bootstrap/bootstrap.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'wagtailfontawesome/css/wagtailfontawesome.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'wagtailkit/css/intradarmajaya.css' %}">
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
         {% endblock %}
@@ -31,7 +32,9 @@
         {% block content %}{% endblock %}
 
         {# Global javascript #}
-        <script type="text/javascript" src="{% static 'js/intradarmajaya.js' %}"></script>
+        <script type="text/javascript" src="{% static 'wagtailkit/js/jquery-slim.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'wagtailkit/js/bootstrap.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'wagtailkit/js/main.js' %}"></script>
 
         {% block extra_js %}
             {# Override this in templates to add extra javascript #}
