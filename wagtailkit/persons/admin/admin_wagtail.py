@@ -223,7 +223,9 @@ class PersonModelAdmin(ImportExportModelAdminMixin, PrintPDFModelAdminMixin, Mod
         last_education = [
             MultiFieldPanel([
                 FieldPanel('last_education_level'),
+                FieldPanel('last_education_institution'),
                 FieldPanel('last_education_name'),
+                FieldPanel('year_graduate'),
             ]),
         ]
         formal_education_panels = [

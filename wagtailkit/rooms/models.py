@@ -22,5 +22,11 @@ class Room(KitBaseModel):
         validators=[MinValueValidator(1)],
         verbose_name=_('Capacity'))
 
+    # wagtail autocomplete
+    autocomplete_search_field = 'name'
+
+    def autocomplete_label(self):
+        return "{} | {}".format(self.code, self.name)
+
     def __str__(self):
         return self.name

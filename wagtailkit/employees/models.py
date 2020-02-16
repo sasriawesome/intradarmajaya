@@ -140,6 +140,12 @@ class Employee(ClusterableModel, NumeratorMixin, KitBaseModel):
         default=True, verbose_name=_("Active"))
     is_teacher_applicant = models.BooleanField(default=False, verbose_name=_('Teacher applicant'))
 
+    # wagtail autocomplete
+    autocomplete_search_field = 'person__fullname'
+
+    def autocomplete_label(self):
+        return "{} | {}".format(self.eid, self.person)
+
     def __str__(self):
         return str(self.person)
 

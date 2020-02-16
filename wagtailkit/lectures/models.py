@@ -5,6 +5,9 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 from wagtailkit.core.models import KitBaseModel, CreatorModelMixin, MAX_LEN_SHORT
 from wagtailkit.core.utils.datetime import add_time
+from wagtail.core.models import Orderable
+from modelcluster.models import ClusterableModel, ParentalKey
+from polymorphic.models import PolymorphicModel
 
 from wagtailkit.academic.models import CurriculumCourse, AcademicYear, ResourceManagementUnit
 from wagtailkit.rooms.models import Room
@@ -14,7 +17,7 @@ from wagtailkit.students.models import Student
 _ = translation.gettext_lazy
 
 
-class Lecture(CreatorModelMixin, KitBaseModel):
+class Lecture(ClusterableModel, CreatorModelMixin, KitBaseModel):
     class Meta:
         verbose_name = _("Lecture")
         verbose_name_plural = _("Lectures")
@@ -55,7 +58,8 @@ class Lecture(CreatorModelMixin, KitBaseModel):
         on_delete=models.PROTECT,
         verbose_name=_("Program Study"))
     course = models.ForeignKey(
-        CurriculumCourse, on_delete=models.CASCADE,
+        CurriculumCourse,
+        on_delete=models.CASCADE,
         verbose_name=_("Course"))
     academic_year = models.ForeignKey(
         AcademicYear, on_delete=models.PROTECT,
@@ -129,7 +133,7 @@ class LectureScoreWeighting(CreatorModelMixin, KitBaseModel):
         return str(self.lecture) + ' Score Weighting'
 
 
-class LectureStudent(KitBaseModel):
+class LectureStudent(Orderable, KitBaseModel):
     class Meta:
         verbose_name = _("Lecture Student")
         verbose_name_plural = _("Lecture Students")
@@ -142,11 +146,13 @@ class LectureStudent(KitBaseModel):
         (REPEAT, _('Repeat'))
     )
 
-    lecture = models.ForeignKey(
+    lecture = ParentalKey(
         Lecture, on_delete=models.CASCADE,
+        related_name='students',
         verbose_name=_("Lecture"))
     student = models.ForeignKey(
         Student, on_delete=models.CASCADE,
+        related_name='lectures',
         verbose_name=_("Student"))
     status = models.CharField(
         max_length=3, choices=STATUS, default=NEW,
@@ -228,16 +234,11 @@ class LectureSchedule(KitBaseModel):
             [str(self.lecture), str(self.session)])
 
 
-class StudentScore(KitBaseModel):
+class StudentScore(PolymorphicModel, KitBaseModel):
     class Meta:
         verbose_name = _("Student Score")
         verbose_name_plural = _("Student Scores")
-        unique_together = ('lecture', 'student')
 
-    lecture = models.ForeignKey(
-        Lecture, null=True, blank=True,
-        on_delete=models.SET_NULL,
-        verbose_name=_("Lecture"))
     course = models.ForeignKey(
         CurriculumCourse,
         on_delete=models.PROTECT,
@@ -246,6 +247,26 @@ class StudentScore(KitBaseModel):
     student = models.ForeignKey(
         Student, on_delete=models.CASCADE,
         verbose_name=_("Student"))
+    numeric = models.PositiveIntegerField(
+        default=0,
+        validators=[
+            MinValueValidator(0),
+            MaxValueValidator(100),
+        ],
+        verbose_name=_("Numeric Score"))
+    alphabetic = models.CharField(
+        max_length=1,
+        verbose_name=_("Alphabetic Score"))
+
+class LectureScore(StudentScore):
+    class Meta:
+        verbose_name = _("Lecture Score")
+        verbose_name_plural = _("Lecture Scores")
+
+    lecture = models.ForeignKey(
+        Lecture, null=True, blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name=_("Lecture"))
     attendance = models.PositiveIntegerField(
         default=0,
         validators=[
@@ -295,6 +316,36 @@ class StudentScore(KitBaseModel):
             MaxValueValidator(100),
         ],
         verbose_name=_("Final Exam"))
+    total_score = models.PositiveIntegerField(
+        default=0,
+        validators=[
+            MinValueValidator(0),
+            MaxValueValidator(100),
+        ],
+        verbose_name=_("Total Score"))
 
-    def __str__(self):
-        return str(self.student) + ' Scores'
+
+class ConversionScore(StudentScore):
+    class Meta:
+        verbose_name = _("Conversion Score")
+        verbose_name_plural = _("Conversion Scores")
+
+    ori_code = models.CharField(
+        max_length=MAX_LEN_SHORT,
+        verbose_name=_('Origin Course Code'))
+    ori_name = models.CharField(
+        max_length=MAX_LEN_SHORT,
+        verbose_name=_('Origin Course Name'))
+    ori_numeric_score = models.DecimalField(
+        default=1,
+        max_digits=3,
+        decimal_places=2,
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(4),
+        ],
+        verbose_name=_('Origin Numeric Score'))
+    ori_alphabetic_score = models.CharField(
+        max_length=MAX_LEN_SHORT,
+        verbose_name=_('Origin Alphabetic Score'))
+

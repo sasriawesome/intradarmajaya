@@ -107,11 +107,20 @@ class Person(index.Indexed, ClusterableModel, NumeratorMixin, ContactInfo, KitBa
         max_length=5,
         choices=[(str(lvl.value), str(lvl.name)) for lvl in KKNILevel],
         default=KKNILevel.SMA.value,
-        verbose_name=_('Edu Level'))
-    last_education_name = models.CharField(
-        null=True, blank=False,
+        verbose_name=_('Level'))
+    last_education_institution = models.CharField(
+        null=True, blank=True,
         max_length=MAX_LEN_MEDIUM,
-        verbose_name=_('Edu Name'))
+        verbose_name=_('Institution'))
+    last_education_name = models.CharField(
+        null=True, blank=True,
+        max_length=MAX_LEN_MEDIUM,
+        verbose_name=_('Major'))
+    year_graduate = models.CharField(
+        null=True, blank=True,
+        max_length=MAX_LEN_MEDIUM,
+        verbose_name=_('Year graduate'))
+
 
     # SOCIALMEDIA
     facebook = models.URLField(
