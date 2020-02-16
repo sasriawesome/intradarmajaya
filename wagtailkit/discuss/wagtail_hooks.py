@@ -7,7 +7,7 @@ from .models import Discussion
 
 
 class DiscussionWelcomePanel(SummaryItem):
-    order = 50
+    order = 1
     template = 'modeladmin/discuss/admin_homepage_summary.html'
 
     def get_context(self):

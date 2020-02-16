@@ -103,9 +103,9 @@ class TransferCheckOutModelAdmin(ProductTransferModelAdminBase):
         MultiFieldPanel([
             # FieldPanel('status'),
             AutocompletePanel('request_order'),
-            FieldPanel('requester'),
-            FieldPanel('department'),
-            FieldPanel('deliver_to'),
+            # FieldPanel('requester'),
+            # FieldPanel('department'),
+            # FieldPanel('deliver_to'),
             FieldPanel('delivered_date'),
             FieldPanel('title'),
             FieldPanel('description'),

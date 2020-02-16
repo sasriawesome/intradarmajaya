@@ -2,7 +2,7 @@ import dramatiq
 from django.core.mail import send_mail
 from django.utils.html import strip_tags
 
-@dramatiq.actor
+@dramatiq.actor(time_limit=5000, max_retries=3)
 def send_html_email(subject, from_email, recipient_list, message):
     mail = send_mail(
         subject=subject,

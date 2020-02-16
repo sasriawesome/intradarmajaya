@@ -32,7 +32,7 @@ def apply_create_wh_group_permissions(apps, schema_editor):
     Permission = apps.get_model('auth', 'Permission')
 
     wh_assists, created = Group.objects.get_or_create(name=u'Warehouse Assists')
-    wh_users, created = Group.objects.get_or_create(name=u'Warehouse User')
+    wh_users, created = Group.objects.get_or_create(name=u'Warehouse Users')
     wh_staffs, created = Group.objects.get_or_create(name=u'Warehouse Staffs')
     wh_supervisors, created = Group.objects.get_or_create(name=u'Warehouse Supervisors')
     wh_managers, created = Group.objects.get_or_create(name=u'Warehouse Managers')
@@ -278,7 +278,7 @@ def revert_create_wh_group_permissions(apps, schema_editor):
     Group = apps.get_model('auth', 'Group')
     Permission = apps.get_model('auth', 'Permission')
 
-    wh_user_assistants = Group.objects.get(name=u'Warehouse User Assistants')
+    wh_user_assistants = Group.objects.get(name=u'Warehouse Assists')
     wh_user_assistants.permissions.clear()
 
     wh_users = Group.objects.get(name=u'Warehouse Users')

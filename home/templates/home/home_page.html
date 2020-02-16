@@ -1,21 +1,79 @@
 {% extends "base.html" %}
-{% load static %}
+{% load i18n static wagtailsettings_tags %}
 
-{% block body_class %}template-homepage{% endblock %}
+{% block title %}
+  Intranet Institut Informatika dan Bisnis Darmajaya
+{% endblock %}
 
 {% block extra_css %}
-
-{% comment %}
-Delete the line below if you're just getting started and want to remove the welcome screen!
-{% endcomment %}
-<link rel="stylesheet" href="{% static 'css/welcome_page.css' %}">
-{% endblock extra_css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/welcome_page.css' %}">
+{% endblock %}
 
 {% block content %}
 
-{% comment %}
-Delete the line below if you're just getting started and want to remove the welcome screen!
-{% endcomment %}
-{% include 'home/welcome_page.html' %}
+<header>
+  <div class="collapse bg-dark small" id="navbarHeader">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 col-md-7 py-4">
+          <h3 class="text-white">{% trans 'About' %} {% firstof settings.wagtailkitcore.CompanySettings.name 'Wagtail' %}</h3>
+          <p class="text-muted">Darmajaya adalah salah satu institusi pendidikan tinggi swasta (PTS) terkemuka di Provinsi Lampung, berdiri pada tahun 1995, dibawah naungan Yayasan Pendidikan Alfian Husin.</p>
+        </div>
+        <div class="col-sm-4 offset-md-1 py-4">
+          <h3 class="text-white">Contact</h3>
+          <ul class="list-unstyled">
+            <li><a href="https://www.darmajaya.ac.id/" class="text-white">Website</a></li>
+            <li><a href="https://twitter.com/hashtag/darmajaya" class="text-white">Follow on Twitter</a></li>
+            <li><a href="https://www.facebook.com/darmajaya.official/" class="text-white">Like on Facebook</a></li>
+            <li><a href="https://www.instagram.com/darmajayathebest/" class="text-white">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="navbar navbar-dark bg-dark shadow-0">
+    <div class="container d-flex justify-content-between">
+      <a href="#" class="navbar-brand d-flex align-items-center">
+        <strong>{% firstof settings.wagtailkitcore.CompanySettings.sitename 'Wagtail' %}</strong>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </div>
+</header>
 
-{% endblock content %}
+<main role="main">
+
+  <section class="jumbotron text-center text-white bg-dark mb-0 pb-60 pt-60 rounded-0">
+    <div class="container">
+      <img src="{{ settings.wagtailkitcore.CompanySettings.logo.file.url }}" alt="Custom Project" class="mb-3" width="125" />
+      <h1 class="jumbotron-heading" style="letter-spacing: -.08em">Nourishing Global Technopreneur</h1>
+      <p class="lead text-muted">Global-minded technopreneurs do not just come like that. We have to nourish, nurture, educate, train and guide them. That is who we are. We are Darmajaya, and we are nourishing global technopreneur.</p>
+      <p>
+        <a href="{% url 'wagtailadmin_login' %}" class="btn btn-primary btn-lg rounded-0 signin-btn">SIGN IN</a>
+      </p>
+    </div>
+  </section>
+
+  <div class="album py-5 bg-white">
+    <div class="container">
+
+      <div class="row">
+        <h3 class="section-title">{% trans 'Our Partners' %}</h3>
+        <img src="https://simpandigrobog.s3.amazonaws.com/images/footer-kerjasama-Copy.original.jpg" alt="Partner">
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="text-muted bg-light">
+  <div class="container text-center small">
+    <p class="m-0" >&copy; 1995 - 2019 Institut Informatika dan Bisnis Darmajaya ( IIB Darmajaya )</p>
+    <p class="m-0">Need more? <a href="https://www.darmajaya.ac.id">Visit the homepage</a>.</p>
+  </div>
+</footer>
+
+{% endblock %}
