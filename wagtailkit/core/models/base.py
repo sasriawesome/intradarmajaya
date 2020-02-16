@@ -59,7 +59,6 @@ class KitBaseModel(models.Model):
         verbose_name=_('ID'))
     date_created = models.DateTimeField(
         default=timezone.now,
-        editable=False,
         verbose_name=_('Date created'))
     date_modified = models.DateTimeField(
         default=timezone.now,

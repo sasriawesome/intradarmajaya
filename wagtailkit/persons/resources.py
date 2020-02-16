@@ -10,9 +10,11 @@ class PersonResource(ModelResource):
     class Meta:
         model = Person
         fields = (
-            'id', 'inner_id', 'phone1', 'phone2', 'email', 'reg_number',
-            'title', 'fullname', 'front_title', 'back_title', 'gender',
-            'religion', 'nation', 'date_of_birth', 'place_of_birth')
+            'id', 'inner_id', 'reg_number','phone1', 'phone2', 'email', 'reg_number',
+            'title', 'front_title', 'fullname', 'back_title', 'gender',
+            'religion', 'nation', 'place_of_birth', 'date_of_birth', 'last_education_level',
+            'last_education_institution', 'last_education_name', 'year_graduate', 'date_created',
+            'is_employee_applicant')
 
     id = Field(attribute='id', column_name='id', widget=UUIDWidget())
     inner_id = Field(attribute='inner_id', column_name='inner_id', readonly=True, widget=widgets.CharWidget())
