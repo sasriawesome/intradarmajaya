@@ -86,7 +86,7 @@ INSTALLED_APPS = [
     'modelcluster',
     'polymorphic',
     'graphene_django',
-    'django_dramatiq',
+    # 'django_dramatiq',
     'generic_chooser',
     'django_extensions',
 
@@ -253,31 +253,31 @@ EMAIL_BACKEND = env('EMAIL_BACKEND')
 
 # DRAMATIQ CONFIG ======================================================================
 
-DRAMATIQ_BROKER = {
-    "BROKER": "dramatiq.brokers.redis.RedisBroker",
-    "OPTIONS": {
-        "url": env('REDIS_URL'),
-    },
-    "MIDDLEWARE": [
-        "dramatiq.middleware.Prometheus",
-        "dramatiq.middleware.AgeLimit",
-        "dramatiq.middleware.TimeLimit",
-        "dramatiq.middleware.Callbacks",
-        "dramatiq.middleware.Retries",
-        "django_dramatiq.middleware.AdminMiddleware",
-        "django_dramatiq.middleware.DbConnectionsMiddleware",
-    ]
-}
-
-DRAMATIQ_RESULT_BACKEND = {
-    "BACKEND": "dramatiq.results.backends.redis.RedisBackend",
-    "BACKEND_OPTIONS": {
-        "url": env('REDIS_URL'),
-    },
-    "MIDDLEWARE_OPTIONS": {
-        "result_ttl": 60000
-    }
-}
+# DRAMATIQ_BROKER = {
+#     "BROKER": "dramatiq.brokers.redis.RedisBroker",
+#     "OPTIONS": {
+#         "url": env('REDIS_URL'),
+#     },
+#     "MIDDLEWARE": [
+#         "dramatiq.middleware.Prometheus",
+#         "dramatiq.middleware.AgeLimit",
+#         "dramatiq.middleware.TimeLimit",
+#         "dramatiq.middleware.Callbacks",
+#         "dramatiq.middleware.Retries",
+#         "django_dramatiq.middleware.AdminMiddleware",
+#         "django_dramatiq.middleware.DbConnectionsMiddleware",
+#     ]
+# }
+#
+# DRAMATIQ_RESULT_BACKEND = {
+#     "BACKEND": "dramatiq.results.backends.redis.RedisBackend",
+#     "BACKEND_OPTIONS": {
+#         "url": env('REDIS_URL'),
+#     },
+#     "MIDDLEWARE_OPTIONS": {
+#         "result_ttl": 60000
+#     }
+# }
 
 # Defines which database should be used to persist Task objects when the
 # AdminMiddleware is enabled.  The default value is "default".
