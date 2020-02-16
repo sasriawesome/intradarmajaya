@@ -88,6 +88,7 @@ INSTALLED_APPS = [
     'graphene_django',
     'django_dramatiq',
     'generic_chooser',
+    'django_extensions',
 
     'django.contrib.sites',
     'django.contrib.admin',
