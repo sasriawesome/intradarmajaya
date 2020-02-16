@@ -1,15 +1,5 @@
-import faker
 from django.db import transaction
-from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Group
-from wagtailkit.numerators.models import Numerator
-from wagtailkit.persons.models import Person
-from wagtailkit.students.models import Student
-from wagtailkit.employees.models import Employee
 from wagtailkit.organizations.models import Department, Position
-from wagtailkit.teachers.models import Teacher
-from wagtailkit.academic.models import ResourceManagementUnit, SchoolYear
-from wagtailkit.lectures.models import Lecture
 
 def import_department_and_position():
     with transaction.atomic():
