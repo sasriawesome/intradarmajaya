@@ -219,7 +219,7 @@ WAGTAIL_SITE_NAME = "intradarmajaya"
 # ============================================================
 
 # Change 'default' database configuration with $DATABASE_URL.
-DATABASES['default'].update(dj_database_url.config(conn_max_age=500, ssl_require=True))
+DATABASES['default'].update(dj_database_url.config(conn_max_age=500, ssl_require=False))
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
