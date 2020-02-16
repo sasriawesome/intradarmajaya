@@ -43,6 +43,8 @@ wagtail-autocomplete = "*"
 django-sendgrid-v5 = "*"
 redis = "*"
 pika = "*"
+django-extensions = "*"
+jupyter = "*"
 
 [requires]
 python_version = "3.7"
