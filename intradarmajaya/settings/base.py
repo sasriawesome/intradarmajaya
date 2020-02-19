@@ -138,10 +138,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'intradarmajaya.wsgi.application'
+
 USE_X_FORWARDED_HOST = True
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CSRF_TRUSTED_ORIGINS = ['intradarmajaya-nginx.herokuapp.com']
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
