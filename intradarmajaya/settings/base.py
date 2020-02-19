@@ -214,7 +214,6 @@ BASE_URL = env('BASE_URL')
 WAGTAIL_SITE_NAME = "intradarmajaya"
 
 
-
 # HEROKU SETUP
 # ============================================================
 
