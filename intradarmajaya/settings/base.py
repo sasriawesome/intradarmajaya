@@ -25,10 +25,10 @@ env = environ.Env(
     REDIS_URL=(str, "")
 )
 
-environ.Env.read_env()
-
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
+
+environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -139,15 +139,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'intradarmajaya.wsgi.application'
 
-USE_X_FORWARDED_HOST = True
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-CSRF_TRUSTED_ORIGINS = [
-    'intra.darmajaya.ac.id',
-    'intradarmajaya.herokuapp.com',
-    'intradarmajaya-nginx.herokuapp.com',
-]
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -240,6 +231,7 @@ django_heroku.settings(locals())
 # AWS SETUP
 # ============================================================
 
+AWS_DEFAULT_ACL = None
 AWS_STORAGE_BUCKET_NAME = env.str('AWS_STORAGE_BUCKET_NAME')
 AWS_ACCESS_KEY_ID = env.str('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env.str('AWS_SECRET_ACCESS_KEY')
