@@ -1,5 +1,14 @@
+import faker
 from django.db import transaction
+from django.utils.text import slugify
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 from wagtailkit.organizations.models import Department, Position
+from wagtailkit.employees.models import Employee, EmployeePersonal
+
+fake = faker.Factory()
+fk = fake.create('id')
+
 
 def import_department_and_position():
     with transaction.atomic():
@@ -228,3 +237,27 @@ def import_department_and_position():
         dosen_ma = chair(parent=kajur_ma, department=kbk_ma, name='Dosen Manajemen', is_manager=False)
         dosen_bi = chair(parent=kajur_bi, department=kbk_bi, name='Dosen Bisnis Digital', is_manager=False)
         dosen_mm = chair(parent=kaprodi_mm, department=kbk_mm, name='Dosen Magister Manajemen', is_manager=False)
+
+
+def create_fake_employee(position, group=None, employment=None):
+    person = EmployeePersonal(fullname="{} {}".format(fk.first_name(), fk.last_name()))
+    person.save()
+    user = get_user_model().objects.create_user(
+        username=slugify(str(person.fullname).replace(' ','_')),
+        password='darmajaya', email=fk.email())
+    person.user_account = user
+    person.save()
+    if group:
+        gr = Group.objects.get_or_create(name='Account Employee')
+        gr.user_set(user)
+    emp = Employee.objects.create(
+        eid=person.inner_id,
+        person=person,
+        position=position,
+        employment=employment,
+        is_active=True)
+    emp.save()
+
+def import_fake_employee():
+    for post in Position.objects.all():
+        create_fake_employee(position=post)

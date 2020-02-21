@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from wagtailkit.persons.admin.admin_django import PersonAdmin
-from wagtailkit.students.models import Student, StudentPersonal
+from wagtailkit.students.models import Student, StudentPersonal, ConversionScore, StudentScore
 from wagtailkit.academic.admin.admin_wagtail import ProgramStudyFilter
 
 class StudentInline(admin.TabularInline):
@@ -19,3 +19,17 @@ class StudentAdmin(admin.ModelAdmin):
 @admin.register(StudentPersonal)
 class StudentPersonalAdmin(PersonAdmin):
     inlines = [StudentInline]
+
+
+
+
+@admin.register(StudentScore)
+class StudentScoreAdmin(admin.ModelAdmin):
+    search_fields = [
+        'course__course__name', 'course__course__inner_id',
+        'student__person__fullname', 'student__sid'
+    ]
+    raw_id_fields = ['student', 'course']
+    list_display = ['student', 'course', 'numeric', 'alphabetic']
+
+admin.site.register(ConversionScore)

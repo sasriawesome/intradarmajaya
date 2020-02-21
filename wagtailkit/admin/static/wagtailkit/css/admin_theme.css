@@ -48,6 +48,10 @@ body {
     width: 100%;
 }
 
+.object .field-row {
+    padding-top: 0 !important;
+}
+
 .condensed-inline-panel__card-header > h2 {
     margin: 0;
     line-height: 50px;

@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'wagtailkit.teachers',
     'wagtailkit.students',
     'wagtailkit.lectures',
+    'wagtailkit.attendances',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -219,7 +220,7 @@ WAGTAIL_SITE_NAME = "intradarmajaya"
 # ============================================================
 
 # Change 'default' database configuration with $DATABASE_URL.
-DATABASES['default'].update(dj_database_url.config(conn_max_age=500, ssl_require=False))
+DATABASES['default'].update(dj_database_url.config(conn_max_age=500, ssl_require=True))
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
@@ -236,9 +237,6 @@ AWS_STORAGE_BUCKET_NAME = env.str('AWS_STORAGE_BUCKET_NAME')
 AWS_ACCESS_KEY_ID = env.str('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env.str('AWS_SECRET_ACCESS_KEY')
 AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN')
-
-MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # EMAIL CONFIG
 # ======================================================================

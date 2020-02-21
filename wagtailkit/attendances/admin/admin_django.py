@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import TeacherAttendance, StudentAttendance, LectureAttendance
+from wagtailkit.attendances.models import TeacherAttendance, StudentAttendance, LectureAttendance
 
 
 @admin.register(TeacherAttendance)

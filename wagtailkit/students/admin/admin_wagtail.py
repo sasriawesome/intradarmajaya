@@ -2,20 +2,19 @@ from django.db import transaction
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import TemplateView
 from django.shortcuts import redirect, reverse
 from django.conf.urls import url
 
 from wagtailkit.autocompletes.edit_handlers import AutocompletePanel
 from wagtail.admin.menu import MenuItem
-from wagtail.admin.edit_handlers import ObjectList, FieldPanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import ObjectList, FieldPanel, MultiFieldPanel, FieldRowPanel
 from wagtail.contrib.modeladmin.views import WMABaseView, FormView
 from wagtail.contrib.modeladmin.helpers import AdminURLHelper
 
 from wagtailkit.admin.admin import ModelAdmin
 from wagtailkit.persons.admin.admin_wagtail import PersonModelAdmin
 from wagtailkit.persons.models import Person
-from wagtailkit.students.models import Student, StudentPersonal
+from wagtailkit.students.models import Student, StudentPersonal, StudentScore, ConversionScore
 from wagtailkit.students.forms import StudentRegistrationForm
 from wagtailkit.academic.admin.admin_wagtail import ProgramStudyFilter
 
@@ -129,3 +128,54 @@ class StudentModelAdmin(ModelAdmin):
         kwargs = {'model_admin': self}
         view_class = self.register_student_view_class
         return view_class.as_view(**kwargs)(request)
+
+
+class StudentScoreModelAdmin(ModelAdmin):
+    search_fields = ['student__name', 'course__name']
+    model = StudentScore
+    menu_icon = 'fa-wpforms'
+    list_filter = ['alphabetic', 'student__rmu', 'course__curriculum']
+    list_per_page = 20
+    list_display = ['sid', 'student', 'course_name', 'curriculum', 'num', 'alpha']
+
+    def sid(self, obj):
+        return obj.sid
+
+    def course_name(self, obj):
+        return "{} {}".format(obj.cid, obj.course)
+
+    def curriculum(self, obj):
+        return obj.curriculum
+
+    def num(self, obj):
+        return obj.numeric
+
+    def alpha(self, obj):
+        return obj.alphabetic
+
+class ConversionScoreModelAdmin(StudentScoreModelAdmin):
+    search_fields = ['student__name', 'course__name']
+    model = ConversionScore
+    menu_icon = 'fa-wpforms'
+    list_per_page = 20
+    list_display = ['sid', 'student', 'course_name', 'curriculum', 'ori_name', 'num', 'alpha']
+    edit_handler = ObjectList([
+        MultiFieldPanel([
+            AutocompletePanel('course'),
+            AutocompletePanel('student'),
+            FieldRowPanel([
+                FieldPanel('numeric'),
+                FieldPanel('alphabetic'),
+            ])
+        ]),
+        MultiFieldPanel([
+            FieldRowPanel([
+                FieldPanel('ori_code'),
+                FieldPanel('ori_name'),
+            ]),
+            FieldRowPanel([
+                FieldPanel('ori_numeric_score'),
+                FieldPanel('ori_alphabetic_score'),
+            ]),
+        ], heading=_('Original Scores'))
+    ])

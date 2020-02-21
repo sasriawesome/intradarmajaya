@@ -62,12 +62,17 @@ class EmployeeModelAdmin(PrintPDFModelAdminMixin, ModelAdmin):
     menu_icon = ' icon-fa-user'
     search_fields = ['eid', 'person__fullname', 'position__name']
     list_filter = ['is_active', 'employment', 'person__last_education_level', 'date_registered', ]
-    list_display = ['eid', 'person', 'position', 'date_registered']
+    list_display = ['eid', 'person', 'position', 'date_registered', 'teacher_app']
     permission_helper_class = EmployeePermissionHelper
     button_helper_class = EmployeeButtonHelper
     url_helper_class = EmployeAdminUrlHelper
     create_view_class = EmployeeCreateView
     inspect_view_enabled = True
+
+    def teacher_app(self, obj):
+        return obj.is_teacher_applicant
+
+    teacher_app.boolean = True
 
     employee_panels = [
         MultiFieldPanel([

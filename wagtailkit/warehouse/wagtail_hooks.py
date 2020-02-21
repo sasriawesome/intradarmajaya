@@ -102,9 +102,11 @@ class WarehouseWelcomePanel(SummaryItem):
         return context
 
     def is_shown(self):
-        return True
+        return ph_request_order.user_has_any_permissions(self.request.user)
 
 
 @hooks.register('construct_homepage_panels')
 def add_warehouse_welcome_panel(request, panels):
-    panels.append(WarehouseWelcomePanel(request))
+    welcome_panel = WarehouseWelcomePanel(request)
+    if welcome_panel.is_shown():
+        panels.append(WarehouseWelcomePanel(request))

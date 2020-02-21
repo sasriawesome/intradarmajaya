@@ -16,8 +16,13 @@ from wagtailkit.academic.admin import (
     SchoolYearModelAdmin
 )
 
-from wagtailkit.students.admin import StudentModelAdmin, StudentPersonalModelAdmin, RegisterStudentMenuItem
-from wagtailkit.lectures.admin import LectureModelAdmin
+from wagtailkit.students.admin import (
+    RegisterStudentMenuItem,
+    StudentModelAdmin,
+    StudentScoreModelAdmin,
+    StudentPersonalModelAdmin,
+    ConversionScoreModelAdmin,
+)
 
 _ = translation.gettext_lazy
 
@@ -50,7 +55,9 @@ class StudentModelAdminGroup(ModelAdminGroup):
     menu_icon = 'fa-user-circle'
     items = [
         StudentModelAdmin,
-        StudentPersonalModelAdmin
+        StudentPersonalModelAdmin,
+        StudentScoreModelAdmin,
+        ConversionScoreModelAdmin,
     ]
 
     def get_submenu_items(self):
@@ -61,11 +68,3 @@ class StudentModelAdminGroup(ModelAdminGroup):
             classnames='icon icon-fa-user-plus', order=1000)
         sub_menuitems.append(register_student_menu)
         return sub_menuitems
-
-
-class LectureModelAdminGroup(ModelAdminGroup):
-    menu_label = _('Lectures')
-    menu_icon = 'fa-slideshare'
-    items = [
-        LectureModelAdmin
-    ]

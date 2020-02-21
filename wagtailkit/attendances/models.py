@@ -1,3 +1,4 @@
+import enum
 from django.db import models
 from django.utils import translation
 
@@ -5,9 +6,16 @@ from wagtailkit.core.models import KitBaseModel, MAX_LEN_LONG
 
 from wagtailkit.teachers.models import Teacher
 from wagtailkit.students.models import Student
-from wagtailkit.lectures.models import LectureSchedule
+from wagtailkit.lectures.models import LectureSchedule, LectureStudent
 
 _ = translation.gettext_lazy
+
+
+class AttendantStatus(enum.Enum):
+    PRESENT = 'PR'
+    SICK = 'SC'
+    ABSENT = 'AB'
+    PERMIT = 'PE'
 
 
 class Holiday(KitBaseModel):
@@ -44,26 +52,17 @@ class StudentAttendance(KitBaseModel):
         verbose_name_plural = _("Student Attendances")
         unique_together = ('schedule', 'student')
 
-    PRESENT = 'PR'
-    SICK = 'SC'
-    ABSENT = 'AB'
-    PERMIT = 'PE'
-    STATUS = (
-        (PRESENT, _('Present')),
-        (SICK, _('Sick')),
-        (ABSENT, _('Absent')),
-        (PERMIT, _('Permit')),
-    )
-
     student = models.ForeignKey(
-        Student, on_delete=models.CASCADE,
+        LectureStudent,
+        on_delete=models.CASCADE,
+        related_name='attendances',
         verbose_name=_("Student"))
     schedule = models.ForeignKey(
         LectureSchedule, on_delete=models.CASCADE,
         verbose_name=_("Schedule"))
     status = models.CharField(
-        max_length=3, choices=STATUS,
-        default=PRESENT, verbose_name=_("Status"))
+        max_length=3, choices=[(str(x.value), str(x.name).title()) for x in AttendantStatus],
+        default=AttendantStatus.PRESENT.value, verbose_name=_("Status"))
     note = models.CharField(
         max_length=MAX_LEN_LONG,
         null=True, blank=True,
@@ -79,17 +78,6 @@ class TeacherAttendance(KitBaseModel):
         verbose_name_plural = _("Teacher Attendances")
         unique_together = ('schedule', 'teacher')
 
-    PRESENT = 'PR'
-    SICK = 'SC'
-    ABSENT = 'AB'
-    PERMIT = 'PR'
-    STATUS = (
-        (PRESENT, _('Present')),
-        (SICK, _('Sict')),
-        (ABSENT, _('Absent')),
-        (PERMIT, _('Permit')),
-    )
-
     schedule = models.ForeignKey(
         LectureSchedule, on_delete=models.CASCADE,
         verbose_name=_("Schedule"))
@@ -97,9 +85,12 @@ class TeacherAttendance(KitBaseModel):
         Teacher, on_delete=models.CASCADE,
         verbose_name=_("Teacher"))
     status = models.CharField(
-        max_length=3, choices=STATUS,
-        default=PRESENT, verbose_name=_("Status"))
+        max_length=3, choices=[(str(x.value), str(x.name).title()) for x in AttendantStatus],
+        default=AttendantStatus.PRESENT.value, verbose_name=_("Status"))
     note = models.CharField(
         max_length=MAX_LEN_LONG,
         null=True, blank=True,
         verbose_name=_("Note"))
+
+    def __str__(self):
+        return "{} {}".format(self.schedule)

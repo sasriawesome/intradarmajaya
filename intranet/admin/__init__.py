@@ -6,6 +6,7 @@ from .discuss import *
 from .academic import *
 from .teachers import *
 from .rooms import *
+from .lectures import *
 
 modeladmin_register(AcademicModelAdminGroup)
 modeladmin_register(LectureModelAdminGroup)
