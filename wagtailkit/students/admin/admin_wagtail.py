@@ -138,6 +138,15 @@ class StudentScoreModelAdmin(ModelAdmin):
     list_per_page = 20
     list_display = ['sid', 'student', 'course_name', 'curriculum', 'num', 'alpha']
 
+    edit_handler = ObjectList([
+        MultiFieldPanel([
+            AutocompletePanel('course'),
+            AutocompletePanel('student'),
+            FieldPanel('numeric'),
+            FieldPanel('alphabetic'),
+        ]),
+    ])
+
     def sid(self, obj):
         return obj.sid
 
@@ -152,6 +161,7 @@ class StudentScoreModelAdmin(ModelAdmin):
 
     def alpha(self, obj):
         return obj.alphabetic
+
 
 class ConversionScoreModelAdmin(StudentScoreModelAdmin):
     search_fields = ['student__name', 'course__name']
