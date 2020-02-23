@@ -6,6 +6,7 @@ from polymorphic.models import PolymorphicModel, PolymorphicManager
 from wagtailkit.numerators.models import NumeratorMixin, Numerator
 from wagtailkit.core.models import KitBaseModel, MAX_LEN_SHORT, MAX_LEN_MEDIUM
 from wagtailkit.persons.models import Person, PersonManager
+from wagtailkit.teachers.models import Teacher
 from wagtailkit.academic.models import ProgramStudy, SchoolYear, CurriculumCourse
 
 
@@ -77,6 +78,11 @@ class Student(NumeratorMixin, KitBaseModel):
     year_of_force = models.ForeignKey(
         SchoolYear, on_delete=models.PROTECT,
         verbose_name=_("Year of force"))
+    coach = models.ForeignKey(
+        Teacher, null=True, blank=True,
+        on_delete=models.SET_NULL,
+        related_name='students',
+        verbose_name=_('Coach'))
     rmu = models.ForeignKey(
         ProgramStudy, on_delete=models.PROTECT,
         verbose_name=_('Program Study'))

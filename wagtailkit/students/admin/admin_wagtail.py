@@ -107,6 +107,7 @@ class StudentModelAdmin(ModelAdmin):
         MultiFieldPanel([
             AutocompletePanel('person'),
             AutocompletePanel('rmu'),
+            AutocompletePanel('coach'),
             AutocompletePanel('year_of_force'),
             FieldPanel('registration_id'),
             FieldPanel('registration'),
