@@ -7,10 +7,12 @@ from .academic import *
 from .teachers import *
 from .rooms import *
 from .lectures import *
+from .enrollments import *
 
 modeladmin_register(AcademicModelAdminGroup)
 modeladmin_register(LectureModelAdminGroup)
 modeladmin_register(CourseModelAdminGroup)
+modeladmin_register(EnrollmentModelAdminGroup)
 modeladmin_register(DiscussionsModelAdminGroup)
 modeladmin_register(EmployeesAdminGroup)
 modeladmin_register(TeacherModelAdminGroup)

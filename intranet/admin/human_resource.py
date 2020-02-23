@@ -30,7 +30,7 @@ class EmployeesAdminGroup(ModelAdminGroup):
 
 
 class HumanResourceAdminGroup(ModelAdminGroup):
-    menu_label = _('Human Resource')
+    menu_label = _('HRD')
     menu_icon = 'group'
     items = [
         DepartmentModelAdmin,

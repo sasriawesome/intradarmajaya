@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'wagtailkit.students',
     'wagtailkit.lectures',
     'wagtailkit.attendances',
+    'wagtailkit.enrollments',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',

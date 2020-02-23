@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Enrollment, EnrollmentItem
+from wagtailkit.enrollments.models import Enrollment, EnrollmentItem, EnrollmentPlan
 
 
 class EnrollmentItemLine(admin.TabularInline):
@@ -8,6 +8,10 @@ class EnrollmentItemLine(admin.TabularInline):
     model = EnrollmentItem
     raw_id_fields = ['lecture']
 
+
+@admin.register(EnrollmentPlan)
+class EnrollmentAdmin(admin.ModelAdmin):
+    pass
 
 @admin.register(Enrollment)
 class EnrollmentAdmin(admin.ModelAdmin):
