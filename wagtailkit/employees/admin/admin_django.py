@@ -69,8 +69,8 @@ class EmployeePersonalAdmin(admin.ModelAdmin):
 class EmployeeAdmin(admin.ModelAdmin):
     show_in_index = True
     search_fields = ['eid', ]
-    list_display = ['eid', 'person', 'department', 'is_active_label', 'is_user']
-    list_select_related = ['person', 'department']
+    list_display = ['eid', 'person', 'position', 'is_active_label', 'is_user']
+    list_select_related = ['person', 'position']
 
     def is_user(self, obj):
         return obj.person.is_user

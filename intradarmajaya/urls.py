@@ -12,8 +12,6 @@ from django.contrib.admindocs import urls as admindocs_urls
 
 
 urlpatterns = [
-    url(r'^django-admin/docs/', include(admindocs_urls)),
-    url(r'^django-admin/', admin.site.urls),
     url(r'^admin/autocomplete/', include(autocomplete_urls)),
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
@@ -21,12 +19,15 @@ urlpatterns = [
 
 ]
 
-
 if settings.DEBUG:
     from django.conf.urls.static import static
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
     # Serve static and media files from development server
+    urlpatterns += (
+        url(r'^django-admin/docs/', include(admindocs_urls)),
+        url(r'^django-admin/', admin.site.urls),
+    )
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

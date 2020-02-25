@@ -39,8 +39,11 @@ environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
 INSTALLED_APPS = [
     'home',
     'search',
-    'intranet',
-    #'dashboard',
+    'intranet.humanresource',
+    'intranet.warehouse',
+    'intranet.academic',
+    'intranet.discuss',
+    'intranet.students', # Student Admin Area
 
     'wagtailkit.core',
     'wagtailkit.accounts',
@@ -67,8 +70,7 @@ INSTALLED_APPS = [
     'wagtailkit.attendances',
     'wagtailkit.enrollments',
 
-    'wagtail_adminplus',
-
+    'wagtail.api',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.settings',
@@ -91,8 +93,8 @@ INSTALLED_APPS = [
     'import_export',
     'modelcluster',
     'polymorphic',
+    'rest_framework',
     'graphene_django',
-    # 'django_dramatiq',
     'generic_chooser',
     'django_extensions',
 

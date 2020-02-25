@@ -13,6 +13,7 @@ body {
     position: absolute;
 }
 
+
 .nav-main a {
     text-decoration: none;
     display: block;
@@ -22,12 +23,14 @@ body {
     font-weight: 400;
 }
 
+/*
 .tab-nav li {
     width: auto;
     padding: 0;
     padding-left: 0px;
     margin-left: 0;
 }
+
 
 .tab-nav li:first-of-type {
     padding-left: 0;
@@ -46,6 +49,7 @@ body {
     max-height: 1.2em;
     overflow: hidden;
 }
+*/
 
 .changelist-filter {
     padding: 0 0 !important;

@@ -18,8 +18,8 @@ from wagtailkit.core.models import (
     KitBaseModel, CreatorModelMixin)
 from wagtailkit.numerators.models import NumeratorMixin, Numerator
 from wagtailkit.persons.models import KKNILevel
-_ = translation.gettext_lazy
 
+_ = translation.gettext_lazy
 
 
 class RMULevel(enum.Enum):
@@ -27,6 +27,7 @@ class RMULevel(enum.Enum):
     FACULTY = '2'
     MAJOR = '3'
     PROGRAM_STUDY = '4'
+
 
 class Semester(enum.Enum):
     ODD = '1'

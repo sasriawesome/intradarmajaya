@@ -1,3 +1,4 @@
+import enum
 from django.db import models
 from django.utils import timezone, translation
 from django.core.exceptions import ValidationError
@@ -16,19 +17,19 @@ from wagtailkit.students.models import Student, StudentScore
 _ = translation.gettext_lazy
 
 
+class LectureStatus(enum.Enum):
+    PENDING = 'PND'  # Lectures state in draft
+    REGISTRATION = 'REG'  # Lectures is visible for registration
+    PREPARATION = 'PRE'  # Registration closed, and operator preparing lecture, eg. assign student, schedule etc.
+    ONGOING = 'ONG'  # After lecture prepared, open and update status to ongoing
+    END = 'END'  # Lecture is closed
+    COMPLETE = 'CMP'  # All informations needed are gathered, eg. attendance, evaluation, score etc.
+
+
 class Lecture(ClusterableModel, CreatorModelMixin, KitBaseModel):
     class Meta:
         verbose_name = _("Lecture")
         verbose_name_plural = _("Lectures")
-
-    PENDING = 'PND'
-    ONGOING = 'ONG'
-    END = 'END'
-    STATUS = (
-        (PENDING, _('Pending')),
-        (ONGOING, _('On Going')),
-        (END, _('End')),
-    )
 
     doc_code = 'LCT'
     ODD = 'odd'
@@ -77,7 +78,9 @@ class Lecture(ClusterableModel, CreatorModelMixin, KitBaseModel):
         verbose_name=_('Series'),
         help_text=_("Total Meet Up"))
     status = models.CharField(
-        max_length=3, choices=STATUS, default=PENDING,
+        max_length=3,
+        choices=[(str(x.value), str(x.name).title()) for x in LectureStatus],
+        default=LectureStatus.PENDING,
         verbose_name=_("Status"))
 
     autocomplete_search_field = 'code'

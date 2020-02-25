@@ -3,18 +3,11 @@ from import_export.admin import ImportExportModelAdmin
 
 from wagtailkit.persons.models import (
     Person, FormalEducation, NonFormalEducation, Working, Volunteer,
-    Skill, Publication, Family, Award, PersonSettings
+    Skill, Publication, Family, Award
 )
 
 from wagtailkit.persons.resources import PersonResource
 
-
-@admin.register(PersonSettings)
-class PersonSettingAdmin(admin.ModelAdmin):
-
-    def save_model(self, request, obj, form, change):
-        obj.site = request.site
-        super().save_model(request, obj, form, change)
 
 class EducationLevelAdmin(admin.ModelAdmin):
     search_fields = ['name']
