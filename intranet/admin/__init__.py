@@ -8,6 +8,10 @@ from .teachers import *
 from .rooms import *
 from .lectures import *
 from .enrollments import *
+from .dashboard_student import *
+
+# Dashboard
+modeladmin_register(StudentDasboardAdminGroup)
 
 modeladmin_register(AcademicModelAdminGroup)
 modeladmin_register(LectureModelAdminGroup)

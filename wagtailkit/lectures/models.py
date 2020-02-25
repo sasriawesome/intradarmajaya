@@ -137,6 +137,11 @@ class LectureScoreWeighting(CreatorModelMixin, KitBaseModel):
         return str(self.lecture) + ' Score Weighting'
 
 
+class LectureStudentManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().select_related('student', 'lecture')
+
+
 class LectureStudent(Orderable, KitBaseModel):
     class Meta:
         verbose_name = _("Lecture Student")
@@ -149,6 +154,8 @@ class LectureStudent(Orderable, KitBaseModel):
         (NEW, _('New')),
         (REPEAT, _('Repeat'))
     )
+
+    objects = LectureStudentManager()
 
     lecture = ParentalKey(
         Lecture, on_delete=models.CASCADE,

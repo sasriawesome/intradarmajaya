@@ -6,6 +6,47 @@ body {
     color: #262626;
 }
 
+.nav-main .menu-item a::before {
+    font-size: 1rem;
+    vertical-align: -20%;
+    margin-left: -1.4em;
+    position: absolute;
+}
+
+.nav-main a {
+    text-decoration: none;
+    display: block;
+    color: #ccc;
+    padding: .8em 1.7em .8em 2.8em;
+    font-size: 1em;
+    font-weight: 400;
+}
+
+.tab-nav li {
+    width: auto;
+    padding: 0;
+    padding-left: 0px;
+    margin-left: 0;
+}
+
+.tab-nav li:first-of-type {
+    padding-left: 0;
+}
+
+.tab-nav a {
+    background-color: #00676a;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 1.2em;
+    text-decoration: none;
+    display: block;
+    padding: .7em 1.2em .9em;
+    color: #fff;
+    border-top: .3em solid #00676a;
+    max-height: 1.2em;
+    overflow: hidden;
+}
+
 .changelist-filter {
     padding: 0 0 !important;
 }

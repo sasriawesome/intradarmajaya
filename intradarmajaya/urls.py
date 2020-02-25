@@ -8,16 +8,15 @@ from wagtail.documents import urls as wagtaildocs_urls
 from wagtailkit.autocompletes.urls.admin import urlpatterns as autocomplete_urls
 
 from search import views as search_views
-from intranet.views import test_dramatiq
+from django.contrib.admindocs import urls as admindocs_urls
 
 
 urlpatterns = [
+    url(r'^django-admin/docs/', include(admindocs_urls)),
     url(r'^django-admin/', admin.site.urls),
-
     url(r'^admin/autocomplete/', include(autocomplete_urls)),
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
-
     url(r'^search/$', search_views.search, name='search'),
 
 ]

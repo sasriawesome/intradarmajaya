@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'home',
     'search',
     'intranet',
+    #'dashboard',
 
     'wagtailkit.core',
     'wagtailkit.accounts',
@@ -66,10 +67,13 @@ INSTALLED_APPS = [
     'wagtailkit.attendances',
     'wagtailkit.enrollments',
 
+    'wagtail_adminplus',
+
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.settings',
     'wagtail.contrib.modeladmin',
+    'wagtail.contrib.styleguide',
     'wagtail.embeds',
     'wagtail.sites',
     'wagtail.users',
@@ -94,6 +98,7 @@ INSTALLED_APPS = [
 
     'django.contrib.sites',
     'django.contrib.admin',
+    'django.contrib.admindocs',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
