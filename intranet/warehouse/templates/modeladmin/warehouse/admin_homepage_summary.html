@@ -1,0 +1,267 @@
+{% load i18n wagtailcore_tags wagtailadmin_tags wagtailkit_tags %}
+
+<style>
+
+  #warehouse-summary {
+    border-top: 5px solid #ffffff;
+    border-bottom: 5px solid #ffffff;
+    background-color: #fafafa;
+    display: block;
+    overflow: hidden;
+    padding-top: 0;
+    padding-bottom: 15px;
+    margin-bottom: 0;
+    color: #666666;
+  }
+
+  .summary-head {
+    margin-bottom: 25px;
+    font-weight: 500;
+    margin-top: 0;
+    padding: 15px;
+    background: #213b7d;
+    display: inline-block;
+    margin-left: 50px;
+    color: #ffffff;
+  }
+
+  .row {
+    margin-bottom: 15px;
+    display: block;
+  }
+
+  .stats {
+    padding: 0;
+  }
+
+  .stats .number,
+  .stats .status {
+    text-align: left;
+    display: block;
+    margin-left: 3px;
+    font-size: .9em;
+  }
+
+  .stats .number {
+    font-size: 1.3em;
+    font-weight: 500;
+  }
+
+  .statbar {
+    padding: 3px;
+  }
+
+  .bar {
+    border: 1px solid #213b7d;
+    padding: 0;
+    text-align: center;
+    background: #4b6cc1;
+  }
+
+  .bar .value {
+    display: block;
+    width: 0;
+    height: 20px;
+    background: #213b7d;
+  }
+
+  .bar .caption {
+    color: #ffffff;
+    position: absolute;
+    font-size: .9em;
+    margin-top: -19px;
+    text-align: center;
+    display: block;
+    width: inherit;
+    margin-left: 5px;
+  }
+
+  .product-bar {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #dedede;
+    display: block;
+    overflow: hidden;
+  }
+
+
+</style>
+
+<div id="warehouse-summary" class="panel summary">
+
+  <h2 class="summary-head">{% trans 'Warehouse' %}</h2>
+
+  {% if has_any_inventory_perm or has_any_asset_perm%}
+  <div class="row nice-padding">
+    <div class="product-bar">
+      <div class="stats col3">
+        <span class="status"><strong>{% trans 'Products Summary' as ro %}{{ ro | upper }}</strong></span>
+        <span class="status">
+        <a href="{% url 'products_inventory_modeladmin_index' %}">{% trans 'Inventories' %}</a>
+         - <a href="{% url 'products_asset_modeladmin_index' %}">{% trans 'Assets' %}</a>
+      </span>
+      </div>
+      <div class="stats col3">
+        <span class="number">Rp. {{ inventory.total_value | money }}</span>
+        <span class="status">{% trans 'Inventory' %}: {{ inventory.total_item }} Item</span>
+      </div>
+      <div class="stats col3">
+        <span class="number">Rp. {{ asset.total_value | money }}</span>
+        <span class="status">{% trans 'Asset' %}: {{ asset.total_item }} Item</span>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if has_any_request_order_perm %}
+  <div class="row nice-padding">
+    <div class="stats col3">
+      <span class="status"><strong>{% trans 'Request Order' as ro %}{{ ro | upper }}</strong></span>
+      <span class="status">
+        <a href="{% url 'warehouse_requestorder_modeladmin_index' %}">{% trans 'View Table' %}</a>
+        / <a href="{% url 'warehouse_requestorder_modeladmin_create' %}">{% trans 'Create New' %}</a>
+      </span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ request_order.count_trash }}</span>
+      <span class="status">{% trans 'Trash' %}</span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ request_order.count_draft }}</span>
+      <span class="status">{% trans 'Draft' %}</span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ request_order.count_valid }}</span>
+      <span class="status">{% trans 'Valid' %}</span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ request_order.count_approved }}</span>
+      <span class="status">{% trans 'Approved' %}</span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ request_order.count_rejected }}</span>
+      <span class="status">{% trans 'Rejected' %}</span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ request_order.count_processed }}</span>
+      <span class="status">{% trans 'Processed' %}</span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ request_order.count_completed }}</span>
+      <span class="status">{% trans 'Complete' %}</span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ request_order.count_total }}</span>
+      <span class="status">{% trans 'Total' %}</span>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if has_any_checkin_perm %}
+  <div class="row nice-padding">
+    <div class="stats col3">
+      <span class="status"><strong>{% trans 'Check In' as ro %}{{ ro | upper }}</strong></span>
+      <span class="status">
+        <a href="{% url 'warehouse_transfercheckin_modeladmin_index' %}">{% trans 'View Table' %}</a>
+         / <a href="{% url 'warehouse_transfercheckin_modeladmin_create' %}">{% trans 'Create New' %}</a>
+      </span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ check_in.count_trash }}</span>
+      <span class="status">{% trans 'Trash' %}</span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ check_in.count_draft }}</span>
+      <span class="status">{% trans 'Draft' %}</span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ check_in.count_valid }}</span>
+      <span class="status">{% trans 'Valid' %}</span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ check_in.count_processed }}</span>
+      <span class="status">{% trans 'Processed' %}</span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ check_in.count_completed }}</span>
+      <span class="status">{% trans 'Complete' %}</span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ check_in.count_total }}</span>
+      <span class="status">{% trans 'Total' %}</span>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if has_any_checkin_perm %}
+  <div class="row nice-padding">
+    <div class="stats col3">
+      <span class="status"><strong>{% trans 'Check Out' as ro %}{{ ro | upper }}</strong></span>
+      <span class="status">
+        <a href="{% url 'warehouse_transfercheckout_modeladmin_index' %}">{% trans 'View Table' %}</a> /
+        <a href="{% url 'warehouse_transfercheckout_modeladmin_create' %}">{% trans 'Create New' %}</a>
+      </span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ check_out.count_trash }}</span>
+      <span class="status">{% trans 'Trash' %}</span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ check_out.count_draft }}</span>
+      <span class="status">{% trans 'Draft' %}</span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ check_out.count_valid }}</span>
+      <span class="status">{% trans 'Valid' %}</span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ check_out.count_processed }}</span>
+      <span class="status">{% trans 'Processed' %}</span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ check_out.count_completed }}</span>
+      <span class="status">{% trans 'Complete' %}</span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ check_out.count_total }}</span>
+      <span class="status">{% trans 'Total' %}</span>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if has_any_checkout_perm %}
+  <div class="row nice-padding">
+    <div class="stats col3">
+      <span class="status"><strong>{% trans 'Scraps' as ro %}{{ ro | upper }}</strong></span>
+      <span class="status">
+        <a href="{% url 'warehouse_transferscrapped_modeladmin_index' %}">{% trans 'View Table' %}</a> /
+        <a href="{% url 'warehouse_transferscrapped_modeladmin_create' %}">{% trans 'Create New' %}</a>
+      </span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ scrap.count_trash }}</span>
+      <span class="status">{% trans 'Trash' %}</span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ scrap.count_draft }}</span>
+      <span class="status">{% trans 'Draft' %}</span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ scrap.count_valid }}</span>
+      <span class="status">{% trans 'Valid' %}</span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ scrap.count_processed }}</span>
+      <span class="status">{% trans 'Processed' %}</span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ scrap.count_completed }}</span>
+      <span class="status">{% trans 'Complete' %}</span>
+    </div>
+    <div class="stats col1">
+      <span class="number">{{ scrap.count_total }}</span>
+      <span class="status">{% trans 'Total' %}</span>
+    </div>
+  </div>
+  {% endif %}
+
+</div>

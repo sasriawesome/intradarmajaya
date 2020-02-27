@@ -25,10 +25,10 @@ env = environ.Env(
     REDIS_URL=(str, "")
 )
 
-environ.Env.read_env()
-
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
+
+environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -39,7 +39,11 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 INSTALLED_APPS = [
     'home',
     'search',
-    'intranet',
+    'intranet.humanresource',
+    'intranet.warehouse',
+    # 'intranet.academic',
+    'intranet.discuss',
+    # 'intranet.students', # Student Admin Area
 
     'wagtailkit.core',
     'wagtailkit.accounts',
@@ -58,16 +62,20 @@ INSTALLED_APPS = [
 
     'wagtailkit.discuss',
 
-    'wagtailkit.academic',
+    # 'wagtailkit.academic',
     'wagtailkit.rooms',
-    'wagtailkit.teachers',
-    'wagtailkit.students',
-    'wagtailkit.lectures',
+    # 'wagtailkit.teachers',
+    # 'wagtailkit.students',
+    # 'wagtailkit.lectures',
+    # 'wagtailkit.attendances',
+    # 'wagtailkit.enrollments',
 
+    'wagtail.api',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.settings',
     'wagtail.contrib.modeladmin',
+    # 'wagtail.contrib.styleguide',
     'wagtail.embeds',
     'wagtail.sites',
     'wagtail.users',
@@ -85,13 +93,14 @@ INSTALLED_APPS = [
     'import_export',
     'modelcluster',
     'polymorphic',
+    'rest_framework',
     'graphene_django',
-    # 'django_dramatiq',
     'generic_chooser',
     'django_extensions',
 
     'django.contrib.sites',
     'django.contrib.admin',
+    'django.contrib.admindocs',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -138,6 +147,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'intradarmajaya.wsgi.application'
+
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -218,7 +228,7 @@ WAGTAIL_SITE_NAME = "intradarmajaya"
 # ============================================================
 
 # Change 'default' database configuration with $DATABASE_URL.
-DATABASES['default'].update(dj_database_url.config(conn_max_age=500, ssl_require=False))
+DATABASES['default'].update(dj_database_url.config(conn_max_age=500, ssl_require=True))
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
@@ -230,13 +240,11 @@ django_heroku.settings(locals())
 # AWS SETUP
 # ============================================================
 
+AWS_DEFAULT_ACL = None
 AWS_STORAGE_BUCKET_NAME = env.str('AWS_STORAGE_BUCKET_NAME')
 AWS_ACCESS_KEY_ID = env.str('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env.str('AWS_SECRET_ACCESS_KEY')
 AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN')
-
-MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # EMAIL CONFIG
 # ======================================================================

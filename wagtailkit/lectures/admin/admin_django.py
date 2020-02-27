@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from wagtailkit.lectures.models import (
     Lecture, LectureStudent, LectureScoreWeighting,
-    LectureSchedule, StudentScore, LectureScore, ConversionScore)
+    LectureSchedule, StudentScore, LectureScore)
 
 
 class LectureScoreWeightInline(admin.TabularInline):
@@ -75,14 +75,4 @@ class LectureStudentScoreInline(admin.TabularInline):
     model = StudentScore
 
 
-@admin.register(StudentScore)
-class StudentScoreAdmin(admin.ModelAdmin):
-    search_fields = [
-        'lecture__code', 'lecture__name',
-        'student__person__fullname', 'student__sid',
-        'lecture__teacher__person__fullname', ]
-    raw_id_fields = ['student', 'course']
-    list_display = ['student', 'course', 'numeric', 'alphabetic']
-
 admin.site.register(LectureScore)
-admin.site.register(ConversionScore)

@@ -1,3 +1,4 @@
+import enum
 from django.db import models
 from django.utils import timezone, translation
 from django.core.exceptions import ValidationError
@@ -7,29 +8,28 @@ from wagtailkit.core.models import KitBaseModel, CreatorModelMixin, MAX_LEN_SHOR
 from wagtailkit.core.utils.datetime import add_time
 from wagtail.core.models import Orderable
 from modelcluster.models import ClusterableModel, ParentalKey
-from polymorphic.models import PolymorphicModel
 
 from wagtailkit.academic.models import CurriculumCourse, AcademicYear, ResourceManagementUnit
 from wagtailkit.rooms.models import Room
 from wagtailkit.teachers.models import Teacher
-from wagtailkit.students.models import Student
+from wagtailkit.students.models import Student, StudentScore
 
 _ = translation.gettext_lazy
+
+
+class LectureStatus(enum.Enum):
+    PENDING = 'PND'  # Lectures state in draft
+    REGISTRATION = 'REG'  # Lectures is visible for registration
+    PREPARATION = 'PRE'  # Registration closed, and operator preparing lecture, eg. assign student, schedule etc.
+    ONGOING = 'ONG'  # After lecture prepared, open and update status to ongoing
+    END = 'END'  # Lecture is closed
+    COMPLETE = 'CMP'  # All informations needed are gathered, eg. attendance, evaluation, score etc.
 
 
 class Lecture(ClusterableModel, CreatorModelMixin, KitBaseModel):
     class Meta:
         verbose_name = _("Lecture")
         verbose_name_plural = _("Lectures")
-
-    PENDING = 'PND'
-    ONGOING = 'ONG'
-    END = 'END'
-    STATUS = (
-        (PENDING, _('Pending')),
-        (ONGOING, _('On Going')),
-        (END, _('End')),
-    )
 
     doc_code = 'LCT'
     ODD = 'odd'
@@ -78,8 +78,15 @@ class Lecture(ClusterableModel, CreatorModelMixin, KitBaseModel):
         verbose_name=_('Series'),
         help_text=_("Total Meet Up"))
     status = models.CharField(
-        max_length=3, choices=STATUS, default=PENDING,
+        max_length=3,
+        choices=[(str(x.value), str(x.name).title()) for x in LectureStatus],
+        default=LectureStatus.PENDING,
         verbose_name=_("Status"))
+
+    autocomplete_search_field = 'code'
+
+    def autocomplete_label(self):
+        return "{} | {} | {}".format(self.code, self.course, self.teacher)
 
     @property
     def default_time_end(self):
@@ -133,6 +140,11 @@ class LectureScoreWeighting(CreatorModelMixin, KitBaseModel):
         return str(self.lecture) + ' Score Weighting'
 
 
+class LectureStudentManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().select_related('student', 'lecture')
+
+
 class LectureStudent(Orderable, KitBaseModel):
     class Meta:
         verbose_name = _("Lecture Student")
@@ -146,6 +158,8 @@ class LectureStudent(Orderable, KitBaseModel):
         (REPEAT, _('Repeat'))
     )
 
+    objects = LectureStudentManager()
+
     lecture = ParentalKey(
         Lecture, on_delete=models.CASCADE,
         related_name='students',
@@ -157,6 +171,11 @@ class LectureStudent(Orderable, KitBaseModel):
     status = models.CharField(
         max_length=3, choices=STATUS, default=NEW,
         verbose_name=_("Status"))
+
+    autocomplete_search_field = 'student__person__fullname'
+
+    def autocomplete_label(self):
+        return "{} - {} | {}".format(self.lecture.code, self.student.sid, self.student)
 
     def __str__(self):
         return ", ".join([str(self.student), str(self.lecture)])
@@ -209,6 +228,11 @@ class LectureSchedule(KitBaseModel):
         max_length=3, choices=TYPE, default=MEETING,
         verbose_name=_("Type"))
 
+    autocomplete_search_field = 'lecture__course__course__name'
+
+    def autocomplete_label(self):
+        return "Session {} | {}".format(self.session, self.lecture)
+
     @property
     def status(self):
         list_date = (
@@ -234,37 +258,13 @@ class LectureSchedule(KitBaseModel):
             [str(self.lecture), str(self.session)])
 
 
-class StudentScore(PolymorphicModel, KitBaseModel):
-    class Meta:
-        verbose_name = _("Student Score")
-        verbose_name_plural = _("Student Scores")
-
-    course = models.ForeignKey(
-        CurriculumCourse,
-        on_delete=models.PROTECT,
-        related_name='student_scores',
-        verbose_name=_('Course'))
-    student = models.ForeignKey(
-        Student, on_delete=models.CASCADE,
-        verbose_name=_("Student"))
-    numeric = models.PositiveIntegerField(
-        default=0,
-        validators=[
-            MinValueValidator(0),
-            MaxValueValidator(100),
-        ],
-        verbose_name=_("Numeric Score"))
-    alphabetic = models.CharField(
-        max_length=1,
-        verbose_name=_("Alphabetic Score"))
-
 class LectureScore(StudentScore):
     class Meta:
         verbose_name = _("Lecture Score")
         verbose_name_plural = _("Lecture Scores")
 
     lecture = models.ForeignKey(
-        Lecture, null=True, blank=True,
+        Lecture, null=True, blank=False,
         on_delete=models.SET_NULL,
         verbose_name=_("Lecture"))
     attendance = models.PositiveIntegerField(
@@ -324,28 +324,6 @@ class LectureScore(StudentScore):
         ],
         verbose_name=_("Total Score"))
 
-
-class ConversionScore(StudentScore):
-    class Meta:
-        verbose_name = _("Conversion Score")
-        verbose_name_plural = _("Conversion Scores")
-
-    ori_code = models.CharField(
-        max_length=MAX_LEN_SHORT,
-        verbose_name=_('Origin Course Code'))
-    ori_name = models.CharField(
-        max_length=MAX_LEN_SHORT,
-        verbose_name=_('Origin Course Name'))
-    ori_numeric_score = models.DecimalField(
-        default=1,
-        max_digits=3,
-        decimal_places=2,
-        validators=[
-            MinValueValidator(1),
-            MaxValueValidator(4),
-        ],
-        verbose_name=_('Origin Numeric Score'))
-    ori_alphabetic_score = models.CharField(
-        max_length=MAX_LEN_SHORT,
-        verbose_name=_('Origin Alphabetic Score'))
-
+    def save(self, **kwargs):
+        self.course = self.lecture.course
+        super().save(**kwargs)

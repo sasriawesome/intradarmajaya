@@ -1,9 +1,14 @@
 from django.db import models
 from django.utils import translation
+from django.core.validators import MinValueValidator, MaxValueValidator
+from polymorphic.models import PolymorphicModel, PolymorphicManager
+
 from wagtailkit.numerators.models import NumeratorMixin, Numerator
 from wagtailkit.core.models import KitBaseModel, MAX_LEN_SHORT, MAX_LEN_MEDIUM
 from wagtailkit.persons.models import Person, PersonManager
-from wagtailkit.academic.models import ProgramStudy, SchoolYear
+from wagtailkit.teachers.models import Teacher
+from wagtailkit.academic.models import ProgramStudy, SchoolYear, CurriculumCourse
+
 
 _ = translation.gettext_lazy
 
@@ -73,6 +78,11 @@ class Student(NumeratorMixin, KitBaseModel):
     year_of_force = models.ForeignKey(
         SchoolYear, on_delete=models.PROTECT,
         verbose_name=_("Year of force"))
+    coach = models.ForeignKey(
+        Teacher, null=True, blank=True,
+        on_delete=models.SET_NULL,
+        related_name='students',
+        verbose_name=_('Coach'))
     rmu = models.ForeignKey(
         ProgramStudy, on_delete=models.PROTECT,
         verbose_name=_('Program Study'))
@@ -133,3 +143,70 @@ class Student(NumeratorMixin, KitBaseModel):
     def natural_key(self):
         natural_key = (self.sid,)
         return natural_key
+
+
+class StudentScoreManager(PolymorphicManager):
+
+    def get_queryset(self):
+        return super().get_queryset().select_related(
+            'student', 'course'
+        ).annotate(
+            sid = models.F('student__sid'),
+            cid = models.F('course__course__inner_id'),
+            curriculum = models.F('course__curriculum__code')
+        )
+
+class StudentScore(PolymorphicModel, KitBaseModel):
+    class Meta:
+        verbose_name = _("Student Score")
+        verbose_name_plural = _("Student Scores")
+
+    objects = StudentScoreManager()
+
+    course = models.ForeignKey(
+        CurriculumCourse,
+        on_delete=models.PROTECT,
+        related_name='student_scores',
+        verbose_name=_('Course'))
+    student = models.ForeignKey(
+        Student, on_delete=models.CASCADE,
+        related_name='scores',
+        verbose_name=_("Student"))
+    numeric = models.PositiveIntegerField(
+        default=0,
+        validators=[
+            MinValueValidator(0),
+            MaxValueValidator(100),
+        ],
+        verbose_name=_("Numeric Score"))
+    alphabetic = models.CharField(
+        max_length=1,
+        verbose_name=_("Alphabetic Score"))
+
+    def __str__(self):
+        return "{} | {}".format(self.student, self.course)
+
+
+class ConversionScore(StudentScore):
+    class Meta:
+        verbose_name = _("Conversion Score")
+        verbose_name_plural = _("Conversion Scores")
+
+    ori_code = models.CharField(
+        max_length=MAX_LEN_SHORT,
+        verbose_name=_('Origin Code'))
+    ori_name = models.CharField(
+        max_length=MAX_LEN_SHORT,
+        verbose_name=_('Origin Name'))
+    ori_numeric_score = models.DecimalField(
+        default=1,
+        max_digits=3,
+        decimal_places=2,
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(4),
+        ],
+        verbose_name=_('Origin Numeric'))
+    ori_alphabetic_score = models.CharField(
+        max_length=MAX_LEN_SHORT,
+        verbose_name=_('Origin Alphabetic'))

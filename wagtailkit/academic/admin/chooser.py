@@ -22,7 +22,6 @@ class RMUListingTab(ChooserListingTabMixin):
             'parent': item.parent,
         }
 
-
 class RMUChooserViewSet(ModelChooserViewSet):
     icon = 'user'
     per_page = 5
