@@ -58,6 +58,7 @@ class EmployeePermissionHelper(PermissionHelper):
 
 
 class EmployeeModelAdmin(PrintPDFModelAdminMixin, ModelAdmin):
+    list_per_page = 20
     model = Employee
     menu_label = _('Employee')
     menu_icon = ' icon-fa-user'

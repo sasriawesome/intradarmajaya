@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.core.models import Orderable
 from modelcluster.models import ClusterableModel, ParentalKey
-from wagtailkit.core.models import KitBaseModel, MAX_LEN_MEDIUM
+from wagtailkit.core.models import KitBaseModel, MAX_LEN_MEDIUM, CreatorModelMixin
 from wagtailkit.numerators.models import NumeratorMixin
 from wagtailkit.students.models import Student
 from wagtailkit.academic.models import AcademicYear
@@ -24,12 +24,13 @@ class EnrollmentCriteria(enum.Enum):
     REMEDY = '2'
 
 
-class EnrollmentPlan(KitBaseModel):
+class EnrollmentPlan(CreatorModelMixin, KitBaseModel):
     class Meta:
         verbose_name = _("Enrollment Plan")
         verbose_name_plural = _("Enrollment Plans")
+        unique_together = ('student', 'lecture')
 
-    student = models.OneToOneField(
+    student = models.ForeignKey(
         Student, on_delete=models.CASCADE,
         verbose_name=_("Student"))
     lecture = models.ForeignKey(
@@ -39,7 +40,7 @@ class EnrollmentPlan(KitBaseModel):
     criteria = models.CharField(
         max_length=2,
         choices=[(str(x.value), str(x.name)) for x in EnrollmentCriteria],
-        default=EnrollmentCriteria.NEW,
+        default=EnrollmentCriteria.NEW.value,
         verbose_name=_('Criteria'))
 
     def __str__(self):

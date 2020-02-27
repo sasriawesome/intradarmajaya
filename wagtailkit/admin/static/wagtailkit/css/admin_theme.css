@@ -6,6 +6,15 @@ body {
     color: #262626;
 }
 
+a:hover {
+    color: #03339a;
+}
+
+a {
+    color: #333333;
+    text-decoration: none;
+}
+
 .nav-main .menu-item a::before {
     font-size: 1rem;
     vertical-align: -20%;
@@ -23,33 +32,6 @@ body {
     font-weight: 400;
 }
 
-/*
-.tab-nav li {
-    width: auto;
-    padding: 0;
-    padding-left: 0px;
-    margin-left: 0;
-}
-
-
-.tab-nav li:first-of-type {
-    padding-left: 0;
-}
-
-.tab-nav a {
-    background-color: #00676a;
-    text-transform: uppercase;
-    font-weight: 600;
-    font-size: 1.2em;
-    text-decoration: none;
-    display: block;
-    padding: .7em 1.2em .9em;
-    color: #fff;
-    border-top: .3em solid #00676a;
-    max-height: 1.2em;
-    overflow: hidden;
-}
-*/
 
 .changelist-filter {
     padding: 0 0 !important;
@@ -129,7 +111,6 @@ body {
     content: "\f02d";
 }
 
-
 .custom_chooser.chooser .chosen::before,
 .custom_chooser.chooser.chooser .unchosen::before {
   font-family: fontawesome;
@@ -140,4 +121,339 @@ body {
 
 .field.rmu_chooser label {
   padding: 0
+}
+
+.wagtail-version {
+    display: none;
+}
+
+/* Header */
+
+.messages .error {
+    background-color: #c4161c;
+}
+
+.messages .warning {
+    background-color: #df9e20;
+}
+
+.messages .success {
+    background-color: #139b42;
+}
+
+.messages .button-secondary {
+    background-color: transparent;
+}
+
+.messages .success .button:hover {
+    background-color: #077d30;
+}
+
+.messages .warning .button:hover {
+    background-color: #bf7e00;
+}
+
+.messages .error .button:hover {
+    background-color: #a4060c;
+}
+
+header {
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+    background: linear-gradient(90deg, #3052a8, #213b7d) !important;
+    margin-bottom: 2em;
+}
+
+header .col1 {
+    width: 50px;
+    margin-right: 1em;
+    padding: 12px 0 0 !important;
+}
+
+.modal-content .button.close,
+header .button {
+    display: inline-block;
+    background: #112c71;
+    border: 1px solid #112c71;
+    color: #ffffff;
+}
+
+.modal-content .button.close:hover,
+header .button:hover {
+    background: #05275b !important;
+}
+
+button.status-tag:hover,
+.page-explorer .listing .index .button:hover {
+    background: #3163b0;
+    color: #ffffff;
+}
+
+.page-explorer .t-inverted .u-btn-current:hover {
+    background: #3163b0;
+    border-color: rgba(0, 0, 0, .35);
+}
+
+
+.page-explorer .listing .index {
+    color: #fff;
+    background: linear-gradient(12deg, #3052a8, #213b7d) !important;
+}
+
+.breadcrumb {
+    background: #182d62;
+}
+
+.breadcrumb li:hover {
+    background: #182d62;
+}
+
+.breadcrumb li a::after, .breadcrumb li span::after {
+    color: #ffffff;
+}
+
+/* Button */
+
+.button {
+    display: inline-block;
+    background: linear-gradient(135deg, #3052a8, #213b7d);
+    border: 1px solid #213b7d;
+    color: #ffffff;
+}
+
+.page-explorer .listing .index .button.bicolor,
+.replace-file-input:hover button,
+.button:hover {
+    background: #164fa8 !important;
+    color: #ffffff !important;
+}
+
+.button-secondary {
+    color: #0b3577;
+    background: transparent;
+}
+
+.button.yes {
+    background: #139b42;
+    border: #01551d;
+}
+
+.button.no, .button.serious {
+    background: #a40f15 !important;
+    border: 1px solid #a40f15;
+}
+
+.button.no:hover, .button.serious:hover {
+    background: #a40f15 !important;
+    border: 1px solid #a40f15;
+}
+
+.button.disabled, .button:disabled, .button[disabled] {
+    background: #d9d9d9;
+    border-color: transparent;
+}
+
+.button.no:hover, .button.serious:hover {
+    background: #990006;
+}
+
+.button.no.button-secondary, .button.serious.button-secondary {
+    border: 1px solid #b4191f;
+    color: #b4191f;
+    background: transparent !important;
+}
+
+.t-default .u-btn-current:hover {
+    background: #104dac;
+    color: #fff;
+    border-color: #093f93;
+}
+
+.t-default .u-btn-current {
+    border-color: rgba(0, 0, 0, .15);
+    color: #104dac;
+}
+
+.t-inverted .u-btn-current:hover {
+    background-color: #073377;
+    border-color: rgba(0, 0, 0, .35);
+}
+
+.dropdown .dropdown-toggle {
+    background-color: #073377;
+}
+
+.dropdown .dropdown-toggle:hover,
+.dropdown.open .dropdown-toggle {
+    background-color: #072e6a;
+}
+
+.dropdown ul {
+    background-color: #124799;
+}
+
+.dropdown ul a:hover {
+    background-color: #0f3f88;
+}
+
+body.ready .tab-nav a {
+    transition: all;
+}
+
+.tab-nav.merged {
+    background: linear-gradient(90deg, #3052a8, #213b7d) !important;
+}
+
+.tab-nav a {
+    background-color: #fac116;
+    border-top: .3em solid #fac116;
+    color: #213b7d;
+}
+
+.tab-nav li.active a {
+    box-shadow: none;
+    color: #333;
+    background-color: #fff;
+    border-top: .3em solid #fff;
+}
+
+.tab-nav a:hover {
+    background-color: #eab411;
+    border-top-color: #eab411;
+    color: #213b7d;
+}
+
+.changelist-filter a {
+    border: 1px solid #3163b0 !important;
+    color: #3163b0 !important;
+}
+
+.changelist-filter li.selected a {
+    border-color: #3f77ce !important;
+    background-color: #3f77ce !important;
+}
+
+.changelist-filter a:hover {
+    background-color: #3163b0 !important;
+    border-color: #215099 !important;
+    color: #ffffff !important;
+}
+
+.page404__bg {
+    background-color: #333333 !important;
+    color: #ffffff !important;
+}
+
+a.button.page404__button {
+    padding: 0 2em !important;
+    background-color: #213b7d !important;
+    border: 4px solid #155499 !important;
+}
+
+a.button.page404__button:hover {
+    padding: 0 2em !important;
+    background-color: #2959af !important;
+    border: 4px solid #216199 !important;
+}
+
+.listing h3 {
+    font-size: 1.2em;
+}
+
+.listing .button-secondary {
+    color: #3163b0;
+    background-color: transparent;
+}
+
+.listing .button-secondary:hover {
+    border-color: #3163b0;
+    background-color: #3163b0;
+    color: #fff;
+}
+
+.listing .children a {
+    color: #3163b0;
+    display: block;
+}
+
+.listing td.children:hover,
+.listing tr:hover .children {
+    background-color: #3163b0;
+}
+
+.listing.images > li:hover img {
+    border-color: #3163b0;
+}
+
+.listing.chooser tbody tr:hover {
+    background-color: #618aca;
+    color: #fff;
+}
+
+.listing .title .title-wrapper a:hover, .listing .title h2 a:hover {
+    color: #021a53;
+}
+
+.listing.full-width th {
+    background-color: #f0f0f0;
+}
+
+.listing tbody tr, .listing tbody tr:first-child {
+    border-top: 1px solid #f0f0f0;
+}
+
+.changelist-filter h2 {
+    background-color: #f0f0f0 !important;
+    padding: 8px !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.pagination {
+    border-top: 1px solid #f0f0f0 !important;
+}
+
+
+.object > .title-wrapper {
+    background-color: #c6c6c617 !important;
+}
+
+.object > .title-wrapper::before {
+    background-color: #fac116 !important;
+}
+
+.halloeditor:focus,
+.tagit:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    background-color: #f2f5fc;
+    border-color: #94bbf7;
+}
+
+input[type="checkbox"]:checked::before {
+    color: #3163b0;
+    border-color: #accdff;
+}
+
+input[type="radio"]:checked::before {
+    color: #3163b0;
+}
+
+.progress .bar {
+    background-color: #033686;
+}
+
+.progress {
+    border-radius: 1.2em;
+    background-color: #3d6fb7;
+    border: 1px solid #356db7;
+    opacity: 0;
+}
+
+.nav-search button {
+    background: transparent !important;
+}
+
+.nav-search button:hover {
+    background: hsl(0, 0%, 60%) !important;
 }

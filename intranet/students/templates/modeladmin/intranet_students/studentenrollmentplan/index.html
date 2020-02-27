@@ -1,0 +1,13 @@
+{% extends 'modeladmin/index.html' %}
+{% load i18n static modeladmin_tags %}
+
+{% block header_extra %}
+<div class="right">
+  <div class="addbutton">
+    <a href="{% url 'intranet_students_lectureoffered_modeladmin_index' %}" class="button bicolor icon icon-plus">
+      {% trans 'Add More' %}
+    </a>
+    <a href="" class="button bicolor icon icon-fa-wpforms">{% trans 'Create Enrollment' %}</a>
+  </div>
+</div>
+{% endblock %}
