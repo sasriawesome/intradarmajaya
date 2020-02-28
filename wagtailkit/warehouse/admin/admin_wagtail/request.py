@@ -23,7 +23,7 @@ class RequestOrderModelAdmin(PrintPDFModelAdminMixin, StatusModelAdminMixin):
     model = RequestOrder
     menu_label = _('Requests')
     menu_icon = 'doc-full'
-    search_fields = ['inner_id', 'requester.name']
+    search_fields = ['inner_id', 'requester__name']
     list_per_page = 20
     list_filter = ['date_created', 'status', 'critical_status']
     list_display = ['inner_id', 'creator', 'requester', 'date_created', 'status']
