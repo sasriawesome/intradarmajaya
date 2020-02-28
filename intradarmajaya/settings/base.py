@@ -41,9 +41,9 @@ INSTALLED_APPS = [
     'search',
     'intranet.humanresource',
     'intranet.warehouse',
-    # 'intranet.academic',
+    'intranet.academic',
     'intranet.discuss',
-    # 'intranet.students', # Student Admin Area
+    'intranet.students', # Student Admin Area
 
     'wagtailkit.core',
     'wagtailkit.accounts',
@@ -61,14 +61,14 @@ INSTALLED_APPS = [
     'wagtailkit.warehouse',
 
     'wagtailkit.discuss',
-
-    # 'wagtailkit.academic',
     'wagtailkit.rooms',
-    # 'wagtailkit.teachers',
-    # 'wagtailkit.students',
-    # 'wagtailkit.lectures',
-    # 'wagtailkit.attendances',
-    # 'wagtailkit.enrollments',
+
+    'wagtailkit.academic',
+    'wagtailkit.teachers',
+    'wagtailkit.students',
+    'wagtailkit.lectures',
+    'wagtailkit.attendances',
+    'wagtailkit.enrollments',
 
     'wagtail.api',
     'wagtail.contrib.forms',

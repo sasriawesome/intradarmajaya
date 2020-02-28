@@ -5,7 +5,8 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.messages import messages
 from wagtail.admin.edit_handlers import (
-    FieldPanel, InlinePanel, MultiFieldPanel, FieldRowPanel, RichTextFieldPanel, TabbedInterface, ObjectList)
+    FieldPanel, InlinePanel, MultiFieldPanel, FieldRowPanel,
+    RichTextFieldPanel, TabbedInterface, ObjectList)
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from wagtailkit.autocompletes.edit_handlers import AutocompletePanel
@@ -22,7 +23,7 @@ class RequestOrderModelAdmin(PrintPDFModelAdminMixin, StatusModelAdminMixin):
     model = RequestOrder
     menu_label = _('Requests')
     menu_icon = 'doc-full'
-    search_fields = ['inner_id', 'requester']
+    search_fields = ['inner_id', 'requester.name']
     list_per_page = 20
     list_filter = ['date_created', 'status', 'critical_status']
     list_display = ['inner_id', 'creator', 'requester', 'date_created', 'status']
