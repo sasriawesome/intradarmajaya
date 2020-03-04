@@ -23,24 +23,23 @@ class RequestOrderPermissionHelper(PermissionHelper):
     def is_owner(self, user, obj):
         return False if not getattr(obj, 'creator', None) else obj.creator == user
 
-    def is_owner_manager(self, user, obj):
-        """ Check user is owner manager """
+    def is_validator(self, user, obj):
+        """ Check user is validator """
         # check user has employee object
-        user_person = getattr(user, 'person', None)
-        if not user_person:
+        person = getattr(user, 'person', None)
+        if not person:
             return False
         # check user has employee object
-        user_employee = getattr(user_person, 'employee', None)
-        if not user_employee:
+        employee = getattr(person, 'employee', None)
+        if not employee:
             return False
-        creator_manager_position = obj.creator.person.employee.position.get_ancestors(ascending=True)[0]
-        return user_employee.position == creator_manager_position
+        return obj.validator == employee
 
     def user_can_edit_obj(self, user, obj):
         can_change = self.user_can('change', user)
         can_change_other = self.user_can('changeother', user)
         is_editable = getattr(obj, 'is_editable', None)
-        valid_owner = self.is_owner(user, obj) or self.is_owner_manager(user, obj)
+        valid_owner = self.is_owner(user, obj) or self.is_validator(user, obj)
         if user.is_superuser:
             return True
         if can_change_other and is_editable:
@@ -53,7 +52,7 @@ class RequestOrderPermissionHelper(PermissionHelper):
     def user_can_inspect_obj(self, user, obj):
         has_perm = self.inspect_view_enabled and self.user_has_any_permissions(user)
         can_view_other = self.user_can('viewother', user, obj)
-        valid_owner = self.is_owner(user, obj) or self.is_owner_manager(user, obj)
+        valid_owner = self.is_owner(user, obj) or self.is_validator(user, obj)
         if user.is_superuser:
             return True
         if can_view_other and has_perm:
@@ -66,7 +65,7 @@ class RequestOrderPermissionHelper(PermissionHelper):
     def user_can_validate_obj(self, user, obj):
         has_perm = self.user_can('validate', user, obj)
         can_view_other = self.user_can('viewother', user, obj)
-        valid_owner = self.is_owner(user, obj) or self.is_owner_manager(user, obj)
+        valid_owner = self.is_owner(user, obj) or self.is_validator(user, obj)
         if user.is_superuser:
             return True
         if can_view_other and has_perm:
@@ -76,6 +75,31 @@ class RequestOrderPermissionHelper(PermissionHelper):
         else:
             return False
 
+    def user_can_trash_obj(self, user, obj):
+        has_perm = self.user_can('trash', user, obj)
+        can_view_other = self.user_can('viewother', user, obj)
+        valid_owner = self.is_owner(user, obj) or self.is_validator(user, obj)
+        if user.is_superuser:
+            return True
+        if can_view_other and has_perm:
+            return True
+        if valid_owner and has_perm:
+            return True
+        else:
+            return False
+
+    def user_can_draft_obj(self, user, obj):
+        has_perm = self.user_can('draft', user, obj)
+        can_view_other = self.user_can('viewother', user, obj)
+        valid_owner = self.is_owner(user, obj) or self.is_validator(user, obj)
+        if user.is_superuser:
+            return True
+        if can_view_other and has_perm:
+            return True
+        if valid_owner and has_perm:
+            return True
+        else:
+            return False
 
 class ProductTransferPermissionHelper(PermissionHelper):
     """ Request Order PermissionHelper """

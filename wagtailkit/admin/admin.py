@@ -45,7 +45,7 @@ class StatusModelAdminMixin(ModelAdmin):
         can_change_other = perm_helper.can_change_other(request.user)
         try:
             if can_change_other or has_perm and is_owner:
-                getattr(instance, codename)()
+                getattr(instance, codename)(request.user)
                 return redirect(self.url_helper.get_action_url('inspect', quote(instance_pk)))
         except Exception as err:
             messages.add_message(request, messages.ERROR, err)
@@ -77,7 +77,7 @@ class StatusModelAdminMixin(ModelAdmin):
         can_change_other = perm_helper.can_change_other(request.user)
         try:
             if can_change_other or has_perm and is_owner:
-                instance.validate()
+                instance.validate(request.user)
                 return redirect(self.url_helper.get_action_url('inspect', quote(instance_pk)))
         except Exception as err:
             messages.add_message(request, messages.ERROR, err)
@@ -99,7 +99,7 @@ class StatusModelAdminMixin(ModelAdmin):
         can_change_other = perm_helper.can_change_other(request.user)
         try:
             if can_change_other or has_perm and is_owner:
-                getattr(instance, codename)()
+                getattr(instance, codename)(request.user)
                 return redirect(self.url_helper.get_action_url('inspect', quote(instance_pk)))
         except Exception as err:
             messages.add_message(request, messages.ERROR, err)
@@ -117,5 +117,5 @@ class StatusModelAdminMixin(ModelAdmin):
         is_owner = perm_helper.is_owner(request.user, instance)
         can_change_other = perm_helper.can_change_other(request.user)
         if can_change_other or has_perm and is_owner:
-            getattr(instance, codename)()
+            getattr(instance, codename)(request.user)
             return redirect(self.url_helper.get_action_url('inspect', quote(instance_pk)))

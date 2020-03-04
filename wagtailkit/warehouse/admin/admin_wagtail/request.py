@@ -38,13 +38,13 @@ class RequestOrderModelAdmin(PrintPDFModelAdminMixin, StatusModelAdminMixin):
     order_panel = [
         MultiFieldPanel([
             # FieldPanel('status'),
-            # FieldPanel('requester'),
             # FieldPanel('department'),
             # FieldPanel('deliver_to'),
             FieldPanel('critical_status'),
             FieldPanel('deadline'),
             FieldPanel('title'),
             RichTextFieldPanel('description'),
+            AutocompletePanel('validator'),
         ]),
     ]
 
@@ -143,12 +143,42 @@ class RequestOrderModelAdmin(PrintPDFModelAdminMixin, StatusModelAdminMixin):
         superuser = request.user.is_superuser
         user_can_view_other = ph.can_view_other(request.user)
         if superuser or user_can_view_other:
-            return qs
+            return qs.only('inner_id', 'creator', 'requester', 'date_created', 'status')
         else:
             return qs.filter(
-                models.Q(creator=request.user)
-                | models.Q(requester__in=request.user.person.employee.position.get_children())
-            )
+                models.Q(creator=request.user) | models.Q(validator=request.user.person.employee)
+            ).only('inner_id', 'creator', 'requester', 'date_created', 'status')
+
+
+    def draft_view(self, request, instance_pk):
+        # Set status to draft
+        instance = get_object_or_404(self.model, pk=instance_pk)
+        codename = 'draft'
+        perm_helper = self.permission_helper
+        has_perm = perm_helper.user_can_draft_obj(request.user, instance)
+        try:
+            if has_perm:
+                getattr(instance, codename)()
+                return redirect(self.url_helper.get_action_url('inspect', quote(instance_pk)))
+        except Exception as err:
+            messages.add_message(request, messages.ERROR, err)
+            return redirect(self.url_helper.get_action_url('inspect', quote(instance_pk)))
+
+    def trash_view(self, request, instance_pk):
+        # Set status
+        instance = get_object_or_404(self.model, pk=instance_pk)
+        codename = 'trash'
+        perm_helper = self.permission_helper
+        has_perm = perm_helper.user_can_trash_obj(request.user, instance)
+        try:
+            if has_perm:
+                getattr(instance, codename)(request.user)
+                return redirect(self.url_helper.get_action_url('inspect', quote(instance_pk)))
+        except Exception as err:
+            messages.add_message(request, messages.ERROR, err)
+            return redirect(self.url_helper.get_action_url('inspect', quote(instance_pk)))
+        return redirect(self.url_helper.get_action_url('inspect', quote(instance_pk)))
+
 
     def validate_view(self, request, instance_pk):
         # Set status
@@ -157,7 +187,7 @@ class RequestOrderModelAdmin(PrintPDFModelAdminMixin, StatusModelAdminMixin):
         has_perm = perm_helper.user_can_validate_obj(request.user, instance)
         try:
             if has_perm:
-                instance.validate()
+                instance.validate(request.user)
                 return redirect(self.url_helper.get_action_url('inspect', quote(instance_pk)))
         except Exception as err:
             messages.add_message(request, messages.ERROR, err)
@@ -177,7 +207,7 @@ class RequestOrderModelAdmin(PrintPDFModelAdminMixin, StatusModelAdminMixin):
         has_perm = perm_helper.user_can(codename, request.user, instance)
         try:
             if superuser or has_perm:
-                getattr(instance, codename)()
+                getattr(instance, codename)(request.user)
                 return redirect(self.url_helper.get_action_url('inspect', quote(instance_pk)))
         except Exception as err:
             messages.add_message(request, messages.ERROR, err)
