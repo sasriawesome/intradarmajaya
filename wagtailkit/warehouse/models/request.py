@@ -18,12 +18,13 @@ from wagtailkit.core.models import (
     CreatorModelMixin, FiveStepStatusMixin, KitBaseModel)
 from wagtailkit.numerators.models import NumeratorMixin
 from wagtailkit.organizations.models import Position, Department
+from wagtailkit.employees.models import Employee
 from wagtailkit.products.models import Inventory, Asset
 
 
 class RequestOrderManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().select_related('requester', 'department', 'creator')
+        return super().get_queryset()
 
     def get_summary(self, requester=None, tree=False, date_start=None, date_end=None):
         filter = {}
@@ -55,7 +56,7 @@ class RequestOrder(NumeratorMixin, ClusterableModel, FiveStepStatusMixin, Creato
         verbose_name = _("Request Order")
         verbose_name_plural = _("Request Orders")
         ordering = ['-date_created']
-        index_together = ['date_created', 'creator']
+        index_together = ['inner_id', 'creator']
         permissions = (
             ('trash_requestorder', _('Can trash Request Order')),
             ('draft_requestorder', _('Can draft Request Order')),
@@ -81,7 +82,11 @@ class RequestOrder(NumeratorMixin, ClusterableModel, FiveStepStatusMixin, Creato
 
     doc_code = 'FPB'
     objects = RequestOrderManager()
-
+    validator = models.ForeignKey(
+        Employee, null=True, blank=True,
+        on_delete=models.PROTECT,
+        related_name='request_validator',
+        verbose_name=_("Validator"))
     requester = TreeForeignKey(
         Position, on_delete=models.PROTECT,
         related_name='position_wh_requests',

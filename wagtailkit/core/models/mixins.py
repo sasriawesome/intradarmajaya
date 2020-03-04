@@ -1,5 +1,6 @@
 from django.db import models, transaction
-from django.utils import translation
+from django.utils import translation, timezone
+from django.contrib.auth import get_user_model
 
 _ = translation.gettext_lazy
 
@@ -35,6 +36,15 @@ class StatusMixin(models.Model):
         max_length=15,
         editable=False,
         verbose_name=_('Status'))
+    date_trashed = models.DateTimeField(null=True, blank=True, verbose_name=_('Date created'))
+    date_validated = models.DateTimeField(null=True, blank=True, verbose_name=_('Date validated'))
+
+    trashed_by = models.ForeignKey(
+        get_user_model(), on_delete=models.PROTECT, verbose_name=_('Trashed by'),
+        null=True, blank=True, related_name='%(class)s_trashed_by')
+    validated_by = models.ForeignKey(
+        get_user_model(), on_delete=models.PROTECT, verbose_name=_('Validated by'),
+        null=True, blank=True, related_name='%(class)s_validated_by')
 
     @property
     def is_draft(self):
@@ -93,12 +103,14 @@ class StatusMixin(models.Model):
             raise PermissionError(
                 str(msg).format(self._meta.verbose_name, self.inner_id, self.status))
 
-    def trash(self):
+    def trash(self, user=None):
         """ Trash drafted order """
         if self.is_trash:
             return
         if self.is_draft:
             self.status = 'trash'
+            self.trashed_by = user
+            self.date_trashed = timezone.now()
             self.save()
         else:
             msg = _("{} #{} is {}, it can't be trash.")
@@ -112,13 +124,15 @@ class StatusMixin(models.Model):
         pass
 
     @transaction.atomic
-    def validate(self):
+    def validate(self, user=None):
         """ Validate drafted order """
         if self.is_valid:
             return
         if self.is_draft:
             self.clean_validate_action()
             self.status = 'valid'
+            self.validated_by = user
+            self.date_validated = timezone.now()
             self.save()
             self.after_validate_action()
         else:
@@ -135,6 +149,11 @@ class ThreeStepStatusMixin(StatusMixin):
     class Meta:
         abstract = True
 
+    date_completed = models.DateTimeField(null=True, blank=True, verbose_name=_('Date completed'))
+    completed_by = models.ForeignKey(
+        get_user_model(), on_delete=models.PROTECT, verbose_name=_('Completed by'),
+        null=True, blank=True, related_name='%(class)s_completed_by')
+
     def clean_complete_action(self):
         pass
 
@@ -142,13 +161,15 @@ class ThreeStepStatusMixin(StatusMixin):
         pass
 
     @transaction.atomic
-    def complete(self):
+    def complete(self, user=None):
         """ Complete validated order """
         if getattr(self, 'is_completed'):
             return
         if getattr(self, 'is_valid'):
             self.clean_complete_action()
             self.status = 'complete'
+            self.completed_by = user
+            self.date_completed = timezone.now()
             self.save()
             self.after_complete_action()
         else:
@@ -165,6 +186,16 @@ class FourStepStatusMixin(StatusMixin):
     class Meta:
         abstract = True
 
+    date_processed = models.DateTimeField(null=True, blank=True, verbose_name=_('Date processed'))
+    date_completed = models.DateTimeField(null=True, blank=True, verbose_name=_('Date completed'))
+
+    processed_by = models.ForeignKey(
+        get_user_model(), on_delete=models.PROTECT, verbose_name=_('Processed by'),
+        null=True, blank=True, related_name='%(class)s_processed_by')
+    completed_by = models.ForeignKey(
+        get_user_model(), on_delete=models.PROTECT, verbose_name=_('Completed by'),
+        null=True, blank=True, related_name='%(class)s_completed_by')
+
     def clean_process_action(self):
         pass
 
@@ -172,13 +203,15 @@ class FourStepStatusMixin(StatusMixin):
         pass
 
     @transaction.atomic
-    def process(self):
+    def process(self, user=None):
         """ Process valid order """
         if getattr(self, 'is_processed'):
             return
         if getattr(self, 'is_valid'):
             self.clean_process_action()
             self.status = 'process'
+            self.processed_by = user
+            self.date_processed = timezone.now()
             self.save()
             self.after_process_action()
         else:
@@ -193,13 +226,15 @@ class FourStepStatusMixin(StatusMixin):
         pass
 
     @transaction.atomic
-    def complete(self):
+    def complete(self, user=None):
         """ Complete validated order """
         if getattr(self, 'is_completed'):
             return
         if getattr(self, 'is_processed'):
             self.clean_complete_action()
             self.status = 'complete'
+            self.completed_by = user
+            self.date_completed = timezone.now()
             self.save()
             self.after_complete_action()
         else:
@@ -216,6 +251,24 @@ class FiveStepStatusMixin(StatusMixin):
     class Meta:
         abstract = True
 
+    date_approved = models.DateTimeField(null=True, blank=True, verbose_name=_('Date approved'))
+    date_rejected = models.DateTimeField(null=True, blank=True, verbose_name=_('Date rejected'))
+    date_processed = models.DateTimeField(null=True, blank=True, verbose_name=_('Date processed'))
+    date_completed = models.DateTimeField(null=True, blank=True, verbose_name=_('Date completed'))
+
+    approved_by = models.ForeignKey(
+        get_user_model(), on_delete=models.PROTECT, verbose_name=_('Approved by'),
+        null=True, blank=True, related_name='%(class)s_approved_by')
+    rejected_by = models.ForeignKey(
+        get_user_model(), on_delete=models.PROTECT, verbose_name=_('Rejected by'),
+        null=True, blank=True, related_name='%(class)s_rejected_by')
+    processed_by = models.ForeignKey(
+        get_user_model(), on_delete=models.PROTECT, verbose_name=_('Processed by'),
+        null=True, blank=True, related_name='%(class)s_processed_by')
+    completed_by = models.ForeignKey(
+        get_user_model(), on_delete=models.PROTECT, verbose_name=_('Completed by'),
+        null=True, blank=True, related_name='%(class)s_completed_by')
+
     def clean_approve_action(self):
         pass
 
@@ -223,13 +276,15 @@ class FiveStepStatusMixin(StatusMixin):
         pass
 
     @transaction.atomic
-    def approve(self):
+    def approve(self, user=None):
         """ Approve valid order """
         if getattr(self, 'is_approved'):
             return
         if getattr(self, 'is_valid'):
             self.clean_approve_action()
             self.status = 'approved'
+            self.approved_by = user
+            self.date_approved = timezone.now()
             self.save()
             self.after_approve_action()
         else:
@@ -244,13 +299,15 @@ class FiveStepStatusMixin(StatusMixin):
         pass
 
     @transaction.atomic
-    def reject(self):
+    def reject(self, user=None):
         """ Reject valid order """
         if getattr(self, 'is_approved') or getattr(self, 'is_rejected'):
             return
         if getattr(self, 'is_valid'):
             self.clean_reject_action()
             self.status = 'rejected'
+            self.rejected_by = user
+            self.date_rejected = timezone.now()
             self.save()
             self.after_reject_action()
         else:
@@ -265,13 +322,15 @@ class FiveStepStatusMixin(StatusMixin):
         pass
 
     @transaction.atomic
-    def process(self):
+    def process(self, user=None):
         """ Process approved order """
         if getattr(self, 'is_processed'):
             return
         if getattr(self, 'is_approved'):
             self.clean_process_action()
             self.status = 'process'
+            self.processed_by = user
+            self.date_processed = timezone.now()
             self.save()
             self.after_process_action()
         else:
@@ -286,13 +345,15 @@ class FiveStepStatusMixin(StatusMixin):
         pass
 
     @transaction.atomic
-    def complete(self):
+    def complete(self, user=None):
         """ Complete validated order """
         if getattr(self, 'is_completed'):
             return
         if getattr(self, 'is_processed'):
             self.clean_complete_action()
             self.status = 'complete'
+            self.completed_by = user
+            self.date_completed = timezone.now()
             self.save()
             self.after_complete_action()
         else:
@@ -305,19 +366,27 @@ class CloseStatusMixin(models.Model):
     class Meta:
         abstract = True
 
+    date_closed = models.DateTimeField(null=True, blank=True, verbose_name=_('Date closed'))
+
+    closed_by = models.ForeignKey(
+        get_user_model(), on_delete=models.PROTECT, verbose_name=_('Closed by'),
+        null=True, blank=True, related_name='%(class)s_closed_by')
+
     def clean_close_action(self):
         pass
 
     def after_close_action(self):
         pass
 
-    def close(self):
+    def close(self, user=None):
         """ Close the order """
         if getattr(self, 'is_closed'):
             return
         if getattr(self, 'is_completed'):
             self.clean_close_action()
             self.status = 'closed'
+            self.closed_by = user
+            self.date_closed = timezone.now()
             self.save()
             self.after_close_action()
         else:

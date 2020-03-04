@@ -61,9 +61,9 @@ INSTALLED_APPS = [
     'wagtailkit.warehouse',
 
     'wagtailkit.discuss',
+    'wagtailkit.rooms',
 
     # 'wagtailkit.academic',
-    'wagtailkit.rooms',
     # 'wagtailkit.teachers',
     # 'wagtailkit.students',
     # 'wagtailkit.lectures',
@@ -148,14 +148,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'intradarmajaya.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'intradarmajaya',
+        'USER': 'postgres',
+        'PASSWORD': 'habibie099',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -223,7 +226,6 @@ SITE_ID = 1
 BASE_URL = env('BASE_URL')
 WAGTAIL_SITE_NAME = "intradarmajaya"
 
-
 # HEROKU SETUP
 # ============================================================
 
@@ -251,8 +253,8 @@ AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN')
 
 # Gmail Web API
 EMAIL_USE_TLS = True
-EMAIL_HOST=env("EMAIL_HOST")
-EMAIL_PORT=env.int('EMAIL_PORT')
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_PORT = env.int('EMAIL_PORT')
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 DEFAULT_FROM_EMAIL = env('EMAIL_HOST_PASSWORD')
 EMAIL_HOST_PASSWORD = DEFAULT_FROM_EMAIL

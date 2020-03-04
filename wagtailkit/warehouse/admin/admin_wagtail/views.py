@@ -35,9 +35,6 @@ class RequestOrderApproveView(ModelFormView, InstanceSpecificView):
 
     def get_instance(self):
         instance = super().get_instance()
-        instance.approved_by = self.request.user
-        instance.date_approved = timezone.now()
-        instance.status = self.model.APPROVED
         return instance
 
     # @method_decorator(login_required)
@@ -72,6 +69,6 @@ class RequestOrderApproveView(ModelFormView, InstanceSpecificView):
         instance = form.save()
         # update stock_on_request for lock requestable stock
         instance.update_on_request_stock()
-        instance.approve()
+        instance.approve(self.request.user)
         messages.success(self.request, self.get_success_message(instance))
         return redirect(self.get_success_url())
