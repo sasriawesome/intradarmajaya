@@ -10,6 +10,7 @@ SESSION_COOKIE_SECURE = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 CSRF_TRUSTED_ORIGINS = [
     'intra.darmajaya.ac.id',
+    '*.darmajaya.net',
 ]
 
 # EMAIL CONFIG
