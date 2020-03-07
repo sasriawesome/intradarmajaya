@@ -3,10 +3,10 @@ version: '3'
 services:
   web:
     build: .
-    command:
-      - python manage.py collectstatic --noinput
-      - exec gunicorn intradarmajaya.wsgi:application --bind 0.0.0.0:8000 --workers 3
+    working_dir: /code
+    env_file:
+      - ../intra_env_file.env
     volumes:
-      - .:/code
+      - /root/storage/intradarmajaya:/code/staticfiles
     ports:
       - "8000:8000"
