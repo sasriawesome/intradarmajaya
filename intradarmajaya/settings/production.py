@@ -40,7 +40,7 @@ AWS_S3_OBJECT_PARAMETERS = {
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 
-# try:
-#     from .local import *
-# except ImportError:
-#     pass
+try:
+    from .local import *
+except ImportError:
+    pass
