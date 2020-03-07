@@ -14,6 +14,7 @@ COPY . /code/
 
 # Set the working directory to /code/
 WORKDIR /code/
+RUN pwd
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --upgrade pip
