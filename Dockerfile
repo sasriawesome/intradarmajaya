@@ -30,11 +30,13 @@ COPY . /code/
 # Set the working directory to /code/
 WORKDIR /code/
 
+RUN python manage.py migrate
+RUN python manage.py collectstatic --noinput
+
 RUN useradd wagtail
 RUN chown -R wagtail /code
+
 USER wagtail
 
 EXPOSE 8000
-CMD python manage.py migrate
-CMD python manage.py collectstatic --noinput
 CMD exec gunicorn intradarmajaya.wsgi:application --bind 0.0.0.0:8000 --workers 3
