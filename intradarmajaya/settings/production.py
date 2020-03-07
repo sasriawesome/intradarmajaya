@@ -4,7 +4,11 @@ DEBUG = env.bool("DEBUG", True)
 
 SECRET_KEY = env('SECRET_KEY')
 
-ALLOWED_HOSTS = ['www.darmajaya.net', 'intra.darmajaya.ac.id']
+ALLOWED_HOSTS = [
+    'www.darmajaya.net',
+    'intra.darmajaya.ac.id',
+    '*.apps.simpellab.com',
+]
 
 # EMAIL CONFIG
 # ======================================================================
