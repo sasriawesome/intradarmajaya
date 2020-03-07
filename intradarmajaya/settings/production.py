@@ -4,6 +4,17 @@ DEBUG = False
 
 SECRET_KEY = env('SECRET_KEY')
 
+USE_X_FORWARDED_HOST = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CSRF_TRUSTED_ORIGINS = [
+    'intra.darmajaya.ac.id',
+    '*.darmajaya.net',
+]
+
+ALLOWED_HOST = ['www.darmajaya.net', 'intra.darmajaya.ac.id']
+
 # EMAIL CONFIG
 # ======================================================================
 
