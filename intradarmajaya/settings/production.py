@@ -13,7 +13,7 @@ CSRF_TRUSTED_ORIGINS = [
     '*.darmajaya.net',
 ]
 
-ALLOWED_HOST = ['www.darmajaya.net', 'intra.darmajaya.ac.id']
+ALLOWED_HOSTS = ['www.darmajaya.net', 'intra.darmajaya.ac.id']
 
 # EMAIL CONFIG
 # ======================================================================
