@@ -7,7 +7,7 @@ SECRET_KEY = env('SECRET_KEY')
 ALLOWED_HOSTS = [
     'www.darmajaya.net',
     'intra.darmajaya.ac.id',
-    '*.apps.simpellab.com',
+    'intradarmajaya.apps.simpellab.com',
 ]
 
 # EMAIL CONFIG
