@@ -451,6 +451,7 @@ class PersonModelAdmin(ImportExportModelAdminMixin, PrintPDFModelAdminMixin, Mod
             'instance_pk': instance.id,
             'edit_handler': ObjectList([
                 *self.get_profile_edit_handler(instance, request),
+                *self.get_address_edit_handler(instance, request)
             ])
         }
         view_class = self.account_personal_edit_view_class

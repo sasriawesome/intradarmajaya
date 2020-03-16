@@ -136,7 +136,11 @@
     {% for item in new_products %}
     <tr>
         <td>{{ item.inner_id }}</td>
-        <td colspan="2"><strong>{{ item.name }}</strong><br/>
+        <td colspan="2">
+            <strong>{{ item.name }}</strong>
+            {% if item.picture %}
+                <a href="{{ item.picture.file.url }}" target="_blank">{% trans 'View' %}
+            </a>{% endif %}<br/>
             {{ item.description | richtext }}
         </td>
         <td>{{ item.quantity_requested }}</td>

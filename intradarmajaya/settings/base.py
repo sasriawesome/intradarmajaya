@@ -25,6 +25,10 @@ env = environ.Env(
     REDIS_URL=(str, "")
 )
 
+SITE_ID = 1
+BASE_URL = env('BASE_URL')
+WAGTAIL_SITE_NAME = "intradarmajaya"
+
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
@@ -162,6 +166,8 @@ DATABASES = {
     }
 }
 
+DATABASES['default'].update(dj_database_url.config(conn_max_age=500, ssl_require=True))
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -198,67 +204,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+WAGTAILIMAGES_MAX_UPLOAD_SIZE = 3 * 1024 * 1024 # Wagtail
+
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
-
-STATICFILES_DIRS = [
-    os.path.join(PROJECT_DIR, 'static'),
-]
-
-# ManifestStaticFilesStorage is recommended in production, to prevent outdated
-# Javascript / CSS assets being served from cache (e.g. after a Wagtail upgrade).
-# See https://docs.djangoproject.com/en/2.2/ref/contrib/staticfiles/#manifeststaticfilesstorage
-# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
-
-
+# Static files configs
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# MEDIA_URL = "/media/"
+STATICFILES_DIRS = [os.path.join(PROJECT_DIR, 'static'),]
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
-
-# Base URL to use when referring to full URLs within the Wagtail admin backend -
-# e.g. in notification emails. Don't include '/admin' or a trailing slash
-SITE_ID = 1
-BASE_URL = env('BASE_URL')
-WAGTAIL_SITE_NAME = "intradarmajaya"
-
-# HEROKU SETUP
-# ============================================================
-
-# Change 'default' database configuration with $DATABASE_URL.
-DATABASES['default'].update(dj_database_url.config(conn_max_age=500, ssl_require=True))
-
-# Simplified static file serving.
-# https://warehouse.python.org/project/whitenoise/
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-# Activate Django-Heroku.
-django_heroku.settings(locals())
-
-# AWS SETUP
-# ============================================================
-
-AWS_DEFAULT_ACL = None
-AWS_STORAGE_BUCKET_NAME = env.str('AWS_STORAGE_BUCKET_NAME')
-AWS_ACCESS_KEY_ID = env.str('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = env.str('AWS_SECRET_ACCESS_KEY')
-AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN')
-
-# EMAIL CONFIG
-# ======================================================================
-
-# Gmail Web API
-EMAIL_USE_TLS = True
-EMAIL_HOST = env("EMAIL_HOST")
-EMAIL_PORT = env.int('EMAIL_PORT')
-EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-DEFAULT_FROM_EMAIL = env('EMAIL_HOST_PASSWORD')
-EMAIL_HOST_PASSWORD = DEFAULT_FROM_EMAIL
-EMAIL_BACKEND = env('EMAIL_BACKEND')
 
 # DRAMATIQ CONFIG ======================================================================
 
@@ -313,3 +271,5 @@ LOGGING = {
         },
     },
 }
+
+django_heroku.settings(locals())
