@@ -234,6 +234,8 @@ DATABASES['default'].update(dj_database_url.config(conn_max_age=500, ssl_require
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
+
+WAGTAILIMAGES_MAX_UPLOAD_SIZE = 3 * 1024 * 1024 # Wagtail
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Activate Django-Heroku.
