@@ -13,6 +13,17 @@ CSRF_TRUSTED_ORIGINS = [
 MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
+# EMAIL CONFIG
+# ======================================================================
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_PORT = env.int('EMAIL_PORT')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+DEFAULT_FROM_EMAIL = env('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_PASSWORD = DEFAULT_FROM_EMAIL
+EMAIL_BACKEND = env('EMAIL_BACKEND')
+
 DEBUG = False
 
 try:

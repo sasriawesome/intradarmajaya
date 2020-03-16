@@ -248,17 +248,6 @@ AWS_ACCESS_KEY_ID = env.str('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env.str('AWS_SECRET_ACCESS_KEY')
 AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN')
 
-# EMAIL CONFIG
-# ======================================================================
-
-# Gmail Web API
-EMAIL_USE_TLS = True
-EMAIL_HOST = env("EMAIL_HOST")
-EMAIL_PORT = env.int('EMAIL_PORT')
-EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-DEFAULT_FROM_EMAIL = env('EMAIL_HOST_PASSWORD')
-EMAIL_HOST_PASSWORD = DEFAULT_FROM_EMAIL
-EMAIL_BACKEND = env('EMAIL_BACKEND')
 
 # DRAMATIQ CONFIG ======================================================================
 

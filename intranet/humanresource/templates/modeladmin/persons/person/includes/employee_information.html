@@ -34,14 +34,17 @@
   {% endif %}
 </ul>
 {% if employee.extra_positions.all %}
+{% with employee.extra_positions.all as extras %}
 <ul class="head-list">
-  {% for pos in employee.extra_positions.all %}
+  {% for pos in extras %}
   <li class="head-list-item">
-    <span class="list-label">{{ pos.name }} / {{ pos.department }}</span>
-    <span class="list-value">
-      {% if pos.is_active %} {% trans 'active' %} {% else %} {% trans 'Inactive' %} {% endif %}
-    </span>
+    <span class="list-label">{% trans 'Extra Positions' %}</span>
+    <p class="list-value">
+      {{ pos.position }} / {{ pos.position.department }} /
+      {% if pos.is_active %}{% trans 'active' %}{% else %}{% trans 'Inactive' %}{% endif %}
+    </p>
   </li>
   {% endfor %}
 </ul>
+{% endwith %}
 {% endif %}
