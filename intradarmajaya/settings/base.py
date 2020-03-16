@@ -12,27 +12,25 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-import django_heroku
+# import django_heroku
 import dj_database_url
 import environ
 
-env = environ.Env()
-
-SITE_ID = 1
-BASE_URL = env('BASE_URL')
-WAGTAIL_SITE_NAME = "intradarmajaya"
+env = environ.Env(
+    SECRET_KEY=(str, ""),
+    AWS_STORAGE_BUCKET_NAME=(str, ""),
+    AWS_ACCESS_KEY_ID=(str, ''),
+    AWS_SECRET_ACCESS_KEY=(str, ""),
+    AWS_S3_CUSTOM_DOMAIN=(str, ""),
+    REDIS_URL=(str, "")
+)
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 # environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
-
-
 # Application definition
-
 INSTALLED_APPS = [
     'home',
     'search',
@@ -197,12 +195,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+SITE_ID = 1
+BASE_URL = env('BASE_URL')
+WAGTAIL_SITE_NAME = "intradarmajaya"
 WAGTAILIMAGES_MAX_UPLOAD_SIZE = 3 * 1024 * 1024 # Wagtail
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
+
 # Static files configs
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
@@ -241,7 +243,7 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesSto
 
 # Defines which database should be used to persist Task objects when the
 # AdminMiddleware is enabled.  The default value is "default".
-DRAMATIQ_TASKS_DATABASE = "default"
+# DRAMATIQ_TASKS_DATABASE = "default"
 
 LOGGING = {
     'version': 1,
@@ -265,4 +267,4 @@ LOGGING = {
     },
 }
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())

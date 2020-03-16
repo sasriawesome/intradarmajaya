@@ -1,14 +1,17 @@
 from .base import *
 
-USE_X_FORWARDED_HOST = True
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-CSRF_TRUSTED_ORIGINS = [
-    'intra.darmajaya.ac.id',
-    'intradarmajaya.herokuapp.com',
-    'intradarmajaya-nginx.herokuapp.com',
-]
+env.read_env(os.path.join(BASE_DIR, '.env'))
+SECRET_KEY = env('SECRET_KEY')
+
+# USE_X_FORWARDED_HOST = True
+# CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# CSRF_TRUSTED_ORIGINS = [
+#     'intra.darmajaya.ac.id',
+#     'intradarmajaya.herokuapp.com',
+#     'intradarmajaya-nginx.herokuapp.com',
+# ]
 
 # CDN
 # ============================================================
