@@ -16,14 +16,7 @@ import django_heroku
 import dj_database_url
 import environ
 
-env = environ.Env(
-    SECRET_KEY=(str, ""),
-    AWS_STORAGE_BUCKET_NAME=(str, ""),
-    AWS_ACCESS_KEY_ID=(str, ''),
-    AWS_SECRET_ACCESS_KEY=(str, ""),
-    AWS_S3_CUSTOM_DOMAIN=(str, ""),
-    REDIS_URL=(str, "")
-)
+env = environ.Env()
 
 SITE_ID = 1
 BASE_URL = env('BASE_URL')
