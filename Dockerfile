@@ -20,7 +20,7 @@ COPY . /code/
 WORKDIR /code/
 
 # Install any needed packages specified in requirements.txt
-RUN pipenv install --skip-lock
+RUN pip install -r requirements.txt
 
 RUN useradd wagtail
 RUN chown -R wagtail /code
@@ -28,4 +28,4 @@ USER wagtail
 
 EXPOSE 8000
 CMD python manage.py collectstatic --noinput
-CMD exec gunicorn simpelsite.wsgi:application --bind 0.0.0.0:8000 --workers 3
+CMD exec gunicorn intradarmajaya.wsgi:application --bind 0.0.0.0:8000 --workers 3
